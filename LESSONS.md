@@ -37,3 +37,6 @@ What broke, and what fixed it. Radar reads this at the start of every run. Where
 - When the 18-month search for a name is not a full page, the separate 100-day search adds nothing. It now runs only when the wide search overflowed. This halves the Algrow calls.
 - Stale notes in the old instructions: vidIQ is 6,000 credits a month (not 2,000). Algrow is free per call but has daily caps and paid overage.
 - The Algrow "Radar pool" folder had 310 channels on Nov 19, not the 126 in the Oct 22 copy. The live folder is now read at the start of a run and is the only truth.
+- Algrow's "videos like this one" search (`video_url`) is capped at 40 calls a day, then $0.20 each, and every page counts. The first bacon test paged those searches and used 34 in one run. The guard stopped Algrow on the "34 of 40" notice before anything was charged. FIX: one page per seed (50 rows), at most 6 seeds a run, Radar stops at 36 a day (`radar/limits.py`, enforced in the hook). vidIQ seed searches carry more of the snowball.
+- A "heads up" limit notice must not switch a whole tool off. Only a charge, billing or quota-exceeded message does.
+- Lifting the 30 minute budget is Max's call. Radar never runs `extend` on its own.

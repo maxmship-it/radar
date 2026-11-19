@@ -4,7 +4,7 @@ One pipeline for every kind of request. `start` opens a run (or queues it), `nex
 of connector calls, or a labeling step, or 'done'. Everything is logged to memory as it happens.
 """
 import json, time, datetime, re, concurrent.futures as cf
-from . import store, config as C, rule, subjects, yt, ingest
+from . import store, config as C, rule, subjects, yt, ingest, limits
 
 BATCH = 10
 PHASES = ["preflight", "free", "pool", "keyword", "label", "snowball", "label2", "rounds", "cross", "crosspick", "vph", "done"]
@@ -229,8 +229,8 @@ def follow_ups(st, con):
             st["retried"].append(r["cache_key"])
             out.append({"tool": f"mcp__{server}__{name}", "input": inp, "retry": True})
             continue
-        if r["kind"] == "format":
-            continue
+        if r["kind"] in ("format", "like"):
+            continue        # one page only: each page of a 'videos like this one' search counts against Algrow's daily cap
         # a full first page across the whole window: also search this name limited to the last 100 days
         if r["kind"] == "keyword" and r["more"] and (r["page"] or 1) == 1 and (r["window_days"] or 0) > C.RECENT_DAYS + 5 and not inp.get("cursor"):
             out += keyword_calls(st, algrow=[r["query"]] if server == "Algrow" else [], tubeai=[r["query"]] if server == "TubeAI" else [], vidiq=[], recent=True)
@@ -371,10 +371,14 @@ def snowball_calls(st, con):
     st["snowballed"] = st.get("snowballed", [])
     out, win = [], st["window_days"]
     fresh = [v for v in tops if v["id"] not in st["snowballed"]]
+    n_like = limits.like_left(con, st["run"]) if st["tools"].get("Algrow") == "up" else 0
     if st["tools"].get("Algrow") == "up":
-        for v in fresh[:6]:
+        if n_like < min(6, len(fresh)) and not st.get("like_note"):
+            st["like_note"] = True
+            st["notes"].append(f"Algrow 'videos like this one' was limited to {n_like} seeds: {limits.like_used_today(con)} of the free 40 a day were already used.")
+        for v in fresh[:n_like]:
             out.append(call("Algrow", "search_viral_videos", video_url=f"https://www.youtube.com/watch?v={v['id']}", content_type="longform",
-                            uploaded_within_days=win, min_video_views=C.MIN_SEARCH_VIEWS, per_page=25, page=1))
+                            uploaded_within_days=win, min_video_views=C.MIN_SEARCH_VIEWS, per_page=50))
         tags = []
         for v in tops:
             if v.get("subject_tag") and v["subject_tag"] not in tags and v["subject_tag"] not in st["used_terms"]:
@@ -384,7 +388,7 @@ def snowball_calls(st, con):
             out.append(call("Algrow", "search_viral_videos", subject=t, content_type="longform", uploaded_within_days=win, min_outlier_score=2,
                             min_video_views=C.MIN_SEARCH_VIEWS, sort_by="views", per_page=25, page=1))
     if st["tools"].get("vidIQ") == "up":
-        for v in fresh[:2]:
+        for v in fresh[:3]:
             out.append(call("vidIQ", "vidiq_outliers", seedVideoId=v["id"], contentType="long", publishedWithin="twoYears", minViews=C.MIN_SEARCH_VIEWS, limit=50))
     st["snowballed"] += [v["id"] for v in fresh[:6]]
     return out

@@ -2,119 +2,45 @@
  {
   "tool": "mcp__Algrow__search_viral_videos",
   "input": {
-   "video_url": "https://www.youtube.com/watch?v=_0FUmJBU2Gs",
    "content_type": "longform",
-   "uploaded_within_days": 548,
    "min_video_views": 50000,
+   "page": 8,
    "per_page": 25,
-   "page": 1
+   "uploaded_within_days": 548,
+   "video_url": "https://www.youtube.com/watch?v=9mFPpuvFRa4"
   }
  },
  {
   "tool": "mcp__Algrow__search_viral_videos",
   "input": {
-   "video_url": "https://www.youtube.com/watch?v=Ijqst3WOfqM",
    "content_type": "longform",
-   "uploaded_within_days": 548,
    "min_video_views": 50000,
+   "page": 8,
    "per_page": 25,
-   "page": 1
+   "uploaded_within_days": 548,
+   "video_url": "https://www.youtube.com/watch?v=pBfqhFdZ6zk"
   }
  },
  {
   "tool": "mcp__Algrow__search_viral_videos",
   "input": {
-   "video_url": "https://www.youtube.com/watch?v=pBfqhFdZ6zk",
    "content_type": "longform",
-   "uploaded_within_days": 548,
    "min_video_views": 50000,
+   "page": 8,
    "per_page": 25,
-   "page": 1
+   "uploaded_within_days": 548,
+   "video_url": "https://www.youtube.com/watch?v=Ijqst3WOfqM"
   }
  },
  {
   "tool": "mcp__Algrow__search_viral_videos",
   "input": {
-   "video_url": "https://www.youtube.com/watch?v=UgQJFPkPRBA",
    "content_type": "longform",
-   "uploaded_within_days": 548,
    "min_video_views": 50000,
+   "page": 8,
    "per_page": 25,
-   "page": 1
-  }
- },
- {
-  "tool": "mcp__Algrow__search_viral_videos",
-  "input": {
-   "video_url": "https://www.youtube.com/watch?v=plLxAIrMtvI",
-   "content_type": "longform",
    "uploaded_within_days": 548,
-   "min_video_views": 50000,
-   "per_page": 25,
-   "page": 1
-  }
- },
- {
-  "tool": "mcp__Algrow__search_viral_videos",
-  "input": {
-   "video_url": "https://www.youtube.com/watch?v=9mFPpuvFRa4",
-   "content_type": "longform",
-   "uploaded_within_days": 548,
-   "min_video_views": 50000,
-   "per_page": 25,
-   "page": 1
-  }
- },
- {
-  "tool": "mcp__Algrow__search_viral_videos",
-  "input": {
-   "subject": "canned meat brands",
-   "content_type": "longform",
-   "uploaded_within_days": 548,
-   "min_outlier_score": 2,
-   "min_video_views": 50000,
-   "sort_by": "views",
-   "per_page": 25,
-   "page": 1
-  }
- },
- {
-  "tool": "mcp__Algrow__search_viral_videos",
-  "input": {
-   "subject": "cured bacon",
-   "content_type": "longform",
-   "uploaded_within_days": 548,
-   "min_outlier_score": 2,
-   "min_video_views": 50000,
-   "sort_by": "views",
-   "per_page": 25,
-   "page": 1
-  }
- },
- {
-  "tool": "mcp__Algrow__search_viral_videos",
-  "input": {
-   "subject": "bacon tasting",
-   "content_type": "longform",
-   "uploaded_within_days": 548,
-   "min_outlier_score": 2,
-   "min_video_views": 50000,
-   "sort_by": "views",
-   "per_page": 25,
-   "page": 1
-  }
- },
- {
-  "tool": "mcp__Algrow__search_viral_videos",
-  "input": {
-   "subject": "processed meat health risks",
-   "content_type": "longform",
-   "uploaded_within_days": 548,
-   "min_outlier_score": 2,
-   "min_video_views": 50000,
-   "sort_by": "views",
-   "per_page": 25,
-   "page": 1
+   "video_url": "https://www.youtube.com/watch?v=_0FUmJBU2Gs"
   }
  }
 ]

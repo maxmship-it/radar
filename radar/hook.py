@@ -9,7 +9,7 @@ after:  saves the raw result to disk, files the rows into memory, and hands the 
 import sys, json, time, os, re, fcntl, pathlib, traceback
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
-from radar import store, config as C, ingest, rule, subjects  # noqa: E402
+from radar import store, config as C, ingest, rule, subjects, limits  # noqa: E402
 
 SEARCH_KINDS = {"keyword", "like", "subject", "format", "channel", "pool", "poolshort", "similar", "browse", "thumb", "ytsearch"}
 
@@ -81,6 +81,13 @@ def pre(d):
             deny("TubeAI returns nothing for long phrases. Use one or two words.")
         if int(inp.get("limit") or 50) > 25:
             deny("TubeAI keyword pages over 25 fail with a memory or time error. Set limit to 25 or less.")
+    if server == "Algrow" and kind == "like":
+        if int(inp.get("page") or 1) > 1:
+            deny("Algrow counts every page of a 'videos like this one' search against a 40 a day cap. One page per seed.")
+        if limits.like_left(con, run) <= 0:
+            deny(f"Algrow 'videos like this one' budget is used up ({limits.like_used_today(con)} today; Radar stops at {C.ALGROW_LIKE_PER_DAY} of the free 40, and at {C.ALGROW_LIKE_PER_RUN} a run).")
+    if server == "Algrow" and kind in ("thumb", "format") and limits.like_used_today(con) >= 38:
+        deny("Algrow's free 'similar' cap of 40 a day is nearly used. No more similar-type calls today.")
     if name == "search_longform_channels" and inp.get("demonetized"):
         deny("That search costs $0.20. Radar never makes paid Algrow calls.")
     st = store.run_state(run) if run else {}
@@ -199,7 +206,9 @@ def post(d):
         summary = f"RADAR RECEIPT: folder '{folder}' has {len(chans)} channels. All filed in memory."
     # a credit, quota or billing warning stops that tool for the run. A routine throttle does not.
     blob = " ".join(meta["notices"]) + " " + (meta["error"] or "")
-    if run and re.search(r"credit_notice|billing|charged|\$0\.\d\d|quota exceeded|suspend", blob, re.I):
+    limits.note_notice(con, blob)       # a 'heads up, N of 40 used' notice updates the budget; it does not stop Algrow
+    hard = " ".join(n for n in meta["notices"] if not n.startswith("limit_notice")) + " " + (meta["error"] or "")
+    if run and re.search(r"credit_notice|billing|charged|quota exceeded|suspend", hard, re.I):
         st = store.run_state(run)
         st.setdefault("stopped_tools", {})[server] = blob[:200]
         store.save_state(run, st)
