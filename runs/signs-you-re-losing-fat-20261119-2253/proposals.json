@@ -1,0 +1,83 @@
+[
+ {
+  "kind": "topic_names",
+  "text": "Save the names for 'signs you're losing fat': signs losing fat, signs burning fat, signs fat loss, signs losing weight, signs weight loss, signs visceral fat, signs fat burning, signs belly fat, scale, plateau, stall, stalled, stalling, stuck weight, stuck fat loss, can't lose weight, stopped losing weight, losing inches, weight won't, fat loss stopped",
+  "line": "signs you're losing fat: signs losing fat, signs burning fat, signs fat loss, signs losing weight, signs weight loss, signs visceral fat, signs fat burning, signs belly fat, scale, plateau, stall, stalled, stalling, stuck weight, stuck fat loss, can't lose weight, stopped losing weight, losing inches, weight won't, fat loss stopped",
+  "n": 1
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Nabby (@Nabby-h5k) to the watch list: 2 on-topic outliers this run",
+  "handle": "@Nabby-h5k",
+  "channel_id": "UCEOD-IJyalMNF3RPxWEFXiQ",
+  "bucket": "FAT LOSS",
+  "n": 2
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Eric Roberts (@ericrobertsfitness) to the watch list: 2 on-topic outliers this run",
+  "handle": "@ericrobertsfitness",
+  "channel_id": "UC1m03caTkdixNqlfzlrs7UQ",
+  "bucket": "FAT LOSS",
+  "n": 3
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Zac Mason (@zacmason) to the watch list: 2 on-topic outliers this run",
+  "handle": "@zacmason",
+  "channel_id": "UCFfJWUqTQ3nMF-1vZ1fLbkA",
+  "bucket": "FAT LOSS",
+  "n": 4
+ },
+ {
+  "kind": "pool",
+  "text": "Add 30 channels with on-topic outliers to the Algrow 'Radar pool' folder: Leonid Kim MD, Dr. Amin Hedayat, MD,  Sculptress, FITPRAK, Brandon Clark, Ben Azadi, Ryan Taylor (Natural Remedies), Eric Roberts, Mario Tomic, Coach Viva, Aditya Korde, DoctorStickMan...",
+  "channel_ids": [
+   "UCoMd8Ykj0UUZ0AFX6Ic7LMQ",
+   "UCBwWJfD50vgGb12ELTs7F8A",
+   "UCsKcXxLHWJcFXuIp_JzkRBA",
+   "UC41ZbV2BO2g_pwp0UdW4KrA",
+   "UCnlkmhqhd4ekhxcRXOT3-Wg",
+   "UCUh_MOM621MvpW_HLtfkLyQ",
+   "UC22vuBQac6DQ8G4XpujlTVg",
+   "UC1m03caTkdixNqlfzlrs7UQ",
+   "UCHdt93DFIUVMMCPrKp6VHuQ",
+   "UCQjOVgcoZvC6-EK0xgankpQ",
+   "UC-UFxt1ksrmQl_TqtzQEuVg",
+   "UCLzFrzLF3Baan_wIxeIaRvw",
+   "UCSG_5VesI11xUyir18xgwRg",
+   "UCZHlINR_o496W4DqOC1OvFg",
+   "UCmrOBAi8o04ZqNZgPsNxSKg",
+   "UCx_D-Z8MmEBQfK3gxS7t97g",
+   "UCFcWd3tdZn0f9OHB4rOOhwQ",
+   "UC_KbxgNNvO6Fc6rx5ExM1Fg",
+   "UCmgR6bROYJNYhaqFEmFrANg",
+   "UCg4hg_qRkwCsJIwbev-VyAg",
+   "UCjgcBjK0-FaUx9np7AuM7BQ",
+   "UCFAsEytj1vVG7uPvWXLA5rg",
+   "UCC0Zj6QWEMKJSFmPJ_cfHWA",
+   "UC_OxwZRvN0fMa5BLMqvrcvg",
+   "UCtkoco7VuDxFgrR6i5-_CkA",
+   "UCAMGc4DyljdI_nHivnxfXkA",
+   "UCota7jYw8xczJiTTiWI5JcA",
+   "UCY8lAT1OYXw856pFZuyxuGA",
+   "UCiYVuCJsA1GZyGgIZJqV64w",
+   "UCjy-Wl6ak5XB4uDDTpzPtkw"
+  ],
+  "n": 5
+ },
+ {
+  "kind": "drop",
+  "text": "Drop the algrow search 'carnivore diet': 8 runs, 24 rows, nothing on-topic",
+  "tool": "algrow",
+  "query": "carnivore diet",
+  "n": 6
+ },
+ {
+  "kind": "drop",
+  "text": "Drop the tubeai search 'carnivore': 8 runs, 8 rows, nothing on-topic",
+  "tool": "tubeai",
+  "query": "carnivore",
+  "n": 7
+ }
+]
