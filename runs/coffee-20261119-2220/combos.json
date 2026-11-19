@@ -1,0 +1,68 @@
+[
+ {
+  "title": "I Study Biology. Here's What Coffee Really Does To You.",
+  "thumb_words": "biologist",
+  "image_line": "You sipping from a mug on a dark background, one small word with an arrow pointing at you",
+  "model_vid": "_lkpRTCJgg8"
+ },
+ {
+  "title": "You're Drinking Coffee WRONG! (seriously)",
+  "thumb_words": "[number] COFFEE MISTAKES",
+  "image_line": "You hands pressed together looking serious, giant number and two words beside you",
+  "model_vid": "TEWZ5tVJ6CE"
+ },
+ {
+  "title": "If You Drink Coffee Every Morning, You NEED To See This...",
+  "thumb_words": "BEFORE COFFEE",
+  "image_line": "You between a small mystery glass with question marks and a black coffee, arrow between",
+  "model_vid": "3vazsqo677M",
+  "depends": "Needs the one thing you do before the first coffee."
+ },
+ {
+  "title": "I Study Biology. Caffeine Is Stranger Than You Think.",
+  "thumb_words": "(no words)",
+  "image_line": "You holding up a can of coffee like evidence, plain cafe background, no text",
+  "model_vid": "p-Dy2pcdBSU"
+ },
+ {
+  "title": "What Coffee Does To Your Cortisol (The New Research)",
+  "thumb_words": "STILL SAFE?",
+  "image_line": "You in a dark shirt beside one black coffee cup, a two word question in red",
+  "model_vid": "i32BwLDboEw",
+  "depends": "Needs a recent cortisol study to point to."
+ },
+ {
+  "title": "Only One Way Of Drinking Coffee Helps Fat Loss. Why?",
+  "thumb_words": "YES / NO",
+  "image_line": "Two coffee cups from above, green YES over one, red NO over the other, you thinking",
+  "model_vid": "gy0FW6xj21o",
+  "depends": "Only if the video compares two ways of drinking it with evidence."
+ },
+ {
+  "title": "Is Your Morning Coffee Secretly Spiking Your Insulin?",
+  "thumb_words": "COFFEE SPIKES INSULIN?",
+  "image_line": "Simple cartoon doctor holding a coffee beside a two-bar chart, with coffee and without",
+  "model_vid": "Sae2S20Iq0M",
+  "depends": "Needs real insulin or glucose data for the chart."
+ },
+ {
+  "title": "Your Morning Coffee Isn't Coffee Anymore",
+  "thumb_words": "\"DIABETES IN A CUP\"",
+  "image_line": "Whipped coffee drink with handwritten labels pointing at each syrup, sugar and cream add",
+  "model_vid": "GXrMd0I4ZQw"
+ },
+ {
+  "title": "I Quit Caffeine For [number] Days. Here's What Happened To My Sleep And Fat Loss.",
+  "thumb_words": "(no words)",
+  "image_line": "You staring at camera, a crowd behind you all holding coffee cups with their eyes down",
+  "model_vid": "YBXv4yQ0WBQ",
+  "depends": "Experiment format. Needs the real number of days and what you measured."
+ },
+ {
+  "title": "Drink Your Coffee Like This To Burn More Fat",
+  "thumb_words": "\"Drink coffee like this\"",
+  "image_line": "You holding a mug toward camera, red arrow at the mug, quote text beside your face",
+  "model_vid": "8gAJAUh52_k",
+  "depends": "Needs the exact method and the evidence for it."
+ }
+]
