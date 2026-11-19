@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {"matcher": "mcp__(Algrow|TubeAI|vidIQ)__.*", "hooks": [{"type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/radar/hook.py\" pre", "timeout": 100}]}
+    ],
+    "PostToolUse": [
+      {"matcher": "mcp__(Algrow|TubeAI|vidIQ)__.*", "hooks": [{"type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/radar/hook.py\" post", "timeout": 60}]}
+    ]
+  }
+}

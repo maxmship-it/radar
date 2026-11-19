@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+runs/*/raw/
+runs/.limiter.json
+runs/.limiter.lock
+boards/*-p[0-9][0-9].jpg
