@@ -1,38 +1,14 @@
 [
  {
-  "tool": "mcp__vidIQ__vidiq_balance",
-  "input": {}
- },
- {
-  "tool": "mcp__TubeAI__workspace_account",
-  "input": {}
- },
- {
-  "tool": "mcp__Algrow__get_folder",
-  "input": {
-   "folder": "Radar pool"
-  }
- },
- {
-  "tool": "mcp__Algrow__search_viral_videos",
-  "input": {
-   "search": "carnivore diet",
-   "content_type": "longform",
-   "uploaded_within_days": 30,
-   "min_outlier_score": 2,
-   "min_video_views": 50000,
-   "per_page": 5
-  }
- },
- {
   "tool": "mcp__TubeAI__explore_videos",
   "input": {
-   "search": "carnivore",
-   "minDate": "2026-10-20",
+   "search": "soleus",
+   "minDate": "2025-05-20",
    "minDuration": 181,
    "minOutlier": 2,
    "minViews": 50000,
-   "limit": 5,
+   "sortBy": "view_count",
+   "limit": 25,
    "fields": [
     "video_id",
     "title",
@@ -41,10 +17,182 @@
     "published_at",
     "channel_id",
     "channel_name",
+    "channel_handle",
     "channel_subscribers",
     "duration_seconds",
     "channel_niche"
    ]
+  }
+ },
+ {
+  "tool": "mcp__TubeAI__explore_videos",
+  "input": {
+   "search": "calf raises",
+   "minDate": "2025-05-20",
+   "minDuration": 181,
+   "minOutlier": 2,
+   "minViews": 50000,
+   "sortBy": "view_count",
+   "limit": 25,
+   "fields": [
+    "video_id",
+    "title",
+    "view_count",
+    "outlier_multiplier",
+    "published_at",
+    "channel_id",
+    "channel_name",
+    "channel_handle",
+    "channel_subscribers",
+    "duration_seconds",
+    "channel_niche"
+   ]
+  }
+ },
+ {
+  "tool": "mcp__TubeAI__explore_videos",
+  "input": {
+   "search": "calves",
+   "minDate": "2025-05-20",
+   "minDuration": 181,
+   "minOutlier": 2,
+   "minViews": 50000,
+   "sortBy": "view_count",
+   "limit": 25,
+   "fields": [
+    "video_id",
+    "title",
+    "view_count",
+    "outlier_multiplier",
+    "published_at",
+    "channel_id",
+    "channel_name",
+    "channel_handle",
+    "channel_subscribers",
+    "duration_seconds",
+    "channel_niche"
+   ]
+  }
+ },
+ {
+  "tool": "mcp__TubeAI__explore_videos",
+  "input": {
+   "search": "after eating",
+   "minDate": "2025-05-20",
+   "minDuration": 181,
+   "minOutlier": 2,
+   "minViews": 50000,
+   "sortBy": "view_count",
+   "limit": 25,
+   "fields": [
+    "video_id",
+    "title",
+    "view_count",
+    "outlier_multiplier",
+    "published_at",
+    "channel_id",
+    "channel_name",
+    "channel_handle",
+    "channel_subscribers",
+    "duration_seconds",
+    "channel_niche"
+   ]
+  }
+ },
+ {
+  "tool": "mcp__TubeAI__explore_videos",
+  "input": {
+   "search": "after meals",
+   "minDate": "2025-05-20",
+   "minDuration": 181,
+   "minOutlier": 2,
+   "minViews": 50000,
+   "sortBy": "view_count",
+   "limit": 25,
+   "fields": [
+    "video_id",
+    "title",
+    "view_count",
+    "outlier_multiplier",
+    "published_at",
+    "channel_id",
+    "channel_name",
+    "channel_handle",
+    "channel_subscribers",
+    "duration_seconds",
+    "channel_niche"
+   ]
+  }
+ },
+ {
+  "tool": "mcp__TubeAI__explore_videos",
+  "input": {
+   "search": "every meal",
+   "minDate": "2025-05-20",
+   "minDuration": 181,
+   "minOutlier": 2,
+   "minViews": 50000,
+   "sortBy": "view_count",
+   "limit": 25,
+   "fields": [
+    "video_id",
+    "title",
+    "view_count",
+    "outlier_multiplier",
+    "published_at",
+    "channel_id",
+    "channel_name",
+    "channel_handle",
+    "channel_subscribers",
+    "duration_seconds",
+    "channel_niche"
+   ]
+  }
+ },
+ {
+  "tool": "mcp__vidIQ__vidiq_outliers",
+  "input": {
+   "keyword": "second heart calf muscles pump blood",
+   "contentType": "long",
+   "publishedWithin": "twoYears",
+   "minViews": 50000,
+   "limit": 50,
+   "language": "en"
+  }
+ },
+ {
+  "tool": "mcp__vidIQ__vidiq_outliers",
+  "input": {
+   "keyword": "soleus pushup lowers blood sugar and insulin",
+   "contentType": "long",
+   "publishedWithin": "twoYears",
+   "minViews": 50000,
+   "limit": 50,
+   "language": "en"
+  }
+ },
+ {
+  "tool": "mcp__vidIQ__vidiq_outliers",
+  "input": {
+   "keyword": "walking after meals lowers blood sugar and visceral fat",
+   "contentType": "long",
+   "publishedWithin": "twoYears",
+   "minViews": 50000,
+   "limit": 50,
+   "language": "en"
+  }
+ },
+ {
+  "tool": "mcp__Algrow__search_viral_videos",
+  "input": {
+   "search": "walk after meals blood sugar",
+   "content_type": "longform",
+   "uploaded_within_days": 100,
+   "min_outlier_score": 2,
+   "min_video_views": 50000,
+   "per_page": 25,
+   "sort_by": "similarity",
+   "page": 1
   }
  }
 ]
