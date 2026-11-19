@@ -8,7 +8,7 @@ Board shape (MAX DECIDED, Nov 19 and Nov 20, 2026), and nothing else:
 Card numbers run straight through the whole board so Max can give feedback by number.
 """
 import json, time, datetime, re
-from . import store, config as C, rule, vph as vphmod
+from . import store, config as C, rule, subjects, vph as vphmod
 
 SECTION_ORDER = ["recent", "older", "cross", "combos"]
 SECTION_NAME = {"recent": "LAST 100 DAYS", "older": "100 DAYS TO 18 MONTHS", "cross": "CROSS-NICHE", "combos": "10 TITLE + THUMBNAIL COMBOS"}
@@ -155,6 +155,8 @@ def known_outlier_report(st, con, brd):
         reason = None
         if lab and lab["label"] != "on":
             reason = f"labeled {lab['label']}: {lab['reason']}"      # a recorded call stands; no need to re-check the video
+        elif v and subjects.junk_reason(dict(v)):
+            reason = "dropped by the junk filter: " + subjects.junk_reason(dict(v))
         elif v and v["yt_status"] == "gone":
             reason = "deleted or private"
         elif v and v["yt_status"] == "ok" and (v["yt_checked_at"] or 0) >= st["started_at"]:

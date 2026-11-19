@@ -315,8 +315,17 @@ def verify_and_filter(st, con, cross=False, budget_s=420):
     con.commit()
     if st["tools"].get("YouTube") != "up":
         return 0
+    # Cheap step first: a video no tool has scored only needs a full YouTube check if recent-30 says it qualifies.
+    # recent-30 comes from the channel's upload list (one light request per channel), so hundreds of checks are saved.
+    if not cross:
+        unscored = [i for i in need if not store.mults(con, i) and vids[i]["channel_id"] and vids[i]["views"]
+                    and not con.execute("SELECT 1 FROM known_outliers WHERE video_id=? AND subject=?", (i, st["subject"])).fetchone()]
+        if unscored:
+            yt.add_recent30(unscored, deadline=time.time() + 120)
+            drop = {i for i in unscored if not any(rule.passes(x, vids[i]["views"]) for x in store.mults(con, i).values())}
+            need = [i for i in need if i not in drop]
     need.sort(key=lambda i: -(vids[i]["views"] or 0))
-    yt.verify_many(need, threads=8, deadline=time.time() + budget_s)
+    yt.verify_many(need, threads=5, deadline=time.time() + budget_s)
     left = 0
     con2 = store.db()
     fresh = {r["id"]: dict(r) for r in con2.execute(f"SELECT * FROM videos WHERE id IN ({qm})", ids)}
@@ -619,7 +628,9 @@ def _advance(st, con):
             continue
         if ph == "cross":
             _goto(st, "crosspick")
-            if st["spec"].get("cross", True):
+            if out_of_time(st):
+                st["notes"].append("Cross-niche was not searched: the 30 minute budget was already used up.")
+            elif st["spec"].get("cross", True):
                 _emit(st, cross_calls(st, con), con)
             continue
         if ph == "crosspick":

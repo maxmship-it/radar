@@ -92,14 +92,15 @@ a.thumb {{ display:block; position:relative; width:300px; aspect-ratio:16/9; gri
 .age {{ color:{MUTED}; font-weight:600; font-size:11px; }}
 .niche {{ color:{BLUE}; font-weight:800; font-size:10px; letter-spacing:.1em; text-transform:uppercase; margin-top:8px; }}
 .pattern {{ font-size:12px; line-height:1.4; margin-top:3px; }}
-.combos {{ display:grid; grid-template-columns:1fr 1fr; grid-template-rows:repeat(5,1fr); gap:12px 18px; height:770px; }}
-.combo {{ background:{CARD}; border:1px solid {LINE}; border-radius:12px; padding:10px 12px; display:grid; grid-template-columns:212px 1fr; gap:14px; overflow:hidden; }}
+.combos {{ display:grid; grid-template-columns:1fr 1fr; grid-template-rows:repeat(5,1fr); gap:10px 18px; height:764px; }}
+.combo {{ background:{CARD}; border:1px solid {LINE}; border-radius:12px; padding:8px 12px; display:grid; grid-template-columns:212px 1fr; gap:14px; overflow:hidden; }}
 .combo .ct {{ position:relative; width:212px; aspect-ratio:16/9; background:#000 center/cover no-repeat; border-radius:6px; align-self:center; display:block; }}
 .combo .cn {{ position:absolute; top:6px; left:6px; background:{BLUE}; color:#fff; font-weight:800; font-size:13px; padding:2px 8px; border-radius:5px; }}
-.combo .tt {{ font-weight:800; font-size:16px; line-height:1.22; max-height:2.5em; overflow:hidden; }}
+.combo > div {{ min-width:0; }}
+.combo .tt {{ font-weight:800; font-size:15px; line-height:1.2; max-height:3.6em; overflow:hidden; overflow-wrap:anywhere; }}
 .combo .tw {{ font-weight:900; font-size:13px; color:{ORANGE}; margin-top:5px; letter-spacing:.02em; }}
 .combo .tw span {{ color:{MUTED}; font-weight:700; font-size:9px; letter-spacing:.1em; margin-right:6px; }}
-.combo .il {{ font-size:11.5px; line-height:1.35; margin-top:3px; max-height:2.7em; overflow:hidden; }}
+.combo .il {{ font-size:11px; line-height:1.3; margin-top:3px; max-height:2.6em; overflow:hidden; }}
 .combo .mo {{ color:{MUTED}; font-size:10px; margin-top:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }}
 .foot {{ position:absolute; bottom:18px; left:56px; right:56px; display:flex; justify-content:space-between; color:{MUTED}; font-size:10px; font-weight:600; }}
 """

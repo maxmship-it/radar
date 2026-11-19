@@ -26,7 +26,10 @@ def guard():
                        "This is not a cloud session, so YouTube-direct is switched off here.")
 
 
-def _ydl(flat=False, playlistend=None):
+CLIENTS = [None, "tv", "web_safari", "mweb", "web_embedded"]   # tried in order; all signed out
+
+
+def _ydl(flat=False, playlistend=None, client=None):
     guard()
     import yt_dlp
     opts = {"quiet": True, "no_warnings": True, "skip_download": True, "ignore_no_formats_error": True,
@@ -37,12 +40,18 @@ def _ydl(flat=False, playlistend=None):
         opts["extract_flat"] = True
     if playlistend:
         opts["playlistend"] = playlistend
+    if client:
+        opts["extractor_args"] = {"youtube": {"skip": ["hls", "dash", "translated_subs"], "player_client": [client]}}
     assert not any(k in opts for k in BANNED_OPTS)
     return yt_dlp.YoutubeDL(opts)
 
 
+EN_WORDS = set("the and you your this that with for what why how are is to of in on i my we our it from can will have has not if".split())
+
+
 def detect_language(info):
-    """From YouTube's own data, never from the title a search tool returned (YouTube auto-translates titles)."""
+    """From YouTube's own data, never from the title a search tool returned (YouTube auto-translates titles).
+    Best evidence first: the audio track, then the speech-recognition language, then the creator's own description."""
     lang = (info.get("language") or "").lower()
     if lang:
         return ("en" if lang.startswith("en") else lang.split("-")[0]), f"audio language {info.get('language')}"
@@ -50,44 +59,50 @@ def detect_language(info):
     orig = [k[:-5] for k in auto if k.endswith("-orig")]
     if orig:
         return ("en" if orig[0].lower().startswith("en") else orig[0].split("-")[0]), f"speech recognised as {orig[0]}"
-    text = f"{info.get('title') or ''} {(info.get('description') or '')[:600]}"
+    desc = (info.get("description") or "")[:800]
+    text = f"{info.get('title') or ''} {desc}"
     letters = [c for c in text if c.isalpha()]
     if letters:
         non_latin = sum(1 for c in letters if ord(c) > 0x24F) / len(letters)
         if non_latin > 0.2:
             return "xx", f"{non_latin:.0%} non-Latin letters in title and description"
-    if not auto:
-        return "unknown", "YouTube lists no spoken language and no speech captions (no talking, or not English)"
-    return "en", "no audio language given; captions and text read as English"
+    dw = re.findall(r"[a-zA-Z\u00c0-\u00ff']+", desc.lower())
+    if len(dw) >= 20:
+        share = sum(1 for w in dw if w in EN_WORDS) / len(dw)
+        if share < 0.10:
+            return "xx", f"the creator's description is not English ({share:.0%} common English words)"
+        return "en", "audio language not given by YouTube; the creator's description is in English"
+    return "unknown", "YouTube gave no audio language and the description is too short to tell"
 
 
 def _one(vid):
+    """One video, signed out. If YouTube limits one client for this server, the next client is tried."""
     url = f"https://www.youtube.com/watch?v={vid}"
-    last, best = None, None
-    for attempt in range(3):
+    last, best, lang_seen = None, None, None
+    for attempt, client in enumerate(CLIENTS):
         try:
-            with _ydl() as y:
+            with _ydl(client=client) as y:
                 info = y.extract_info(url, download=False)
             if info.get("view_count") is None and not (info.get("channel") or info.get("uploader")):
-                # yt-dlp hands back an empty stub for an id that does not exist
                 if not exists(vid):
                     return {"id": vid, "status": "gone", "error": "YouTube has no video with this id"}
                 last = "empty result"
-                time.sleep(1.5 + attempt)
                 continue
             lang, note = detect_language(info)
+            if info.get("language") and not lang_seen:
+                lang_seen = (lang, note)
             res = {"id": vid, "status": "ok", "title": info.get("title"), "views": info.get("view_count"),
                    "duration_s": info.get("duration"), "upload_date": store.norm_date(info.get("upload_date")),
                    "channel": info.get("channel") or info.get("uploader"), "channel_id": info.get("channel_id"),
                    "handle": info.get("uploader_id"), "subs": info.get("channel_follower_count"),
-                   "language": lang, "lang_note": note, "has_lang": bool(info.get("language")),
+                   "language": lang, "lang_note": note,
                    "live": 1 if info.get("live_status") in ("was_live", "is_live", "post_live", "is_upcoming") else 0}
+            if lang_seen:
+                res["language"], res["lang_note"] = lang_seen
             if res["duration_s"] and res["views"] is not None and res["upload_date"]:
-                return res      # complete. Many videos declare no audio language; that is not a reason to ask again.
-            # partial answer (YouTube throttled the player data). Keep the fullest one and try again.
+                return res
             if best is None or sum(v is not None for v in res.values()) > sum(v is not None for v in best.values()):
                 best = res
-            time.sleep(1.5 + attempt)
         except NotCloud:
             raise
         except Exception as e:
@@ -95,10 +110,8 @@ def _one(vid):
             low = last.lower()
             if any(p in low for p in ("private video", "video unavailable", "has been removed", "terminated", "not available", "does not exist", "members-only")):
                 return {"id": vid, "status": "gone", "error": last[:200]}
-            time.sleep(1.5 + attempt)
-    if best and best["duration_s"] and best["views"] is not None and best["upload_date"]:
-        return best          # complete except the audio language, which some videos do not declare
-    return {"id": vid, "status": "error", "error": (last or "YouTube returned partial data three times")[:200]}
+            time.sleep(1)
+    return {"id": vid, "status": "error", "error": (last or "YouTube returned partial data on every signed-out route")[:200]}
 
 
 def verify_many(ids, threads=6, max_age_h=0, deadline=None):

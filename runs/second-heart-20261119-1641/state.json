@@ -66,22 +66,8 @@
   ]
  },
  "started_at": 1795106485.7953162,
- "phase": "keyword",
- "queue": [
-  {
-   "tool": "mcp__Algrow__search_viral_videos",
-   "input": {
-    "content_type": "longform",
-    "min_outlier_score": 2,
-    "min_video_views": 50000,
-    "page": 2,
-    "per_page": 25,
-    "search": "walk after meals blood sugar",
-    "sort_by": "similarity",
-    "uploaded_within_days": 548
-   }
-  }
- ],
+ "phase": "done",
+ "queue": [],
  "emitted": [
   "911a5e24a15c45f3",
   "1af602be211c5ceb",
@@ -111,7 +97,26 @@
   "16388651c1077a83",
   "6b3a795c8b1d2b7f",
   "6960062d2eae0d78",
-  "8e276c5577ee785e"
+  "8e276c5577ee785e",
+  "5267fa0dfb929605",
+  "166796c8bd29771c",
+  "2f46e126c9c8acf3eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiOGNhNWU2NDJjODlmYzdhY2M2YzYwMTUxIiwibiI6MjUsInAiOjIsInBvcyI6eyJjdXJzb3IiOiJleUoyWVd4MVpTSTZORFV6TURBd0xDSnBaQ0k2SWtwTmRtaE9UWHAyTFRCTkluMCJ9fQ.8bf47ac15e6e4f9c13d285043b3f01b3",
+  "9ca8006c2d82c8fa",
+  "e802b5ae186cff29eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiNTVhOGI2Y2RlMWI0YjQwNDYyNzg3NGMzIiwibiI6MjUsInAiOjIsInBvcyI6eyJjdXJzb3IiOiJleUoyWVd4MVpTSTZNVEE0TURBd0xDSnBaQ0k2SW5vdFoyTmtPQzFGVmxCdkluMCJ9fQ.1cc98009d90a7c0b6311042d36d01616",
+  "6da190bf7035139a",
+  "b9f2417e4070e2d9eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiN2UxM2Y1N2E0MGYzZTE5ZjUyMWE0MjdjIiwibiI6MjUsInAiOjIsInBvcyI6eyJjdXJzb3IiOiJleUoyWVd4MVpTSTZOVEF6TURBd0xDSnBaQ0k2SWtsa1RGQnJaVWxLUVRSbkluMCJ9fQ.4bd7c9184e9b837349d86f121c556083",
+  "d7ef7088a606db84",
+  "46c9323f4071dd85",
+  "2159a52c27313170eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiNTVhOGI2Y2RlMWI0YjQwNDYyNzg3NGMzIiwibiI6NTAsInAiOjMsInBvcyI6eyJjdXJzb3IiOiJleUoyWVd4MVpTSTZOVEl3TURBc0ltbGtJam9pVjNReGNrUlhNSFE0WldjaWZRIn19.d90fee115d0224f2bc9f74c64f29a6c4",
+  "a8cd54d094eaaca0eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiOGNhNWU2NDJjODlmYzdhY2M2YzYwMTUxIiwibiI6NTAsInAiOjMsInBvcyI6eyJjdXJzb3IiOiJleUoyWVd4MVpTSTZNalF3T0RVM0xDSnBaQ0k2SW5oVE5GaFZPVE42UTNGdkluMCJ9fQ.05f97f6ecebdc9df72b7d57bd04b09ea",
+  "8ca8dbe49e49f241eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiN2UxM2Y1N2E0MGYzZTE5ZjUyMWE0MjdjIiwibiI6NTAsInAiOjMsInBvcyI6eyJjdXJzb3IiOiJleUoyWVd4MVpTSTZNamMwTURBd0xDSnBaQ0k2SWsxMlVGVlJaekpQVEVkbkluMCJ9fQ.80f38e65e2fb7bc183c95a1241d910e5",
+  "10494584e30a2f70eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiOGNhNWU2NDJjODlmYzdhY2M2YzYwMTUxIiwibiI6NzUsInAiOjQsInBvcyI6eyJjdXJzb3IiOiJleUoyWVd4MVpTSTZNVEl5TXpRNUxDSnBaQ0k2SWtneGQyd3lYMVpyUTNWbkluMCJ9fQ.173538f71e26345bfd60ebd08ae6a2ac",
+  "75adcc7ae8962cf8eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiN2UxM2Y1N2E0MGYzZTE5ZjUyMWE0MjdjIiwibiI6NzUsInAiOjQsInBvcyI6eyJjdXJzb3IiOiJleUoyWVd4MVpTSTZNVGN3TURBd0xDSnBaQ0k2SWs1WmNuWXlObkphYlhFMEluMCJ9fQ.8b04f7aa6c92ae8f2aed31319b303411",
+  "41bb775d1634cc99eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiN2UxM2Y1N2E0MGYzZTE5ZjUyMWE0MjdjIiwibiI6MTAwLCJwIjo1LCJwb3MiOnsiY3Vyc29yIjoiZXlKMllXeDFaU0k2TVRJMk1qUXlMQ0pwWkNJNklsaHpSV0ZaZW1kdFRFdFZJbjAifX0.f4bb8237218cb09fae4552e68a165742",
+  "6d61718501224e72eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiOGNhNWU2NDJjODlmYzdhY2M2YzYwMTUxIiwibiI6MTAwLCJwIjo1LCJwb3MiOnsiY3Vyc29yIjoiZXlKMllXeDFaU0k2TnpRd01EQXNJbWxrSWpvaWVIQXlRbkV0T1VoNWNFVWlmUSJ9fQ.3233653fe988cc172f4ffaca23c3fc02",
+  "5d36b518d8a51e41eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiN2UxM2Y1N2E0MGYzZTE5ZjUyMWE0MjdjIiwibiI6MTI1LCJwIjo2LCJwb3MiOnsiY3Vyc29yIjoiZXlKMllXeDFaU0k2T0Rnd01EQXNJbWxrSWpvaVl6QldWbXN5YzI5VU5sa2lmUSJ9fQ.9bd495d900605f4092ac8b7447fc79b1",
+  "4825d924ff24722beyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiN2UxM2Y1N2E0MGYzZTE5ZjUyMWE0MjdjIiwibiI6MTUwLCJwIjo3LCJwb3MiOnsiY3Vyc29yIjoiZXlKMllXeDFaU0k2TmpJek56RXNJbWxrSWpvaVowcG5ORmR0WjIxcFIzTWlmUSJ9fQ.2190172ffe6f100567527b2fc2dcadcc",
+  "71cfa3f3d915149b"
  ],
  "paged": [
   132,
@@ -125,7 +130,32 @@
   169,
   170,
   171,
-  172
+  172,
+  176,
+  177,
+  178,
+  179,
+  180,
+  181,
+  182,
+  174,
+  175,
+  185,
+  186,
+  187,
+  188,
+  189,
+  190,
+  191,
+  192,
+  193,
+  194,
+  195,
+  196,
+  197,
+  198,
+  199,
+  200
  ],
  "retried": [],
  "round": 0,
@@ -135,7 +165,10 @@
   "vidIQ": "up",
   "YouTube": "up"
  },
- "notes": [],
+ "notes": [
+  "Stopped on the time budget, not on dry results. time budget (30 minutes) ran out during the snowball step with 0 searches not run",
+  "Cross-niche was not searched: the 30 minute budget was already used up."
+ ],
  "extra_ids": [
   "-0VteukQFhk",
   "-2BZAjAHel8",
@@ -788,7 +821,7 @@
   "zvMXAcaRVoo"
  ],
  "window_days": 548,
- "stop_reason": null,
+ "stop_reason": "time budget (30 minutes) ran out during the snowball step with 0 searches not run",
  "round_counts": [],
  "used_terms": [
   "second heart calf muscles",
@@ -820,7 +853,7 @@
   "after meals",
   "after eating"
  ],
- "label_checked": false,
+ "label_checked": true,
  "preflight_sent": true,
  "phase_flag": "preflight",
  "no_cache": false,
@@ -829,5 +862,9 @@
  "memory_count": 371,
  "uploads_scanned": 339,
  "uploads_total": 340,
- "cached_calls": 4
+ "cached_calls": 4,
+ "after_label": "label2",
+ "vph_sent": true,
+ "board_pdf": "/home/user/radar/boards/Radar-second-heart-2026-11-19.pdf",
+ "finished": true
 }

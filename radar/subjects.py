@@ -122,6 +122,9 @@ def junk_reason(v):
     hits = sum(1 for w in tw if w in FOREIGN_WORDS)
     if hits >= 3 or (hits >= 2 and any(ord(c) > 127 for c in (v.get("title") or ""))):
         return "title is not in English"
+    ch = [c for c in (v.get("channel") or "") if c.isalpha()]
+    if ch and sum(1 for c in ch if ord(c) > 0x24F) / len(ch) > 0.3:
+        return "channel name is not in English script, so the video is very likely not in English"
     letters = [c for c in (v.get("title") or "") if c.isalpha()]
     if letters and sum(1 for c in letters if ord(c) > 0x24F) / len(letters) > 0.3:
         return "title is not in English"
