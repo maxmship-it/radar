@@ -48,6 +48,7 @@ def cmd_label_queue(a):
         print(f"# LABEL for subject '{subj}'. Names: {', '.join(st['spec'].get('names') or [])}")
         print("# The test: is this video ABOUT what Max asked for, under any of those names? Same broad area is not enough. When unsure, it is off.")
         print("# File format, one line per video:  <id> TAB <on|off|borderline> TAB <one-line reason>")
+        print("# For a gaming, music, kids or other never-relevant CHANNEL, start the reason with 'junk channel' and code will drop that channel from now on.")
         mx = con.execute("SELECT v.title, l.label FROM labels l JOIN videos v ON v.id=l.video_id WHERE l.subject=? AND l.labeler='max' ORDER BY l.ts DESC LIMIT 12", (subj,)).fetchall()
         if mx:
             print("# Max's own calls on this subject (learn from them):")
@@ -85,6 +86,9 @@ def cmd_label_import(a):
             kept += 1  # Max's own call always stands
             continue
         con.execute("INSERT OR REPLACE INTO labels(video_id,subject,label,reason,labeler,ts) VALUES(?,?,?,?,?,?)", (vid, subj, lab, reason, "check" if a.check else "model", time.time()))
+        if lab == "off" and reason.lower().startswith("junk channel"):
+            ch = con.execute("SELECT channel_id FROM videos WHERE id=?", (vid,)).fetchone()
+            subjects.add_junk_channel(con, ch and ch["channel_id"])     # learned: this channel never needs a label again
         n += 1
     if a.check:
         st["label_checked"] = True

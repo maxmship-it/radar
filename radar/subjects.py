@@ -10,6 +10,33 @@ about me he she vs get got have has had i'm don't it's you're that's video new b
 day days year years week weeks eat eating ate food foods stop start""".split())
 JUNK_TITLE = re.compile(r"\b(roblox|minecraft|fortnite|mm2|brookhaven|gta ?\d|gameplay|speedrun|lyrics?|official (music )?video|nursery|kids song|"
                         r"cocomelon|asmr|mukbang|no talking|anime|trailer|full movie|live stream|livestream|among us|fnaf|pokemon|bedtime stor)", re.I)
+JUNK_BACON = re.compile(r"steal an egg|keyboard escape|\bbacons?\b.*\b(server|boss(es)?|admin|e-?girls?|girls|spiderman|rich|poor|pregnant|dat(e|ing)|keys|babysitter|wedding)\b"
+                        r"|\b(rich|poor|baby|spiderman)\s+bacon\b|bacon guy|text to speech", re.I)
+FOREIGN_WORDS = set("""mit und ist der das ich nicht für als noch sehr einfaches rezept leckerer besser ohne oder wenn
+el los las para por qué cómo receta muy más esto este
+le les des pour avec est une dans sur très recette
+não você receita muito isso esse uma""".split())
+_JUNK_CH = None
+
+
+def junk_channels():
+    """Channels a past run marked as junk (gaming and the like). Learned once, dropped in code from then on."""
+    global _JUNK_CH
+    if _JUNK_CH is None:
+        con = store.db()
+        _JUNK_CH = set(store.kv_get(con, "junk_channels", []))
+        con.close()
+    return _JUNK_CH
+
+
+def add_junk_channel(con, channel_id):
+    if not channel_id:
+        return
+    cur = set(store.kv_get(con, "junk_channels", []))
+    cur.add(channel_id)
+    store.kv_set(con, "junk_channels", sorted(cur))
+
+
 JUNK_NICHE = re.compile(r"^(gaming|music|kids_family|kids|animation_anime|animation|anime|movies_tv|relaxation_ambient|comedy_memes|pets_animals|animals & pets)", re.I)
 
 
@@ -87,8 +114,14 @@ def junk_reason(v):
         return f"not English ({v.get('lang_note') or v['language']})"
     if v.get("niche") and JUNK_NICHE.match(v["niche"]):
         return f"niche: {v['niche']}"
-    if JUNK_TITLE.search(v.get("title") or ""):
+    if v.get("channel_id") and v["channel_id"] in junk_channels():
+        return "channel marked as junk by an earlier run"
+    if JUNK_TITLE.search(v.get("title") or "") or JUNK_BACON.search(v.get("title") or ""):
         return "junk title (gaming, music, kids or similar)"
+    tw = re.findall(r"[a-zA-ZÀ-ÿ]+", (v.get("title") or "").lower())
+    hits = sum(1 for w in tw if w in FOREIGN_WORDS)
+    if hits >= 3 or (hits >= 2 and any(ord(c) > 127 for c in (v.get("title") or ""))):
+        return "title is not in English"
     letters = [c for c in (v.get("title") or "") if c.isalpha()]
     if letters and sum(1 for c in letters if ord(c) > 0x24F) / len(letters) > 0.3:
         return "title is not in English"

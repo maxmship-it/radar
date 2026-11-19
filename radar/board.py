@@ -153,9 +153,9 @@ def known_outlier_report(st, con, brd):
         v = con.execute("SELECT * FROM videos WHERE id=?", (vid,)).fetchone()
         lab = con.execute("SELECT label, reason FROM labels WHERE video_id=? AND subject=?", (vid, st["subject"])).fetchone()
         reason = None
-        if not v or v["yt_status"] is None or (v["yt_checked_at"] or 0) < st["started_at"]:
-            reason = None if not v or v["yt_status"] != "gone" else "deleted or private"
-        if v and v["yt_status"] == "gone":
+        if lab and lab["label"] != "on":
+            reason = f"labeled {lab['label']}: {lab['reason']}"      # a recorded call stands; no need to re-check the video
+        elif v and v["yt_status"] == "gone":
             reason = "deleted or private"
         elif v and v["yt_status"] == "ok" and (v["yt_checked_at"] or 0) >= st["started_at"]:
             age = store.age_days(v["upload_date"])

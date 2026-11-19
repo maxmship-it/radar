@@ -6,7 +6,7 @@ import json, os, sqlite3, time, pathlib, datetime
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DB_PATH = pathlib.Path(os.environ.get("RADAR_DB", ROOT / "store" / "radar.db"))
-RUNS = ROOT / "runs"
+RUNS = pathlib.Path(os.environ.get("RADAR_RUNS", ROOT / "runs"))
 BOARDS = ROOT / "boards"
 DATA = ROOT / "data"
 

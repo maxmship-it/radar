@@ -44,6 +44,13 @@ def to_obj(resp, depth=0):
         return resp, None
     if isinstance(resp, str):
         s = resp.strip()
+        # a very large result is saved to a file by the harness and only a pointer comes back
+        big = re.search(r"exceeds maximum allowed tokens\. Output has been saved to (\S+?\.(?:txt|json))", s[:600])
+        if big:
+            try:
+                return to_obj(open(big.group(1), encoding="utf-8").read(), depth + 1)
+            except Exception as e:
+                return None, f"large result file could not be read: {e}"
         try:
             o = json.loads(s)
         except Exception:
@@ -116,6 +123,39 @@ def _dur(x):
             t = t * 60 + int(p)
         return t
     return None
+
+
+def _kmb(x):
+    if x is None:
+        return None
+    m = re.match(r"^([\d.,]+)\s*([KMB]?)$", str(x).strip(), re.I)
+    if not m:
+        return None
+    return float(m.group(1).replace(",", "")) * {"": 1, "K": 1e3, "M": 1e6, "B": 1e9}[m.group(2).upper()]
+
+
+def vidiq_answer_rows(text):
+    """vidIQ answers in formatted text, one block per video. Code reads the blocks; no model does."""
+    rows = []
+    for blk in re.split(r"\n(?=### \d+\. )", text):
+        t = re.match(r"### \d+\. (.+)", blk.strip())
+        vid = re.search(r"videoId `([A-Za-z0-9_-]{11})`", blk)
+        if not t or not vid:
+            continue
+        ch = re.search(r"\*\*Channel:\*\* (.+?) · ([\d.,]+[KMB]?) subscribers", blk)
+        cid = re.search(r"channelId `(UC[\w-]{22})`", blk)
+        country = re.search(r"subscribers · ([A-Z]{2}) ·", blk)
+        views = re.search(r"([\d.,]+[KMB]?) views ·", blk)
+        mult = re.search(r"([\d.,]+)x breakout", blk)
+        vph = re.search(r"([\d.,]+[KMB]?) views/hour", blk)
+        pub = re.search(r"published (\d{4}-\d{2}-\d{2})", blk)
+        dur = re.search(r"· (\d+(?::\d\d){1,2})\s*$", (re.search(r"\*\*Details:\*\*.*", blk) or re.match("", "")).group(0) or "", re.M)
+        rows.append({"video_id": vid.group(1), "title": t.group(1).strip(), "channel_name": ch.group(1) if ch else None,
+                     "subscriber_count": _kmb(ch.group(2)) if ch else None, "channel_id": cid.group(1) if cid else None,
+                     "view_count": _kmb(views.group(1)) if views else None, "breakoutScore": _kmb(mult.group(1)) if mult else None,
+                     "vph": _kmb(vph.group(1)) if vph else None, "published_at": pub.group(1) if pub else None,
+                     "duration": dur.group(1) if dur else None, "country": country.group(1) if country else None})
+    return rows
 
 
 def find_rows(obj):
@@ -248,6 +288,8 @@ def normalize(server, name, inp, resp):
             rows.append({"id": str(inp.get("video_id"))[-11:], "views": last.get("view_count"), "gained_24h": last.get("views_gained"), "gain_src": "algrow-daily", "tool": None})
         return rows, meta
     raw = find_rows(obj) if obj is not None else []
+    if not raw and isinstance(obj, dict) and isinstance(obj.get("answer"), str) and "videoId `" in obj["answer"]:
+        raw = vidiq_answer_rows(obj["answer"])
     for i, r in enumerate(raw):
         row = {"id": str(_pick(r, A["id"])), "rank": i + 1, "tool": tool if tool in MULT else None}
         for f in ("title", "channel", "channel_id", "handle", "upload_date", "subject", "title_format", "niche", "language"):
@@ -272,4 +314,6 @@ def normalize(server, name, inp, resp):
         meta["more"] = bool(obj.get("has_more")) if isinstance(obj, dict) and "has_more" in obj else len(rows) >= per
     elif meta["cursor"]:
         meta["more"] = True
+    elif server == "vidIQ" and name == "vidiq_outliers":
+        meta["more"] = len(rows) >= int((inp or {}).get("limit") or 20)
     return rows, meta

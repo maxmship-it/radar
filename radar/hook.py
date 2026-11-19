@@ -9,7 +9,7 @@ after:  saves the raw result to disk, files the rows into memory, and hands the 
 import sys, json, time, os, re, fcntl, pathlib, traceback
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
-from radar import store, config as C, ingest, rule  # noqa: E402
+from radar import store, config as C, ingest, rule, subjects  # noqa: E402
 
 SEARCH_KINDS = {"keyword", "like", "subject", "format", "channel", "pool", "poolshort", "similar", "browse", "thumb", "ytsearch"}
 
@@ -146,7 +146,7 @@ def post(d):
         cur = con.execute("INSERT INTO searches(run,tool,kind,query,params,window_days,page,ts,rows,status,error,raw_path,cache_key,credits,more,cursor) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                           (run, tool, kind, meta["query"], json.dumps(inp, sort_keys=True), ingest.window_of(server, name, inp), meta["page"], time.time(), len(rows),
                            "error" if meta["error"] else ("degraded" if "degraded" in meta["notices"] or "incomplete" in meta["notices"] else "ok"),
-                           meta["error"], str(raw_path.relative_to(store.ROOT)), ingest.cache_key(server, name, inp), credits, 1 if meta["more"] else 0, meta["cursor"]))
+                           meta["error"], (str(raw_path.relative_to(store.ROOT)) if store.ROOT in raw_path.parents else str(raw_path)), ingest.cache_key(server, name, inp), credits, 1 if meta["more"] else 0, meta["cursor"]))
         sid = cur.lastrowid
         new_v = new_o = passing = 0
         cross = bool((store.run_state(run) if run else {}).get("cross_mode"))
@@ -157,8 +157,8 @@ def post(d):
             new_v += 1 if was_new else 0
             ok = rule.passes(r.get("mult"), r.get("views")) and (r.get("duration_s") is None or r["duration_s"] >= rule.MIN_LONGFORM_S)
             passing += 1 if ok else 0
-            if ok and not seen_run:
-                new_o += 1
+            if ok and not seen_run and not subjects.junk_reason(r):
+                new_o += 1      # obvious junk (gaming, music, kids) never keeps a search paging
         con.execute("UPDATE searches SET new_videos=?, new_outliers=? WHERE id=?", (new_v, new_o, sid))
         nxt = ""
         if meta["more"]:
@@ -186,12 +186,14 @@ def post(d):
         walk(obj)
         folder = str(inp.get("folder"))
         cross = folder == "Radar cross-niche"
+        if chans and not cross and folder == "Radar pool":
+            con.execute("UPDATE channels SET pool=0")     # the live Algrow folder is the truth, not an old copy
         for c in chans:
             cid = c.get("channel_id") or c.get("id")
             con.execute("INSERT OR IGNORE INTO channels(channel_id) VALUES(?)", (cid,))
             con.execute("UPDATE channels SET name=COALESCE(?,name), handle=COALESCE(?,handle), subs=COALESCE(?,subs), pool=CASE WHEN ? THEN pool ELSE 1 END, cross_niche=CASE WHEN ? THEN COALESCE(cross_niche,'yes') ELSE cross_niche END WHERE channel_id=?",
                         (c.get("name") or c.get("channel_name") or c.get("title"), c.get("handle") or c.get("channel_handle"),
-                         c.get("subscriber_count") or c.get("subscribers"), cross, cross, cid))
+                         c.get("subscriber_count") or c.get("subscribers") or c.get("subs"), cross, cross, cid))
         if chans:
             store.kv_set(con, f"folder_synced:{folder}", time.time())
         summary = f"RADAR RECEIPT: folder '{folder}' has {len(chans)} channels. All filed in memory."

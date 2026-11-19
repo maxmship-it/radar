@@ -82,8 +82,8 @@ def _one(vid):
                    "handle": info.get("uploader_id"), "subs": info.get("channel_follower_count"),
                    "language": lang, "lang_note": note, "has_lang": bool(info.get("language")),
                    "live": 1 if info.get("live_status") in ("was_live", "is_live", "post_live", "is_upcoming") else 0}
-            if res["duration_s"] and res["views"] is not None and res["upload_date"] and res["has_lang"]:
-                return res
+            if res["duration_s"] and res["views"] is not None and res["upload_date"]:
+                return res      # complete. Many videos declare no audio language; that is not a reason to ask again.
             # partial answer (YouTube throttled the player data). Keep the fullest one and try again.
             if best is None or sum(v is not None for v in res.values()) > sum(v is not None for v in best.values()):
                 best = res
@@ -128,7 +128,7 @@ def verify_many(ids, threads=6, max_age_h=0, deadline=None):
         out.setdefault(v, "error")
     # second look, one at a time, at anything YouTube answered only partly under load
     con = store.db()
-    again = [r["id"] for r in con.execute(f"SELECT id FROM videos WHERE id IN ({','.join('?' * len(todo))}) AND (yt_status='error' OR (yt_status='ok' AND language='unknown'))", todo)] if todo else []
+    again = [r["id"] for r in con.execute(f"SELECT id FROM videos WHERE id IN ({','.join('?' * len(todo))}) AND yt_status='error'", todo)] if todo else []
     con.close()
     for v in again[:40]:
         if deadline and time.time() > deadline:
@@ -187,13 +187,8 @@ def search(query, mode="views", depth=40):
     return rows, None
 
 
-def channel_uploads(key, n=31, max_age_h=24):
-    """A channel's latest long-form uploads (id, title, views, duration). key is UC id or @handle. Cached a day."""
-    con = store.db()
-    rows = con.execute("SELECT video_id id, title, views, duration_s, ts FROM uploads WHERE channel_key=? ORDER BY pos", (key,)).fetchall()
-    if rows and time.time() - rows[0]["ts"] < max_age_h * 3600:
-        con.close()
-        return [dict(r) for r in rows]
+def fetch_uploads(key, n=31):
+    """Network only, no database: safe to run in threads. key is a UC id or @handle."""
     url = f"https://www.youtube.com/channel/{key}/videos" if key.startswith("UC") else f"https://www.youtube.com/{key if key.startswith('@') else '@' + key}/videos"
     try:
         with _ydl(flat=True, playlistend=n) as y:
@@ -201,46 +196,69 @@ def channel_uploads(key, n=31, max_age_h=24):
     except NotCloud:
         raise
     except Exception:
-        con.close()
-        return [dict(r) for r in rows]
-    ents = [e for e in (d.get("entries") or []) if e and e.get("id")]
-    con.execute("DELETE FROM uploads WHERE channel_key=?", (key,))
-    out = []
-    for i, e in enumerate(ents):
-        row = {"id": e["id"], "title": e.get("title"), "views": e.get("view_count"), "duration_s": int(e["duration"]) if e.get("duration") else None}
-        out.append(row)
-        con.execute("INSERT OR REPLACE INTO uploads(channel_key,video_id,title,views,duration_s,pos,ts) VALUES(?,?,?,?,?,?,?)",
-                    (key, row["id"], row["title"], row["views"], row["duration_s"], i, time.time()))
+        return None
+    return [{"id": e["id"], "title": e.get("title"), "views": e.get("view_count"), "duration_s": int(e["duration"]) if e.get("duration") else None}
+            for e in (d.get("entries") or []) if e and e.get("id")]
+
+
+def uploads_many(want, threads=10, max_age_h=24, deadline=None):
+    """want: {channel key: how many uploads}. Reads the day-old cache, fetches the rest in threads, writes in one place.
+    Returns {key: [uploads]}; a key that could not be read is missing."""
+    guard()
+    con = store.db()
+    out, todo = {}, []
+    for key, n in want.items():
+        rows = con.execute("SELECT video_id id, title, views, duration_s, ts FROM uploads WHERE channel_key=? ORDER BY pos", (key,)).fetchall()
+        if rows and time.time() - rows[0]["ts"] < max_age_h * 3600 and len(rows) >= min(n, 25):
+            out[key] = [dict(r) for r in rows]
+        else:
+            todo.append((key, n))
+    con.close()
+    got = {}
+    ex = cf.ThreadPoolExecutor(threads)
+    futs = {ex.submit(fetch_uploads, k, n): k for k, n in todo}
+    try:
+        for f in cf.as_completed(futs, timeout=max(5, deadline - time.time()) if deadline else None):
+            got[futs[f]] = f.result()
+    except cf.TimeoutError:
+        pass
+    ex.shutdown(wait=False, cancel_futures=True)
+    con = store.db()
+    for key, rows in got.items():
+        if rows is None:
+            continue
+        con.execute("DELETE FROM uploads WHERE channel_key=?", (key,))
+        for i, r in enumerate(rows):
+            con.execute("INSERT OR REPLACE INTO uploads(channel_key,video_id,title,views,duration_s,pos,ts) VALUES(?,?,?,?,?,?,?)",
+                        (key, r["id"], r["title"], r["views"], r["duration_s"], i, time.time()))
+        out[key] = rows
     con.commit()
     con.close()
     return out
 
 
-def recent30(vid, views, channel_key):
+def recent30(vid, views, ups):
     """views / median views of the channel's last 30 other uploads. None when the channel has under 10 others."""
-    ups = channel_uploads(channel_key)
-    others = [u["views"] for u in ups if u["id"] != vid and u.get("views")]
+    others = [u["views"] for u in (ups or []) if u["id"] != vid and u.get("views")]
     if len(others) < 10 or not views:
         return None
     med = statistics.median(others[:30])
     return round(views / med, 2) if med else None
 
 
-def add_recent30(ids, threads=6):
+def add_recent30(ids, threads=8, deadline=None):
     """Work out recent-30 for these videos and save it as a multiplier. Channel lists are fetched once each."""
     guard()
+    if not ids:
+        return 0
     con = store.db()
-    vids = [dict(r) for r in con.execute(f"SELECT id, views, channel_id FROM videos WHERE id IN ({','.join('?' * len(ids))})", list(ids))] if ids else []
+    vids = [dict(r) for r in con.execute(f"SELECT id, views, channel_id FROM videos WHERE id IN ({','.join('?' * len(ids))})", list(ids))]
     con.close()
-    chans = list(dict.fromkeys(v["channel_id"] for v in vids if v["channel_id"]))
-    with cf.ThreadPoolExecutor(threads) as ex:
-        list(ex.map(channel_uploads, chans))
+    ups = uploads_many({v["channel_id"]: 31 for v in vids if v["channel_id"]}, threads, deadline=deadline)
     con = store.db()
     n = 0
     for v in vids:
-        if not v["channel_id"]:
-            continue
-        m = recent30(v["id"], v["views"], v["channel_id"])
+        m = recent30(v["id"], v["views"], ups.get(v["channel_id"]))
         if m is not None:
             con.execute("INSERT OR REPLACE INTO multipliers(video_id,tool,value,seen_at,run) VALUES(?,?,?,?,?)", (v["id"], "recent30", m, time.time(), store.active_run()))
             n += 1

@@ -154,22 +154,16 @@ def free_phase(st, con):
     for bucket, handles in subjects.watchlist().items():
         for h in handles:
             keys[h] = 150
-    def ups(kn):
-        try:
-            return kn[0], yt.channel_uploads(kn[0], kn[1])
-        except Exception:
-            return kn[0], []
-    deadline = time.time() + 240
-    scanned = found = 0
-    with cf.ThreadPoolExecutor(10) as ex:
-        for key, ups_ in ex.map(ups, keys.items()):
-            scanned += 1 if ups_ else 0
-            for u in ups_:
-                if (u.get("views") or 0) >= C.MIN_SEARCH_VIEWS and (u.get("duration_s") or 999) >= rule.MIN_LONGFORM_S and subjects.matches(u.get("title"), names):
-                    store.upsert_tool_row(con, {"id": u["id"], "title": u["title"], "views": u["views"], "duration_s": u["duration_s"],
-                                                "channel_id": key if key.startswith("UC") else None, "tool": None}, st["run"], None)
-                    ids.add(u["id"])
-                    found += 1
+    con.commit()
+    all_ups = yt.uploads_many(keys, threads=10, deadline=time.time() + 240)
+    scanned, found = len(all_ups), 0
+    for key, ups_ in all_ups.items():
+        for u in ups_:
+            if (u.get("views") or 0) >= C.MIN_SEARCH_VIEWS and (u.get("duration_s") or 999) >= rule.MIN_LONGFORM_S and subjects.matches(u.get("title"), names):
+                store.upsert_tool_row(con, {"id": u["id"], "title": u["title"], "views": u["views"], "duration_s": u["duration_s"],
+                                            "channel_id": key if key.startswith("UC") else None, "tool": None}, st["run"], None)
+                ids.add(u["id"])
+                found += 1
     con.execute("INSERT INTO searches(run,tool,kind,query,params,window_days,page,ts,rows,new_videos,status,cache_key) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
                 (st["run"], "youtube", "uploads", f"{len(keys)} pool and watch-list channels", "{}", win, 1, time.time(), found, 0, "ok" if scanned else "error", "yt:uploads"))
     st["uploads_scanned"] = scanned
@@ -191,24 +185,25 @@ def pool_calls(st):
 TUBE_FIELDS = ["video_id", "title", "view_count", "outlier_multiplier", "published_at", "channel_id", "channel_name", "channel_handle", "channel_subscribers", "duration_seconds", "channel_niche"]
 
 
-def keyword_calls(st, algrow=None, tubeai=None, vidiq=None):
-    """Each name twice: last 100 days and 18 months, so old big videos do not crowd recent ones out. Each tool in its own dialect."""
+def keyword_calls(st, algrow=None, tubeai=None, vidiq=None, recent=False):
+    """Each name in each tool's own dialect, across the whole window first. When that search comes back a full page,
+    follow_ups() runs the same name again limited to the last 100 days, so old big videos cannot crowd recent ones out.
+    When it is not a full page, the 100 day search could add nothing and is not run."""
     sp, win, out = st["spec"], st["window_days"], []
     up = st["tools"]
+    d = C.RECENT_DAYS if recent else win
     if up.get("Algrow") == "up":
         for q in (algrow if algrow is not None else sp.get("algrow") or sp.get("names") or []):
-            for d in (C.RECENT_DAYS, win):
-                out.append(call("Algrow", "search_viral_videos", search=q, content_type="longform", uploaded_within_days=d,
-                                min_outlier_score=2, min_video_views=C.MIN_SEARCH_VIEWS, per_page=25, sort_by="similarity", page=1))
+            out.append(call("Algrow", "search_viral_videos", search=q, content_type="longform", uploaded_within_days=d,
+                            min_outlier_score=2, min_video_views=C.MIN_SEARCH_VIEWS, per_page=25, sort_by="similarity", page=1))
     if up.get("TubeAI") == "up":
         for q in (tubeai if tubeai is not None else sp.get("tubeai") or []):
-            for d in (C.RECENT_DAYS, win):
-                out.append(call("TubeAI", "explore_videos", search=q, minDate=_date(d), minDuration=181, minOutlier=2, minViews=C.MIN_SEARCH_VIEWS,
-                                sortBy="view_count", limit=25, fields=TUBE_FIELDS))
+            out.append(call("TubeAI", "explore_videos", search=q, minDate=_date(d), minDuration=181, minOutlier=2, minViews=C.MIN_SEARCH_VIEWS,
+                            sortBy="view_count", limit=25, fields=TUBE_FIELDS))
     if up.get("vidIQ") == "up":
         for q in (vidiq if vidiq is not None else (sp.get("vidiq") or [])[:3]):
-            for w in ("threeMonths", "twoYears"):
-                out.append(call("vidIQ", "vidiq_outliers", keyword=q, contentType="long", publishedWithin=w, minViews=C.MIN_SEARCH_VIEWS, limit=50, language="en"))
+            out.append(call("vidIQ", "vidiq_outliers", keyword=q, contentType="long", publishedWithin="threeMonths" if recent else "twoYears",
+                            minViews=C.MIN_SEARCH_VIEWS, limit=50, language="en"))
     return out
 
 
@@ -236,6 +231,9 @@ def follow_ups(st, con):
             continue
         if r["kind"] == "format":
             continue
+        # a full first page across the whole window: also search this name limited to the last 100 days
+        if r["kind"] == "keyword" and r["more"] and (r["page"] or 1) == 1 and (r["window_days"] or 0) > C.RECENT_DAYS + 5 and not inp.get("cursor"):
+            out += keyword_calls(st, algrow=[r["query"]] if server == "Algrow" else [], tubeai=[r["query"]] if server == "TubeAI" else [], vidiq=[], recent=True)
         if r["more"] and (r["new_outliers"] or 0) >= C.PAGE_DRY_BELOW:
             if (r["page"] or 1) >= C.MAX_PAGES:
                 st["notes"].append(f"{server} '{r['query']}' was still finding new outliers at page {C.MAX_PAGES}, the safety cap.")
@@ -251,6 +249,10 @@ def follow_ups(st, con):
             else:
                 continue
             out.append({"tool": f"mcp__{server}__{name}", "input": inp})
+    for r in con.execute("SELECT * FROM searches WHERE run=? AND tool='vidiq' AND kind='keyword' AND status='ok' AND more=1 AND window_days>?", (st["run"], C.RECENT_DAYS + 5)):
+        if r["id"] not in st["paged"]:
+            st["paged"].append(r["id"])
+            out += keyword_calls(st, algrow=[], tubeai=[], vidiq=[r["query"]], recent=True)
     # a tool that keeps failing is dropped for the run and its queued calls with it
     for server in ("Algrow", "TubeAI", "vidIQ"):
         e = con.execute("SELECT SUM(ok=0) bad, COUNT(*) n FROM tool_calls WHERE run=? AND server=?", (st["run"], server)).fetchone()
@@ -303,7 +305,11 @@ def verify_and_filter(st, con, cross=False, budget_s=420):
         m = store.mults(con, vid)
         has_tool_pass = any((rule.cross_passes(x, v["views"], v["duration_s"]) if cross else rule.passes(x, v["views"])) for x in m.values())
         no_mult_yet = not m and (v["views"] or 0) >= C.MIN_SEARCH_VIEWS
-        known = con.execute("SELECT 1 FROM known_outliers WHERE video_id=?", (vid,)).fetchone()
+        subj_key = ("cross:" if cross else "") + st["subject"]
+        lab = con.execute("SELECT label FROM labels WHERE video_id=? AND subject=?", (vid, subj_key)).fetchone()
+        if lab and lab["label"] != "on":
+            continue        # already judged off for this subject, with a reason on record: nothing to re-check
+        known = con.execute("SELECT 1 FROM known_outliers WHERE video_id=? AND subject=?", (vid, st["subject"])).fetchone()
         if (has_tool_pass or no_mult_yet or known) and not subjects.junk_reason(v):
             need.append(vid)
     con.commit()
@@ -392,14 +398,14 @@ def channel_followup(st, con):
     done = set(st.get("followed", []))
     chans = [c for c in dict.fromkeys(v["channel_id"] for v in on_topic(st, con) if v["channel_id"] and qualifies(con, v)) if c not in done][:60]
     found = 0
-    with cf.ThreadPoolExecutor(8) as ex:
-        for key, ups in zip(chans, ex.map(lambda k: yt.channel_uploads(k, 120), chans)):
-            for u in ups:
-                if (u.get("views") or 0) >= C.MIN_SEARCH_VIEWS and (u.get("duration_s") or 999) >= rule.MIN_LONGFORM_S and subjects.matches(u.get("title"), names):
-                    if u["id"] not in st["extra_ids"]:
-                        store.upsert_tool_row(con, {"id": u["id"], "title": u["title"], "views": u["views"], "duration_s": u["duration_s"], "channel_id": key, "tool": None}, st["run"], None)
-                        st["extra_ids"].append(u["id"])
-                        found += 1
+    con.commit()
+    for key, ups in yt.uploads_many({c: 120 for c in chans}, threads=8, deadline=time.time() + 150).items():
+        for u in ups:
+            if (u.get("views") or 0) >= C.MIN_SEARCH_VIEWS and (u.get("duration_s") or 999) >= rule.MIN_LONGFORM_S and subjects.matches(u.get("title"), names):
+                if u["id"] not in st["extra_ids"]:
+                    store.upsert_tool_row(con, {"id": u["id"], "title": u["title"], "views": u["views"], "duration_s": u["duration_s"], "channel_id": key, "tool": None}, st["run"], None)
+                    st["extra_ids"].append(u["id"])
+                    found += 1
     st["followed"] = sorted(done | set(chans))
     con.commit()
     return found
@@ -484,6 +490,9 @@ def next_step():
         store.save_state(run, st)
         con.commit()
         con.close()
+    if res.get("calls"):
+        # kept on disk so a batch is never lost if its printout is
+        (store.run_dir(run) / "last_batch.json").write_text(json.dumps(res["calls"], indent=1))
     res.setdefault("phase", st["phase"])
     res["minutes_used"] = round(elapsed(st) / 60, 1)
     res["minutes_budget"] = C.TIME_BUDGET_S // 60
@@ -590,6 +599,10 @@ def _advance(st, con):
             _goto(st, "rounds_wait")
             continue
         if ph == "label2":
+            # every known outlier for the subject is checked in this run, including ones added while it ran
+            for r in con.execute("SELECT video_id FROM known_outliers WHERE subject=?", (st["subject"],)):
+                if r["video_id"] not in st["extra_ids"]:
+                    st["extra_ids"].append(r["video_id"])
             left = verify_and_filter(st, con)
             q = label_queue(st, con)
             if q:
