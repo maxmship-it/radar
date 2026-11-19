@@ -1,0 +1,21 @@
+{
+ "run": "store-face-behind-face-thumbnails-20261119-2037",
+ "subject": "face behind face thumbnails",
+ "subjects": [
+  "face behind face thumbnails"
+ ],
+ "spec": {
+  "names": [
+   "face behind face thumbnails"
+  ]
+ },
+ "started_at": 1795120664.3905017,
+ "window_days": 548,
+ "from_store": true,
+ "label_checked": true,
+ "phase": "done",
+ "tools": {},
+ "notes": [],
+ "extra_ids": [],
+ "board_pdf": "/home/user/radar/boards/Radar-face-behind-face-thumbnails-2026-11-19.pdf"
+}

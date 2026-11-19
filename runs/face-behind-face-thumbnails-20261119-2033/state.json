@@ -1,0 +1,33 @@
+{
+ "run": "face-behind-face-thumbnails-20261119-2033",
+ "subject": "face behind face thumbnails",
+ "spec": {
+  "subject": "face behind face thumbnails",
+  "names": [
+   "face behind face thumbnails"
+  ],
+  "algrow": [],
+  "tubeai": [],
+  "vidiq": [],
+  "youtube": [],
+  "drafts": [],
+  "bucket": "PACKAGING",
+  "note": "Thumbnail concept request from Max, Nov 19: one figure large in front, a second figure behind, across every niche. No combos."
+ },
+ "started_at": 1795120423.8392134,
+ "phase": "done",
+ "queue": [],
+ "emitted": [],
+ "paged": [],
+ "retried": [],
+ "round": 0,
+ "tools": {},
+ "notes": [],
+ "extra_ids": [],
+ "window_days": 548,
+ "stop_reason": null,
+ "round_counts": [],
+ "used_terms": [],
+ "label_checked": false,
+ "finished": true
+}
