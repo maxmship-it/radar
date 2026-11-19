@@ -1,0 +1,70 @@
+[
+ {
+  "tool": "mcp__vidIQ__vidiq_get_videos_by_ids",
+  "input": {
+   "videoIds": [
+    "nyG-np0S0ZQ",
+    "H8c1ObYSlQI",
+    "WFfCVdC7Q40",
+    "ddh5B0QbmCw",
+    "ysDD12U4PBg",
+    "u0fm3QTqOAA",
+    "w2IYj9hnLII",
+    "8qfbndJw-vc",
+    "BpzOx1eNyw8",
+    "jcxIwUZf-bA",
+    "uFwZmRKisYU",
+    "Pkhk-80OsS4",
+    "hDSeASgOV70",
+    "FvOwHvQ52Bo",
+    "l5tlvpa9z7Q",
+    "we9B60Ek9TI",
+    "89vDuFQ-G0o",
+    "64LgTPcl2qU",
+    "G74mVCh9lII",
+    "AjuJgSxylAA",
+    "6f9N8inQbPs",
+    "LO__ghhuquc",
+    "K9Anhkc5yxI",
+    "0_w4MSj4j1k",
+    "w3k3syJANZo",
+    "bfMBcAQ3SKE",
+    "mDdK6QhVyOc",
+    "q7mbskEd6OY",
+    "JosyehkbI2Q",
+    "L-SIYl4VR8s",
+    "2YxuFo0j4x8",
+    "nKmRld8Mh4g",
+    "aAZbXITe4Ic",
+    "u_2T7roIsw4",
+    "J3lx55YlE2g",
+    "jripykHX2UU",
+    "9TwCuXk3Wzg",
+    "N0xPLrSYyK4",
+    "K0GqT7ITR60",
+    "tjFCxwrOEeY",
+    "xPzIokNGMaA",
+    "S8Z1eivX6BE",
+    "16AeYVaJs0g",
+    "Ac16iva1LYg",
+    "FnaMSqu0PHo",
+    "NKbqfteZxzY",
+    "UEe3CC3XLqI",
+    "h8a71MwUTb8",
+    "UPblFM9YfRc",
+    "9_8VDaoLxdE"
+   ]
+  }
+ },
+ {
+  "tool": "mcp__vidIQ__vidiq_get_videos_by_ids",
+  "input": {
+   "videoIds": [
+    "AMLqxHbm-KE",
+    "LXFpUVT-WO8",
+    "ixZVhd9BlUw",
+    "jBKkxhr8v4U"
+   ]
+  }
+ }
+]

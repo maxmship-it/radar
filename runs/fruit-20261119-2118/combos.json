@@ -1,0 +1,65 @@
+[
+ {
+  "title": "I Study Biology. That's Why I Don't Eat Fruit.",
+  "thumb_words": "NOT NATURAL",
+  "image_line": "You side-eyeing a wild banana full of seeds cut open beside a modern seedless one",
+  "model_vid": "we9B60Ek9TI"
+ },
+ {
+  "title": "If Fruit Is So Healthy, Explain THIS...",
+  "thumb_words": "THESE SHOULDN'T EXIST",
+  "image_line": "You holding up a banana bunch in front of a wall of bright fruit, curved arrow at it",
+  "model_vid": "H8c1ObYSlQI"
+ },
+ {
+  "title": "You Don't Need Fruit, You Need THIS",
+  "thumb_words": "THE SUGAR LIE",
+  "image_line": "Jar marked processed sugar beside a fruit bowl marked fruit sugar, you looking at camera",
+  "model_vid": "6f9N8inQbPs"
+ },
+ {
+  "title": "I Study Biology. I Probably Won't Touch Fruit For The Rest Of My Life.",
+  "thumb_words": "\"I won't touch one\"",
+  "image_line": "You holding a clamshell of strawberries, muted farm background, quiet quote text",
+  "model_vid": "nyG-np0S0ZQ",
+  "depends": "Needs the part on how modern fruit was bred and grown."
+ },
+ {
+  "title": "I Ate Fruit And Tested My Blood Sugar. Here's What Happened.",
+  "thumb_words": "BEFORE AFTER",
+  "image_line": "Your face between two glucose meters, one before fruit and one after, readings shown",
+  "model_vid": "LuRZWmMdaSg",
+  "depends": "Needs your own glucose readings. Put the real [number] on each meter."
+ },
+ {
+  "title": "This Is What One Banana REALLY Does To Your Blood Sugar",
+  "thumb_words": "BANANA SHOCK",
+  "image_line": "Huge red headline text on the left, one banana on the right, artery drawing behind it",
+  "model_vid": "3v1s5qQAPyk"
+ },
+ {
+  "title": "The [number] Worst Fruits You Can Eat (I'd Never Touch #1)",
+  "thumb_words": "NEVER TOUCH THIS",
+  "image_line": "Banana bunch on black, bold stacked text, red highlight on the last line",
+  "model_vid": "6U6I1rck2ck"
+ },
+ {
+  "title": "Fruit Sugar vs Table Sugar: What Fructose Really Does To Your Liver",
+  "thumb_words": "SUGAR",
+  "image_line": "You holding sugar cubes in one palm, a glowing fatty liver beside you, one huge word",
+  "model_vid": "G74mVCh9lII"
+ },
+ {
+  "title": "Fruit Isn't What It Used To Be (Here's What Changed)",
+  "thumb_words": "THIS WAS FRUIT",
+  "image_line": "You with a small wild fruit in one hand and a giant modern one in the other, dark room",
+  "model_vid": "S8Z1eivX6BE"
+ },
+ {
+  "title": "They Ate Only Fruit For Years. Here's What Happened To Them.",
+  "thumb_words": "ONLY FRUIT",
+  "image_line": "Thin fruit-only eater portrait on the left, bold text right, tropical fruit along the bottom",
+  "model_vid": "aAZbXITe4Ic",
+  "depends": "Needs real documented cases of people who ate only fruit."
+ }
+]

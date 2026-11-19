@@ -1,0 +1,164 @@
+[
+ {
+  "kind": "topic_names",
+  "text": "Save the names for 'fruit': fruit, fructose, banana, berries, fruit juice, orange juice, fruitarian, fruit sugar",
+  "line": "fruit: fruit, fructose, banana, berries, fruit juice, orange juice, fruitarian, fruit sugar",
+  "n": 1
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Senior Food Coach (@SeniorFoodCoach-Us) to the watch list: 4 on-topic outliers this run",
+  "handle": "@SeniorFoodCoach-Us",
+  "channel_id": "UCjzr7MlYDG-orgv8BaD0-Xg",
+  "bucket": "CARNIVORE",
+  "n": 2
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Dr. Bobby Price (@DrBobbyPrice) to the watch list: 4 on-topic outliers this run",
+  "handle": "@DrBobbyPrice",
+  "channel_id": "UCXZTnzvoL4X3saPYsfLwxuA",
+  "bucket": "CARNIVORE",
+  "n": 3
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Healthy Daily 365 (@HealthyDaily-us) to the watch list: 3 on-topic outliers this run",
+  "handle": "@HealthyDaily-us",
+  "channel_id": "UCn0q_ErGSbEZ-HZ348nUllw",
+  "bucket": "CARNIVORE",
+  "n": 4
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add NutriSite (@NutriSite) to the watch list: 3 on-topic outliers this run",
+  "handle": "@NutriSite",
+  "channel_id": "UCkMoZiKuIuIYzBmCr4tQcYw",
+  "bucket": "CARNIVORE",
+  "n": 5
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Dr. Elias Senior Health  (@Dr.EliasYT) to the watch list: 2 on-topic outliers this run",
+  "handle": "@Dr.EliasYT",
+  "channel_id": "UCQcBYZxFW7YwNMU8-DsT3Uw",
+  "bucket": "CARNIVORE",
+  "n": 6
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Dr. William Li (@DrWilliamLi) to the watch list: 2 on-topic outliers this run",
+  "handle": "@DrWilliamLi",
+  "channel_id": "UCREeA-1pswf4RTeYIKdAoBg",
+  "bucket": "CARNIVORE",
+  "n": 7
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Dr. William Parker Senior Health (@Dr.WilliamSeniorHealth) to the watch list: 2 on-topic outliers this run",
+  "handle": "@Dr.WilliamSeniorHealth",
+  "channel_id": "UCPq6p8XwJcO5wY6BZiHab-A",
+  "bucket": "CARNIVORE",
+  "n": 8
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Healthy Everyday \u00ae (@Healthyeveryday.usa00) to the watch list: 2 on-topic outliers this run",
+  "handle": "@Healthyeveryday.usa00",
+  "channel_id": "UCN60iBhiZjnsBY5X2wpeMag",
+  "bucket": "CARNIVORE",
+  "n": 9
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Facing Diabetes (@FacingDiabetes_channel) to the watch list: 2 on-topic outliers this run",
+  "handle": "@FacingDiabetes_channel",
+  "channel_id": "UCW7ZIu2EsLgBiXcQBswlzYQ",
+  "bucket": "CARNIVORE",
+  "n": 10
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Dr. Megan Foster Senior's Health Tips (@Dr.MeganFosterSeniorsHealth) to the watch list: 2 on-topic outliers this run",
+  "handle": "@Dr.MeganFosterSeniorsHealth",
+  "channel_id": "UCA-22LZZkM8A3DCCP5mb9hw",
+  "bucket": "CARNIVORE",
+  "n": 11
+ },
+ {
+  "kind": "pool",
+  "text": "Add 55 channels with on-topic outliers to the Algrow 'Radar pool' folder: More Perfect Union, Leonid Kim MD, Anshul Gupta MD , Dr. Elias Senior Health , EverYoung Seniors, Thriving Minds with Alberto Zandi, Food Decode, Simple Healthy Tips, Deep Root Wisdom, Health Knowledge Hub, Senior Wellness Today , Dr. Robert Henry...",
+  "channel_ids": [
+   "UCehBVAPy-bxmnbNARF-_tvA",
+   "UCoMd8Ykj0UUZ0AFX6Ic7LMQ",
+   "UCxmSA11SbI_3yBcHu6pKi_Q",
+   "UCQcBYZxFW7YwNMU8-DsT3Uw",
+   "UCr-avpDyec9cF483gN9qazQ",
+   "UC8YIR4K-k8mYV_R-34jhumw",
+   "UCtMykmS6G4yRNoQA2-NNyfg",
+   "UC_Fu9XHvUnSUpeedFENcKWw",
+   "UCeNdAWaM26f8Hu6rQbuuIYw",
+   "UCDGCpnh3w9RxmCHbaIjSmjw",
+   "UC4ScUJIS8NuMlMW-QHqLP2Q",
+   "UCe827fCmcm_d6j8jW4ugDRQ",
+   "UCyBCy6vRviNg8b7n72WN2qw",
+   "UCn0q_ErGSbEZ-HZ348nUllw",
+   "UC2MRaLkITkOBKNxLxnUDIeg",
+   "UC_4fFv2IwtsWr2QQyUjbQWw",
+   "UCT2TonMPxUpUWs1XRE6pRkg",
+   "UCFKYxDkIhYkQEYTp9-Iobbg",
+   "UC1rXgYI3Eqsyyt06QEbGg3Q",
+   "UCNqUCMpcOSisiW-ShZc8A8g",
+   "UClEsPxvotpTJ1Z8eu2Y97rg",
+   "UCURFxoAqD8wWu3V0gBK1QpA",
+   "UCH4BNI0-FOK2dMXoFtViWHw",
+   "UCkMoZiKuIuIYzBmCr4tQcYw",
+   "UCPq6p8XwJcO5wY6BZiHab-A",
+   "UCUTFjFDDTXlZyPaMbUyilUw",
+   "UCUt9Vi6ZoFOWQIBqJeurqew",
+   "UCQHESlLSA0CxvtfZpz3OyQg",
+   "UC2ShC1ysk4CFXIvQtWyqL4g",
+   "UCN60iBhiZjnsBY5X2wpeMag",
+   "UCW7ZIu2EsLgBiXcQBswlzYQ",
+   "UCsOkHWfiPFN3Pt7f9DwMSww",
+   "UC-z353bq4VnoNyEh9nLbgaw",
+   "UCUypgMZ1ZPRhcE9MOpbzj1w",
+   "UCTp_tHNfvGdIwNMPWJZVRww",
+   "UCjzr7MlYDG-orgv8BaD0-Xg",
+   "UCrI4mJ4-vYsRUCZ8dV56u_A",
+   "UCZnfMdVCt4Wg7qP2YKCGvQA",
+   "UCQWHGhymGD2_vH3BZS0TvVw",
+   "UCzoRyR_nlesKZuOlEjWRXQQ",
+   "UCQaTjA3oQb3Wm1ouUdUUoDQ",
+   "UCbF2kI78dsyE6B8nWhr3yqQ",
+   "UC97Mm5DYIEWIz7-OHXEJhWQ",
+   "UCVYeOWvkG1BT72qGkl--GEw",
+   "UCMEB1DX4SyGW2ZtUFGrI6lA",
+   "UCdoHSpmoR4XwmGMDZ4ZpYvw",
+   "UCJsT6GvQ0BTrABfCuIcr_ww",
+   "UCqvPQst_TF6cI94mcZwNp-A",
+   "UC7VYG6N-Q46H7bO3rYTZccw",
+   "UC2HRLpNTNl57XRpy8n1iZhA",
+   "UCA-22LZZkM8A3DCCP5mb9hw",
+   "UC_snrj_faQcrtB0X64ep1yw",
+   "UC-bqbpDieun9stH8_IHAvLA",
+   "UChlTJ8fg6fn_4ADX9tYZR7Q",
+   "UCwFUqs2gNgkbcrluYhUwWZQ"
+  ],
+  "n": 12
+ },
+ {
+  "kind": "drop",
+  "text": "Drop the algrow search 'carnivore diet': 5 runs, 15 rows, nothing on-topic",
+  "tool": "algrow",
+  "query": "carnivore diet",
+  "n": 13
+ },
+ {
+  "kind": "drop",
+  "text": "Drop the tubeai search 'carnivore': 5 runs, 5 rows, nothing on-topic",
+  "tool": "tubeai",
+  "query": "carnivore",
+  "n": 14
+ }
+]
