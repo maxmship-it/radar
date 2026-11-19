@@ -1,0 +1,145 @@
+{
+ "title": "RADAR BOARD — SAMPLE",
+ "date": "Thu 22 Oct 2026",
+ "summary": {
+  "status": "complete",
+  "notes": [
+   "Mode: sweep, all buckets, 90 days.",
+   "Connected: Algrow, TubeAI, vidIQ. Sub-agents used."
+  ]
+ },
+ "sections": [
+  {
+   "kind": "cards",
+   "name": "LAST 14 DAYS — OUTLIERS",
+   "meta": "3x+100K, 5x+50K or 2x+300K · longform",
+   "items": [
+    {
+     "rank": 1,
+     "channel": "Sleep Doctor",
+     "subs": 120000,
+     "title": "The TRUTH About Biphasic Sleep As You Get Older (This Might Surprise You)",
+     "views": 867365,
+     "outlier": 118.9,
+     "outlier_src": "Algrow",
+     "age": "9 days ago",
+     "vid": "rKMkxPs1GvY",
+     "note": "FAT LOSS · Radar pool channel"
+    },
+    {
+     "rank": 2,
+     "channel": "Food Shock",
+     "subs": 8030,
+     "title": "Pink Salt Shock: This Is What Pink Salt REALLY Does To Your Blood Pressure",
+     "views": 614000,
+     "outlier": 180.6,
+     "outlier_src": "TubeAI",
+     "recent": 95.2,
+     "age": "4 weeks ago",
+     "vid": "dEsymRq-pAE",
+     "note": "New channel, added to Radar pool"
+    },
+    {
+     "rank": 3,
+     "channel": "Steak and Butter Gal",
+     "subs": 777000,
+     "title": "The FASTEST Way to Shrink Visceral Fat in 2026 (Without Fasting)",
+     "views": 471495,
+     "outlier": 2.0,
+     "outlier_src": "Algrow",
+     "recent": 2.03,
+     "age": "2 months ago",
+     "vid": "4znhpkAP40k",
+     "note": "Qualifies on 2x+300K"
+    }
+   ]
+  },
+  {
+   "kind": "ideas",
+   "name": "WHAT TO MAKE NEXT",
+   "items": [
+    {
+     "title": "Beef Shock: This Is What Steak REALLY Does To Your Insulin",
+     "thumb": "Raw steak, insulin line dropping, 'NOT WHAT YOU THINK'",
+     "bucket": "carnivore",
+     "colour": "BLUE",
+     "why_now": "Food Shock's 'X Shock' format at 180x and 151x this month.",
+     "evidence": [
+      "dEsymRq-pAE 180x",
+      "23GTM1uFMEk 151x"
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "titles",
+   "name": "TITLE OPTIONS",
+   "items": [
+    {
+     "title": "Stevia Is Dead. This Is What Replaced It",
+     "why": "Same structure as DeLauer's 11.5x. Paid off in section 2.",
+     "vid": "9zTwRW1Tm2g",
+     "model_title": "Stevia is Dead - This Sweetener Shrinks Fat Cells and Drops Insulin 33%",
+     "model_channel": "Thomas DeLauer",
+     "model_views": 1081927,
+     "model_outlier": 11.5
+    }
+   ]
+  },
+  {
+   "kind": "concepts",
+   "name": "THUMBNAIL CONCEPTS",
+   "items": [
+    {
+     "name": "Concept A",
+     "text": "90% FAKE",
+     "describe": "Max holding the product, red X over the label.",
+     "vids": [
+      "dEsymRq-pAE",
+      "9zTwRW1Tm2g",
+      "rKMkxPs1GvY"
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "repackage",
+   "name": "ALREADY COVERED — REPACKAGE",
+   "items": [
+    {
+     "mine_vid": "6jO0lFofRJk",
+     "mine_title": "Losing Belly Fat Is Easy, Actually (Once You Understand Insulin)",
+     "mine_views": 76063,
+     "mine_age": "1 month ago",
+     "their_vid": "4znhpkAP40k",
+     "their_channel": "Steak and Butter Gal",
+     "their_title": "The FASTEST Way to Shrink Visceral Fat in 2026 (Without Fasting)",
+     "their_outlier": 2.0,
+     "sugg": "Same mechanism, use the 'FASTEST way ... (Without X)' packaging."
+    }
+   ]
+  },
+  {
+   "kind": "log",
+   "name": "COVERAGE LOG",
+   "rows": [
+    [
+     "Search",
+     "Tool",
+     "Returned",
+     "New qualifiers"
+    ],
+    [
+     "pool:folder 90d",
+     "algrow",
+     "476",
+     "210"
+    ]
+   ],
+   "lines": [
+    "Tools: Algrow up, TubeAI up, vidIQ up.",
+    "Stop rule: last 10 searches found 0 new qualifiers."
+   ]
+  }
+ ]
+}
