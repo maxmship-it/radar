@@ -1,0 +1,50 @@
+[
+ {
+  "tool": "mcp__vidIQ__vidiq_balance",
+  "input": {}
+ },
+ {
+  "tool": "mcp__TubeAI__workspace_account",
+  "input": {}
+ },
+ {
+  "tool": "mcp__Algrow__get_folder",
+  "input": {
+   "folder": "Radar pool"
+  }
+ },
+ {
+  "tool": "mcp__Algrow__search_viral_videos",
+  "input": {
+   "search": "carnivore diet",
+   "content_type": "longform",
+   "uploaded_within_days": 30,
+   "min_outlier_score": 2,
+   "min_video_views": 50000,
+   "per_page": 5
+  }
+ },
+ {
+  "tool": "mcp__TubeAI__explore_videos",
+  "input": {
+   "search": "carnivore",
+   "minDate": "2026-10-20",
+   "minDuration": 181,
+   "minOutlier": 2,
+   "minViews": 50000,
+   "limit": 5,
+   "fields": [
+    "video_id",
+    "title",
+    "view_count",
+    "outlier_multiplier",
+    "published_at",
+    "channel_id",
+    "channel_name",
+    "channel_subscribers",
+    "duration_seconds",
+    "channel_niche"
+   ]
+  }
+ }
+]
