@@ -1,0 +1,65 @@
+[
+ {
+  "title": "Protein Slop Is Everywhere...",
+  "thumb_words": "PROTEIN SLOP",
+  "image_line": "You deadpan in front of a wall of protein cereal, chips, cookies and bars",
+  "model_vid": "4GHlsRjtLPQ"
+ },
+ {
+  "title": "The High Protein Scam Is INSANE...",
+  "thumb_words": "SCAMS",
+  "image_line": "You behind a table of protein Oreos, Doritos and Pop-Tarts, one small word top left",
+  "model_vid": "bj3s7nWHQy8"
+ },
+ {
+  "title": "\"High Protein\" Food Exposed: You Won't Buy It Ever Again...",
+  "thumb_words": "IT'S CANDY",
+  "image_line": "Protein bar split open beside a candy bar split open, same inside, big red words",
+  "model_vid": "I-A7ahhWO2s",
+  "depends": "Needs a real label comparison of a protein bar against a candy bar."
+ },
+ {
+  "title": "I Only Ate \"High Protein\" Junk Food For [number] Days (My Blood Work Shocked Me)",
+  "thumb_words": "[number]g PROTEIN",
+  "image_line": "You eating from a table stacked with protein chips, cookies and cereal boxes",
+  "model_vid": "aMwVRVz4R3k",
+  "depends": "Experiment format. Needs the real days, real protein total and real blood work."
+ },
+ {
+  "title": "I Tested \"High Protein\" Junk Foods (The Labels Are Lying)",
+  "thumb_words": "ABSOLUTE SLOP",
+  "image_line": "You arms wide over a shelf of protein-labeled boxes, soft white text across the middle",
+  "model_vid": "fT4EBZKdk08",
+  "depends": "Needs a real test of what is in them against the label."
+ },
+ {
+  "title": "It's Official: Everything Is \"High Protein\" Now",
+  "thumb_words": "(no words)",
+  "image_line": "You head in hand at a desk covered in protein-labeled snack boxes, moody and no text",
+  "model_vid": "QME9W1RdkGU"
+ },
+ {
+  "title": "The Snack Aisle Is Completely F*d",
+  "thumb_words": "[number]g PROTEIN CANDY",
+  "image_line": "Your worried face beside a snack aisle shelf, red news alert banner across the bottom",
+  "model_vid": "BWNOdHB8TKA"
+ },
+ {
+  "title": "I Tested The Internet's Most Hyped \"High Protein\" Foods",
+  "thumb_words": "(no words)",
+  "image_line": "You peeking out from behind a counter crowded with every viral protein product",
+  "model_vid": "lSKCswXJg18"
+ },
+ {
+  "title": "STOP Buying \"High Protein\" Food (It's Keeping You Fat)",
+  "thumb_words": "THE PROTEIN TRAP",
+  "image_line": "Shopper pushing a cart piled with protein boxes down an aisle, bold stacked text left",
+  "model_vid": "wGT4drLa4e0"
+ },
+ {
+  "title": "They Put \"Protein\" On Cereal. We're Being Lied To.",
+  "thumb_words": "\"WE'RE BEING LIED TO\"",
+  "image_line": "You at a kitchen table pointing at a box of protein cereal, arrow at the word protein",
+  "model_vid": "_xTlBsdV9zg"
+ }
+]

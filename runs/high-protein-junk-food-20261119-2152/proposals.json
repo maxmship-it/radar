@@ -1,0 +1,91 @@
+[
+ {
+  "kind": "topic_names",
+  "text": "Save the names for 'high protein junk food': high protein, protein bar, protein snack, protein chips, protein cereal, protein cookie, protein scam, protein slop, protein junk, protein products, protein label, protein craze, protein obsession, protein trend, protein hype, protein ice cream, protein pasta, protein popcorn, protein shake, added protein, protein marketing, protein everything, protein lie",
+  "line": "high protein junk food: high protein, protein bar, protein snack, protein chips, protein cereal, protein cookie, protein scam, protein slop, protein junk, protein products, protein label, protein craze, protein obsession, protein trend, protein hype, protein ice cream, protein pasta, protein popcorn, protein shake, added protein, protein marketing, protein everything, protein lie",
+  "n": 1
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Noel Deyzel (@NoelDeyzel) to the watch list: 2 on-topic outliers this run",
+  "handle": "@NoelDeyzel",
+  "channel_id": "UCMp-0bU-PA7BNNR-zIvEydA",
+  "bucket": "EXPOS\u00c9",
+  "n": 2
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Calvin Landis (@CalvinEatsClean) to the watch list: 2 on-topic outliers this run",
+  "handle": "@CalvinEatsClean",
+  "channel_id": "UCJYwzBR9WB8L81XvvKWxGmQ",
+  "bucket": "EXPOS\u00c9",
+  "n": 3
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add BBC World Service (@BBCWorldService) to the watch list: 2 on-topic outliers this run",
+  "handle": "@BBCWorldService",
+  "channel_id": "UCQXHTFnQYFTqN0MqmNh9EIA",
+  "bucket": "EXPOS\u00c9",
+  "n": 4
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Jacob Zemer (@jacobzemer1) to the watch list: 2 on-topic outliers this run",
+  "handle": "@jacobzemer1",
+  "channel_id": "UCejc_DWS08-8zN28Utx3A0g",
+  "bucket": "EXPOS\u00c9",
+  "n": 5
+ },
+ {
+  "kind": "pool",
+  "text": "Add 30 channels with on-topic outliers to the Algrow 'Radar pool' folder: Noel Deyzel, WOOLWORTHS SA, James Li, Renaissance Periodization, The Takedown Twins, Logan Talks Health, Coach Kamath, Britt Farley, Epicurious, SouthpawHuncho, Ryan Daniel Moran, Jonatan Andersson...",
+  "channel_ids": [
+   "UCMp-0bU-PA7BNNR-zIvEydA",
+   "UC61fRBx8yHY3yBUnTyDXQ_A",
+   "UCV9Q7hKsPHf82RfoXWBK5uQ",
+   "UCfQgsKhHjSyRLOp9mnffqVg",
+   "UC0QpAu2GqDaor4I9_pl7I7w",
+   "UCAoReg949xEl6uG10BSvKlQ",
+   "UC3peb43RaA_CobmztuCPdDA",
+   "UCC5Fjzq8ZCrLowpW8AVQh4A",
+   "UCcjhYlL1WRBjKaJsMH_h7Lg",
+   "UCvHjsxzYBrrBHMSutzoWJFw",
+   "UCVneetxSKb5lwa2_6c-qO8Q",
+   "UCBYO23LeP_temuyKN42M2KQ",
+   "UCjMAdCzKod0-bGEJUJWHNjw",
+   "UCwQnoax3HWID1WOzZ4mqLPQ",
+   "UCJVrIpqCDb6kyp9FocdsDOQ",
+   "UCzpCc5n9hqiVC7HhPwcIKEg",
+   "UCsNvbTciFMDX_vY-Wen56Cg",
+   "UCjckmOaOD7Mg0U-78bOwbog",
+   "UC4nDQr6bd7oi4VULV53maqg",
+   "UCsriTAn_a_8VU1Nv1bxTNSw",
+   "UCrAd0Ezs-huOm7sW4G89L6A",
+   "UCQXHTFnQYFTqN0MqmNh9EIA",
+   "UC_Lnb8ZHqqgLbp-7hltuT9w",
+   "UC7uiwN2VFwaUwGDyjTOPZpg",
+   "UCejc_DWS08-8zN28Utx3A0g",
+   "UCCjG8NtOig0USdrT5D1FpxQ",
+   "UC0dUztXkolz29wOeUmFuNEg",
+   "UC_VEcCqpWhGkiI8EntU9MRw",
+   "UCDzIOwRb0fzzNxjU2beUbLg",
+   "UCO5catifQh9lzCayCm0ABug"
+  ],
+  "n": 6
+ },
+ {
+  "kind": "drop",
+  "text": "Drop the algrow search 'carnivore diet': 6 runs, 18 rows, nothing on-topic",
+  "tool": "algrow",
+  "query": "carnivore diet",
+  "n": 7
+ },
+ {
+  "kind": "drop",
+  "text": "Drop the tubeai search 'carnivore': 6 runs, 6 rows, nothing on-topic",
+  "tool": "tubeai",
+  "query": "carnivore",
+  "n": 8
+ }
+]
