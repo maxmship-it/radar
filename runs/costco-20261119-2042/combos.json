@@ -1,0 +1,67 @@
+[
+ {
+  "title": "Costco Exposed: You Won't Shop Here Ever Again...",
+  "thumb_words": "EXPOSED",
+  "image_line": "You holding a raw Costco steak to camera, white arrow down at it, Costco sign behind you",
+  "model_vid": "jyup7P40p_w"
+ },
+ {
+  "title": "Don't Renew Your Costco Membership Until You Watch This",
+  "thumb_words": "COSTCO IN TROUBLE",
+  "image_line": "Costco aisle taped off with yellow caution tape, shoppers staring, news banner along the bottom",
+  "model_vid": "bqhSQhuYOHs"
+ },
+ {
+  "title": "In Case You Don't Believe What Costco Is Doing To Your Food...",
+  "thumb_words": "BANNED IN EUROPE",
+  "image_line": "Costco food aisle behind do-not-cross tape, you in the corner holding a Kirkland pack",
+  "model_vid": "EEte-ztogX8",
+  "depends": "Only if the video covers a Costco food or ingredient that is banned in Europe."
+ },
+ {
+  "title": "[number] Weird Facts About Costco's Food No Shopper Really Knows",
+  "thumb_words": "WATCH BEFORE GOING",
+  "image_line": "Wide Costco warehouse shot, meat and food pallets up front, small label banner bottom left",
+  "model_vid": "2zE1Rp9-2fw"
+ },
+ {
+  "title": "I Tested Ground Beef From Costco, Walmart And [number] More Stores (These FAILED)",
+  "thumb_words": "FAKE MEAT RIPOFF",
+  "image_line": "Three ground beef packs side by side with store logos and price tags, red warning bar",
+  "model_vid": "TUWAEUYAER8",
+  "depends": "Needs a real side-by-side test. This is the experiment format."
+ },
+ {
+  "title": "Who REALLY Makes Costco's Kirkland Meat?",
+  "thumb_words": "THEY'RE HIDING THIS",
+  "image_line": "You pointing at camera between a blurred Costco sign and a Kirkland Signature label",
+  "model_vid": "pAq5UcD9wp0",
+  "depends": "Needs the named suppliers behind Kirkland meat."
+ },
+ {
+  "title": "Don't Buy Costco Meat Until You Watch This",
+  "thumb_words": "\"THIS IS SHOCKING\"",
+  "image_line": "Wide shot of the Costco meat case packed with red trays, quote banner across the bottom",
+  "model_vid": "Fu6UlyN5p4Q"
+ },
+ {
+  "title": "Why Is Costco's Meat So Cheap? The Hidden Truth",
+  "thumb_words": "IS COSTCO LYING?",
+  "image_line": "Hand holding a Kirkland beef pack in the aisle, red arrow at the label, warning banner",
+  "model_vid": "q56ijXKMVfw"
+ },
+ {
+  "title": "Why Costco's Rotisserie Chicken Never Gets More Expensive",
+  "thumb_words": "THE [price] SECRET",
+  "image_line": "Factory line of rotisserie chickens, one in a Costco bag up front, red arrow pointing at it",
+  "model_vid": "Hk05OO7l218",
+  "depends": "Check the price before it goes on the thumbnail."
+ },
+ {
+  "title": "You're Buying The Wrong Meat At Costco (Buy This Instead)",
+  "thumb_words": "BETTER THAN RIBEYE",
+  "image_line": "You holding one marbled Kirkland cut with a price sticker, yellow label and arrow",
+  "model_vid": "_Lxo3cpx7LE",
+  "depends": "Needs one named cut you would buy instead."
+ }
+]
