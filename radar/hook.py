@@ -168,6 +168,33 @@ def post(d):
                    + (f" ERROR: {meta['error']}" if meta["error"] else "")
                    + (f" NOTICES: {'; '.join(meta['notices'])}" if meta["notices"] else "")
                    + " Rows are on disk and in memory. Do not retype them.")
+    if name == "get_folder":
+        obj, _ = ingest.to_obj(resp)
+        chans = []
+
+        def walk(o):
+            if isinstance(o, list):
+                for x in o:
+                    walk(x)
+            elif isinstance(o, dict):
+                cid = o.get("channel_id") or o.get("id")
+                if isinstance(cid, str) and cid.startswith("UC") and len(cid) == 24:
+                    chans.append(o)
+                else:
+                    for v in o.values():
+                        walk(v)
+        walk(obj)
+        folder = str(inp.get("folder"))
+        cross = folder == "Radar cross-niche"
+        for c in chans:
+            cid = c.get("channel_id") or c.get("id")
+            con.execute("INSERT OR IGNORE INTO channels(channel_id) VALUES(?)", (cid,))
+            con.execute("UPDATE channels SET name=COALESCE(?,name), handle=COALESCE(?,handle), subs=COALESCE(?,subs), pool=CASE WHEN ? THEN pool ELSE 1 END, cross_niche=CASE WHEN ? THEN COALESCE(cross_niche,'yes') ELSE cross_niche END WHERE channel_id=?",
+                        (c.get("name") or c.get("channel_name") or c.get("title"), c.get("handle") or c.get("channel_handle"),
+                         c.get("subscriber_count") or c.get("subscribers"), cross, cross, cid))
+        if chans:
+            store.kv_set(con, f"folder_synced:{folder}", time.time())
+        summary = f"RADAR RECEIPT: folder '{folder}' has {len(chans)} channels. All filed in memory."
     # a credit, quota or billing warning stops that tool for the run. A routine throttle does not.
     blob = " ".join(meta["notices"]) + " " + (meta["error"] or "")
     if run and re.search(r"credit_notice|billing|charged|\$0\.\d\d|quota exceeded|suspend", blob, re.I):
@@ -176,7 +203,7 @@ def post(d):
         store.save_state(run, st)
     con.commit()
     con.close()
-    if summary and run and not os.environ.get("RADAR_SHOW_ROWS"):
+    if summary and (run or name == "get_folder") and not os.environ.get("RADAR_SHOW_ROWS"):
         out({"hookSpecificOutput": {"hookEventName": "PostToolUse", "updatedMCPToolOutput": summary}})
 
 
