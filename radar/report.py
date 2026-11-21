@@ -138,7 +138,7 @@ def proposals(st, con, brd):
         props.append({"kind": "pool", "text": f"Add {len(newpool)} channels with on-topic outliers to the Algrow 'Radar pool' folder: " + ", ".join(c["name"] or "?" for _, c in newpool[:12]) + ("..." if len(newpool) > 12 else ""),
                       "channel_ids": [cid for cid, _ in newpool]})
     for y in yield_rows(con):
-        if y["runs"] >= 3 and y["on_topic"] == 0 and y["kind"] == "keyword":
+        if y["runs"] >= 3 and y["on_topic"] == 0 and y["kind"] == "keyword" and (y["tool"], (y["query"] or "").lower()) not in C.PREFLIGHT_QUERIES:
             props.append({"kind": "drop", "text": f"Drop the {y['tool']} search '{y['query']}': {y['runs']} runs, {y['rows']} rows, nothing on-topic", "tool": y["tool"], "query": y["query"]})
     for i, p in enumerate(props, 1):
         p["n"] = i

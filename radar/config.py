@@ -19,6 +19,8 @@ PAGE_DRY_BELOW = 3           # stop paging a query when a page adds fewer than t
 ROUND_DRY_BELOW = 2          # stop rounds when a round adds fewer than this many new on-topic outliers
 MAX_PAGES = 12
 MIN_SEARCH_VIEWS = 50_000    # no branch of the outlier rule passes below 50,000 views
+# Preflight known-answer searches. They only prove a tool is alive, so they are never judged on topic or proposed for dropping.
+PREFLIGHT_QUERIES = {("algrow", "carnivore diet"), ("tubeai", "carnivore")}
 
 # Only these connector tools may run inside the Radar project. Everything else is refused by the hook.
 ALLOW = {

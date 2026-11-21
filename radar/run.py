@@ -26,7 +26,7 @@ def _key(c):
 
 # ---------- start / queue ----------
 def start(spec):
-    """spec: {subject, names[], algrow[], tubeai[], vidiq[], youtube[], bucket?, drafts[]?, window_days?}"""
+    """spec: {subject, names[], algrow[], tubeai[], vidiq[], youtube[], bucket?, drafts[]?, window_days?, channels[]? (@handles to read this run)}"""
     con = store.db()
     active = store.active_run()
     if active and store.run_state(active).get("phase") not in (None, "done"):
@@ -154,6 +154,9 @@ def free_phase(st, con):
     for bucket, handles in subjects.watchlist().items():
         for h in handles:
             keys[h] = 150
+    # channels Max named in this request (spec "channels"): read for this run only, the watch list is not changed
+    for h in st["spec"].get("channels") or []:
+        keys[h] = 150
     con.commit()
     all_ups = yt.uploads_many(keys, threads=10, deadline=time.time() + 240)
     scanned, found = len(all_ups), 0
@@ -385,7 +388,10 @@ def snowball_calls(st, con):
     if st["tools"].get("Algrow") == "up":
         if n_like < min(6, len(fresh)) and not st.get("like_note"):
             st["like_note"] = True
-            st["notes"].append(f"Algrow 'videos like this one' was limited to {n_like} seeds: {limits.like_used_today(con)} of the free 40 a day were already used.")
+            used_day = limits.like_used_today(con)
+            why = (f"the daily stop of {C.ALGROW_LIKE_PER_DAY} was reached ({used_day} used today)" if C.ALGROW_LIKE_PER_DAY - used_day <= n_like
+                   else f"this run's cap of {C.ALGROW_LIKE_PER_RUN} was already used")
+            st["notes"].append(f"Algrow 'videos like this one' was limited to {n_like} more seeds: {why}.")
         for v in fresh[:n_like]:
             out.append(call("Algrow", "search_viral_videos", video_url=f"https://www.youtube.com/watch?v={v['id']}", content_type="longform",
                             uploaded_within_days=win, min_video_views=C.MIN_SEARCH_VIEWS, per_page=50))
