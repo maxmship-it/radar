@@ -131,24 +131,43 @@ def junk_reason(v):
     return None
 
 
-def new_terms(titles, used, k=6):
-    """Search terms for the next round, built from words in the outlier titles found so far."""
+def on_subject(term, names):
+    """True when the term shares a real word with the subject's names (stop words do not count)."""
+    nw = {w for n in names for w in words(n) if w not in STOP and len(w) > 2}
+    return any(w in nw for w in words(term))
+
+
+def new_terms(titles, used, k=6, names=None):
+    """Search terms for the next round, built from words in the outlier titles found so far.
+    Counted by stem, written as the title wrote them, pairs only from words that sat next to each other,
+    and (when names are given) only terms that touch the subject, so rounds do not drift into the titles' other topics."""
     from collections import Counter
     usedw = set()
     for u in used:
         usedw.update(words(u))
-    uni, bi = Counter(), Counter()
+    uni, bi, shown = Counter(), Counter(), {}
     for t in titles:
-        ws = [w for w in words(t) if w not in STOP and len(w) > 2 and not w.isdigit()]
-        for w in set(ws):
-            uni[w] += 1
-        for a, b in set(zip(ws, ws[1:])):
-            bi[(a, b)] += 1
+        raw = re.findall(r"[a-zA-Z0-9']+", (t or "").lower())
+        keep = [(stem(w), w) for w in raw]
+        ok = [x for x in keep if x[0] not in STOP and len(x[0]) > 2 and not x[0].isdigit()]
+        for s, w in ok:
+            shown.setdefault(s, w)
+        for s in {x[0] for x in ok}:
+            uni[s] += 1
+        pairs = set()
+        for (s1, w1), (s2, w2) in zip(keep, keep[1:]):
+            if all(s not in STOP and len(s) > 2 and not s.isdigit() for s in (s1, s2)):
+                pairs.add((s1, s2))
+                shown.setdefault((s1, s2), f"{w1} {w2}")
+        for p in pairs:
+            bi[p] += 1
     out = []
     for (a, b), n in bi.most_common(40):
         if n >= 2 and not (a in usedw and b in usedw):
-            out.append(f"{a} {b}")
+            out.append(shown[(a, b)])
     for w, n in uni.most_common(40):
-        if n >= 3 and w not in usedw and not any(w in t.split() for t in out):
-            out.append(w)
+        if n >= 3 and w not in usedw and not any(shown[w] in t.split() for t in out):
+            out.append(shown[w])
+    if names:
+        out = [t for t in out if on_subject(t, names)]
     return out[:k]

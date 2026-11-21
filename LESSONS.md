@@ -43,3 +43,9 @@ What broke, and what fixed it. Radar reads this at the start of every run. Where
 
 ## Nov 21, 2026 (American beef run)
 - One video whose YouTube check kept erroring was retried on every `next`, about 30 seconds each time, and burned 3 minutes of the 30 minute budget. FIX: a check that errored once this run counts as finished for this run (`run.verify_and_filter`).
+- Half of the beef run's 810 YouTube checks were videos dated outside the 90 day window, so they could never become cards. FIX: no YouTube check for a video dated more than 14 days outside the window; no all-time YouTube sort and no two-year vidIQ search on windows of 100 days or less (`run.verify_and_filter`, `run.free_phase`, `run.keyword_calls`).
+- "62 candidates could not be checked" was really 1. The other 61 were skipped on purpose (too short, junk, judged off). FIX: the PARTIAL count leaves those out and names any video YouTube errored on (`board.partial_reasons`). An errored check gets one re-check, capped at 90 seconds, before the last labels.
+- Round search terms drifted into the titles' politics ("zero sympathy", "fed american", "rancher furiou"). FIX: pairs only from words that sat side by side, written as the title wrote them, and only terms that share a word with the subject's names. Algrow subject tags get the same test (`subjects.new_terms`, `subjects.on_subject`).
+- The carnivore preflight checks were labeled every run and proposed for dropping. FIX: they are never candidates and never proposed (`C.PREFLIGHT_QUERIES`).
+- The Algrow "videos like this one" note blamed the daily cap when the per-run cap was the limit. FIX: it names the real limit.
+- A 90 day board said "LAST 100 DAYS" and could show an empty older page. FIX: the header follows the window.

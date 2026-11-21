@@ -36,6 +36,14 @@ def start(spec):
         con.commit()
         return {"queued": True, "behind": active, "position": len(q),
                 "say": f"Run '{active}' is still going. '{spec['subject']}' is queued and starts when it finishes. Runs never overlap."}
+    chans = []
+    for h in spec.get("channels") or []:
+        h = re.sub(r"^https?://(www\.)?youtube\.com/", "", str(h).strip()).split("/")[0].replace(" ", "")
+        if h and not h.startswith(("@", "UC")):
+            h = "@" + h
+        if h:
+            chans.append(h)
+    spec["channels"] = chans
     slug = re.sub(r"[^a-z0-9]+", "-", spec["subject"].lower()).strip("-")
     run = f"{slug}-{datetime.datetime.now().strftime('%Y%m%d-%H%M')}"
     for t in spec.get("tubeai", []):
@@ -128,7 +136,8 @@ def free_phase(st, con):
         q, mode, depth = args
         rows, err = yt.search(q, mode, depth)
         return q, mode, rows, err
-    jobs = [(q, m, d) for q in queries for m, d in (("views_month", 30), ("views_year", 50), ("views", 40))]
+    modes = (("views_month", 30), ("views_year", 50)) + ((("views", 40),) if win > 365 else ())
+    jobs = [(q, m, d) for q in queries for m, d in modes]
     with cf.ThreadPoolExecutor(6) as ex:
         results = list(ex.map(one, jobs))
     for q, mode, rows, err in results:
@@ -159,6 +168,9 @@ def free_phase(st, con):
         keys[h] = 150
     con.commit()
     all_ups = yt.uploads_many(keys, threads=10, deadline=time.time() + 240)
+    for h in st["spec"].get("channels") or []:
+        if h not in all_ups:
+            st["notes"].append(f"Named channel {h} could not be read from YouTube this run.")
     scanned, found = len(all_ups), 0
     for key, ups_ in all_ups.items():
         for u in ups_:
@@ -205,7 +217,7 @@ def keyword_calls(st, algrow=None, tubeai=None, vidiq=None, recent=False):
                             sortBy="view_count", limit=25, fields=TUBE_FIELDS))
     if up.get("vidIQ") == "up":
         for q in (vidiq if vidiq is not None else (sp.get("vidiq") or [])[:3]):
-            out.append(call("vidIQ", "vidiq_outliers", keyword=q, contentType="long", publishedWithin="threeMonths" if recent else "twoYears",
+            out.append(call("vidIQ", "vidiq_outliers", keyword=q, contentType="long", publishedWithin="threeMonths" if (recent or win <= 100) else "twoYears",
                             minViews=C.MIN_SEARCH_VIEWS, limit=50, language="en"))
     return out
 
@@ -279,7 +291,10 @@ def candidate_ids(st, con, cross=False):
         q = (HITS + " AND (s.kind IN ('format','thumb') OR (s.kind='pool' AND s.query LIKE 'Radar cross-niche%'))")
         return [r["id"] for r in con.execute(q, (run,))]
     ids = set(st.get("extra_ids") or [])
-    for r in con.execute(HITS + " AND s.kind IN ('keyword','like','subject') AND s.tool!='youtube'", (run,)):
+    pre = [r["cache_key"] for r in con.execute("SELECT tool, query, cache_key, params FROM searches WHERE run=? AND kind='keyword'", (run,))
+           if (r["tool"], (r["query"] or "").lower()) in C.PREFLIGHT_QUERIES and ('"per_page": 5,' in (r["params"] or "") or '"limit": 5,' in (r["params"] or ""))]
+    skip = (" AND s.cache_key NOT IN (%s)" % ",".join("?" * len(pre))) if pre else ""
+    for r in con.execute(HITS + " AND s.kind IN ('keyword','like','subject') AND s.tool!='youtube'" + skip, (run, *pre)):
         ids.add(r["id"])
     for r in con.execute(HITS.replace("h.video_id id", "v.id, v.title").replace("WHERE", "JOIN videos v ON v.id=h.video_id WHERE")
                          + " AND s.kind='pool' AND s.query NOT LIKE 'Radar cross-niche%'", (run,)):
@@ -301,6 +316,7 @@ def verify_and_filter(st, con, cross=False, budget_s=420):
         return 0
     qm = ",".join("?" * len(ids))
     vids = {r["id"]: dict(r) for r in con.execute(f"SELECT * FROM videos WHERE id IN ({qm})", ids)}
+    too_old = _date((C.CROSS_DAYS if cross else st["window_days"]) + 14)
     need = []
     for vid, v in vids.items():
         if v["yt_status"] in ("ok", "gone", "error") and (v["yt_checked_at"] or 0) >= st["started_at"]:
@@ -313,6 +329,9 @@ def verify_and_filter(st, con, cross=False, budget_s=420):
         if lab and lab["label"] != "on":
             continue        # already judged off for this subject, with a reason on record: nothing to re-check
         known = con.execute("SELECT 1 FROM known_outliers WHERE video_id=? AND subject=?", (vid, st["subject"])).fetchone()
+        # a video dated well outside the window can never be a card: no YouTube check (half the beef run's checks were these)
+        if not known and v.get("upload_date") and v["upload_date"] < too_old:
+            continue
         if (has_tool_pass or no_mult_yet or known) and not subjects.junk_reason(v):
             need.append(vid)
     con.commit()
@@ -397,7 +416,8 @@ def snowball_calls(st, con):
                             uploaded_within_days=win, min_video_views=C.MIN_SEARCH_VIEWS, per_page=50))
         tags = []
         for v in tops:
-            if v.get("subject_tag") and v["subject_tag"] not in tags and v["subject_tag"] not in st["used_terms"]:
+            if (v.get("subject_tag") and v["subject_tag"] not in tags and v["subject_tag"] not in st["used_terms"]
+                    and subjects.on_subject(v["subject_tag"], st["spec"].get("names") or [st["subject"]])):
                 tags.append(v["subject_tag"])
         for t in tags[:4]:
             st["used_terms"].append(t)
@@ -606,7 +626,7 @@ def _advance(st, con):
                 st["notes"].append("Stopped at the 5 round limit, not on dry results.")
                 _goto(st, "label2")
                 continue
-            terms = subjects.new_terms([v["title"] for v in on_topic(st, con)], st["used_terms"], 6)
+            terms = subjects.new_terms([v["title"] for v in on_topic(st, con)], st["used_terms"], 6, names=st["spec"].get("names") or [st["subject"]])
             st["used_terms"] += terms
             if not terms:
                 st["stop_reason"] = "dry results: the outlier titles hold no search words that have not been searched"
@@ -623,6 +643,14 @@ def _advance(st, con):
             for r in con.execute("SELECT video_id FROM known_outliers WHERE subject=?", (st["subject"],)):
                 if r["video_id"] not in st["extra_ids"]:
                     st["extra_ids"].append(r["video_id"])
+            if not st.get("error_retry"):
+                st["error_retry"] = True
+                errd = [r["id"] for r in con.execute("SELECT id, views FROM videos WHERE yt_status='error' AND yt_checked_at>=?", (st["started_at"],))
+                        if r["id"] in set(candidate_ids(st, con)) and any(rule.passes(x, r["views"]) for x in store.mults(con, r["id"]).values())]
+                if errd:
+                    con.executemany("UPDATE videos SET yt_checked_at=NULL WHERE id=?", [(i,) for i in errd[:5]])
+                    con.commit()
+                    verify_and_filter(st, con, budget_s=90)
             left = verify_and_filter(st, con)
             q = label_queue(st, con)
             if q:

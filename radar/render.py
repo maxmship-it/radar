@@ -164,7 +164,7 @@ def render_html(board):
             meta = "Other niches · formats and thumbnail ideas that transfer"
         for i in range(0, n, 4):
             pages.append((sec["name"], meta, f'<div class="grid">{"".join(card(d) for d in sec["items"][i:i + 4])}</div>'))
-        if n == 0:
+        if n == 0 and not (sec["key"] == "older" and (board.get("window_days") or 999) <= 100):
             pages.append((sec["name"], "0 outliers in this window", '<div class="grid"></div>'))
     total = len(pages)
     out = "".join(f'<div class="page">{header(p[0], p[1], board["date"], i, total, board.get("partial"))}{p[2]}{foot()}</div>' for i, p in enumerate(pages, 1))

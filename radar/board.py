@@ -81,13 +81,23 @@ def partial_reasons(st, con):
     if not ok("tool='youtube' AND kind='uploads'"):
         why.append("the pool and watch-list upload scan did not run")
     from . import run as runmod
-    unver = 0
+    unver, errored = 0, []
     ids = runmod.candidate_ids(st, con)
+    old_cut = (datetime.date.today() - datetime.timedelta(days=st["window_days"] + 14)).isoformat()
     for v in (con.execute(f"SELECT * FROM videos WHERE id IN ({','.join('?' * len(ids))})", ids) if ids else []):
-        if (v["yt_status"] not in ("ok", "gone") or (v["yt_checked_at"] or 0) < st["started_at"]) and any(rule.passes(x, v["views"]) for x in store.mults(con, v["id"]).values()):
-            unver += 1
+        if not ((v["yt_status"] not in ("ok", "gone") or (v["yt_checked_at"] or 0) < st["started_at"]) and any(rule.passes(x, v["views"]) for x in store.mults(con, v["id"]).values())):
+            continue
+        # skipped on purpose, not failures: junk, judged off, too short, or dated outside the window
+        if subjects.junk_reason(dict(v)) or (v["duration_s"] and not rule.is_longform(v["duration_s"])) or (v["upload_date"] and v["upload_date"] < old_cut):
+            continue
+        lab = con.execute("SELECT label FROM labels WHERE video_id=? AND subject=?", (v["id"], st["subject"])).fetchone()
+        if lab and lab["label"] != "on":
+            continue
+        unver += 1
+        if v["yt_status"] == "error":
+            errored.append(f"{v['id']} '{(v['title'] or '')[:60]}' ({v['views'] or 0:,} views)")
     if unver:
-        why.append(f"{unver} candidates could not be checked on YouTube")
+        why.append(f"{unver} candidates could not be checked on YouTube" + (f", YouTube errored on: {'; '.join(errored[:5])}" if errored else ""))
     if not (st.get("stop_reason") or "").startswith("dry"):
         why.append("the search stopped on " + (st.get("stop_reason") or "an unfinished run") + ", not on dry results")
     return why
@@ -115,7 +125,8 @@ def build(st, con):
                           "language": v["language"], "niche": v.get("cross_niche"), "pattern": v.get("pattern"), "yt_checked_at": v["yt_checked_at"]})
             con.execute("INSERT OR REPLACE INTO cards(run,card_no,video_id,section) VALUES(?,?,?,?)", (st["run"], no, v["id"], k))
         if items or k != "cross":
-            sections.append({"key": k, "name": SECTION_NAME[k], "items": items})
+            name = f"LAST {min(st['window_days'], C.RECENT_DAYS)} DAYS" if k == "recent" else SECTION_NAME[k]
+            sections.append({"key": k, "name": name, "items": items})
     combos = []
     p = store.run_dir(st["run"]) / "combos.json"
     if p.exists():

@@ -36,6 +36,8 @@ Each tool has its own dialect:
 - `vidiq`: the 3 strongest descriptions of what the video is about. It matches meaning, not only titles. 5 credits a call.
 - `youtube`: every name, as people type it. Free. This is the safety net for 3 to 8 minute videos.
 - `names`: used to match titles from the pool, upload lists and memory. Include every wording.
+- `channels`: optional @handles Max names in the request (competitors, a creator he says had big outliers). Their uploads are read for this run only. The watch list is not changed.
+- `window_days`: optional. Leave it out for the full board (last 100 days, then 100 days to 18 months). Set it when Max asks for a shorter window.
 
 `python -m radar start --spec runs/<subject>-spec.json`
 
