@@ -300,7 +300,7 @@ def verify_and_filter(st, con, cross=False, budget_s=420):
     vids = {r["id"]: dict(r) for r in con.execute(f"SELECT * FROM videos WHERE id IN ({qm})", ids)}
     need = []
     for vid, v in vids.items():
-        if v["yt_status"] in ("ok", "gone") and (v["yt_checked_at"] or 0) >= st["started_at"]:
+        if v["yt_status"] in ("ok", "gone", "error") and (v["yt_checked_at"] or 0) >= st["started_at"]:
             continue
         m = store.mults(con, vid)
         has_tool_pass = any((rule.cross_passes(x, v["views"], v["duration_s"]) if cross else rule.passes(x, v["views"])) for x in m.values())
@@ -334,7 +334,8 @@ def verify_and_filter(st, con, cross=False, budget_s=420):
     if nomult and not cross:
         yt.add_recent30(nomult)
     for i in need:
-        if not (fresh[i]["yt_status"] in ("ok", "gone") and (fresh[i]["yt_checked_at"] or 0) >= st["started_at"]):
+        # an "error" already retried this run is finished for this run; retrying it every `next` stalled the Nov 21 beef run
+        if not (fresh[i]["yt_status"] in ("ok", "gone", "error") and (fresh[i]["yt_checked_at"] or 0) >= st["started_at"]):
             left += 1
     return left
 

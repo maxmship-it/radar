@@ -1,0 +1,12 @@
+[
+ {"title": "Your Beef Has Changed... (And Nobody Told You)", "thumb_words": "CHECK THE CODE", "image_line": "Three store ground beef packs side by side, red circle on each origin code, Max pointing", "model_vid": "yWm6pKqVxMg"},
+ {"title": "The \"Mystery Meat\" Going Into Your Ground Beef (No Label Required)", "thumb_words": "NO LABEL", "image_line": "Frozen block of imported beef beside a burger, Max's face reacting on the left", "model_vid": "LvqbNN6BszQ"},
+ {"title": "Where Is Your Beef Really From? (The Label Won't Tell You)", "thumb_words": "CHECK THE LABEL", "image_line": "Hand holding ground beef pack, yellow arrow at the Product of USA sticker", "model_vid": "a-wIz4s2Xs0"},
+ {"title": "DON'T Buy Ground Beef From These [number] Stores (And [number] You Can Trust)", "thumb_words": "DON'T BUY", "image_line": "Long supermarket beef aisle, big red DON'T BUY banner across the top", "model_vid": "R3yqib_wsAY"},
+ {"title": "I Lab Tested America's Top Ground Beef Brands. Here's What I Found.", "thumb_words": "DNA EXPOSED", "image_line": "Max holding a lab report with question marks next to a stack of ground beef packs", "model_vid": "Y3JCgH45MG4", "depends": "only if he really sends samples to a lab"},
+ {"title": "How America Ran Out Of Cattle", "thumb_words": "WHERE'S THE BEEF?", "image_line": "One lone cow in a huge empty pasture, script title on top", "model_vid": "JVH3ilCzDis"},
+ {"title": "Farm Beef vs Grocery Store Beef: What You're Really Paying For", "thumb_words": "FARM / GROCERY", "image_line": "Max in the middle, cattle and red barn on the left, supermarket front on the right", "model_vid": "gQm5_sElyXo"},
+ {"title": "Farmer Exposes What's Really Happening To American Beef", "thumb_words": "FARMER EXPOSES", "image_line": "Three panels: a real rancher, Max, and an imported beef pack, bold text across the top", "model_vid": "BOhm-uEP21o", "depends": "needs a real rancher on camera"},
+ {"title": "The 4 Companies That Control Your Beef", "thumb_words": "BIG 4", "image_line": "Max at a mic, a burger held up in front of a US flag, gold text at the bottom", "model_vid": "_4RUwp4WqHw"},
+ {"title": "Is Your Ground Beef Still American?", "thumb_words": "STILL AMERICAN?", "image_line": "Max at a kitchen table, serious face, ground beef pack in front with a flag sticker", "model_vid": "hUOyQHaPbVo"}
+]

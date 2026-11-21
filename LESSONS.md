@@ -40,3 +40,6 @@ What broke, and what fixed it. Radar reads this at the start of every run. Where
 - Algrow's "videos like this one" search (`video_url`) is capped at 40 calls a day, then $0.20 each, and every page counts. The first bacon test paged those searches and used 34 in one run. The guard stopped Algrow on the "34 of 40" notice before anything was charged. FIX: one page per seed (50 rows), at most 6 seeds a run, Radar stops at 36 a day (`radar/limits.py`, enforced in the hook). vidIQ seed searches carry more of the snowball.
 - A "heads up" limit notice must not switch a whole tool off. Only a charge, billing or quota-exceeded message does.
 - Lifting the 30 minute budget is Max's call. Radar never runs `extend` on its own.
+
+## Nov 21, 2026 (American beef run)
+- One video whose YouTube check kept erroring was retried on every `next`, about 30 seconds each time, and burned 3 minutes of the 30 minute budget. FIX: a check that errored once this run counts as finished for this run (`run.verify_and_filter`).
