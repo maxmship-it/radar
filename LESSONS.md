@@ -49,3 +49,5 @@ What broke, and what fixed it. Radar reads this at the start of every run. Where
 - The carnivore preflight checks were labeled every run and proposed for dropping. FIX: they are never candidates and never proposed (`C.PREFLIGHT_QUERIES`).
 - The Algrow "videos like this one" note blamed the daily cap when the per-run cap was the limit. FIX: it names the real limit.
 - A 90 day board said "LAST 100 DAYS" and could show an empty older page. FIX: the header follows the window.
+- Nov 21 second beef run: the subject test on round terms is still too loose. "americans choose", "begging americans", "prices sparks" and "trump's beef" passed because "american" and "price" are words in the names; "trump's beef" then paged 7 pages of general Trump politics (all labeled off). NEXT FIX (not done yet): anchor on the subject's core words only, and stop paging a query when its pages add no on-topic videos.
+- The same run's vidIQ views per hour was a median 19.6x Algrow's measured 24 hour gain on 41 videos. vidIQ VPH is not reliable for older videos. Changing the VPH source order needs Max's yes (Nov 19 decision).
