@@ -1,0 +1,12 @@
+[
+ {"title": "11 Med Students Joined A Reality Show. It Got Pulled After 1 Episode.", "thumb_words": "\"I guess\"", "image_line": "The PhD student, the senior doctor and you in the middle, his quote captioned on top", "model_vid": "OuVZGhjaI6k"},
+ {"title": "Neurosurgery PhD Joins Reality Show & Guesses A Brain Tumor On Camera", "thumb_words": "WILD GUESS", "image_line": "Red circle on the student's face, brain scan behind him, quote sticker in the corner", "model_vid": "a9g5vRVkH3Q"},
+ {"title": "The Doctor Reality Show Scandal Is Insane...", "thumb_words": "PhD", "image_line": "You center, confused, red arrows tagging the student 'PhD' and the scan 'TUMOR?'", "model_vid": "F1pyhrnd0Ko"},
+ {"title": "They Put 11 Med Students In A Real Hospital. It Went Horribly Wrong.", "thumb_words": "EXPOSED", "image_line": "Row of student faces, each with a tag label, halo over the senior doctor", "model_vid": "f7m-T6qDG7o"},
+ {"title": "The Hospital Reality Show That Lasted 1 Episode", "thumb_words": "1 EPISODE", "image_line": "Big serif title text stacked left over a dark still of the hospital set", "model_vid": "qxTCcS6aJPw"},
+ {"title": "How One Wild Guess EXPOSED Modern Medicine", "thumb_words": "EXPOSED", "image_line": "Stacked serif text with red EXPOSED, the PhD student smirking on the right", "model_vid": "KS4U6hh2uqw"},
+ {"title": "The Most Dangerous Reality Show Ever Made", "thumb_words": "THE TRUTH", "image_line": "Your shocked face beside the student, show logo top left, yellow THE TRUTH box", "model_vid": "4ObnK9FFF-4"},
+ {"title": "He Guessed. AI Would Have Known.", "thumb_words": "HE GUESSED", "image_line": "Grid of show stills top left, your reaction right, giant yellow and white text", "model_vid": "fm95MvKyB3Q", "depends": "needs the AI beats doctors at diagnosis section"},
+ {"title": "Your Doctor Had [number] Hours Of Nutrition Training", "thumb_words": "[number] HOURS", "image_line": "Doctor with tape over his mouth, two doctors either side, lightning background", "model_vid": "8gwZxhItEYU", "depends": "needs the med school nutrition training section"},
+ {"title": "Doctors Never Learn This In Med School", "thumb_words": "Just Graduated", "image_line": "Med school entrance sign, smiling grad in scrubs, 'Just Graduated' in white serif", "model_vid": "gJKNezb5aHc", "depends": "needs the med school nutrition training section"}
+]
