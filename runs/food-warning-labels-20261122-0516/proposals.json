@@ -1,0 +1,48 @@
+[
+ {
+  "kind": "topic_names",
+  "text": "Save the names for 'food warning labels': not for human consumption, warning label, warning labels, food label, food labels, Make Texas Healthy Again, SB 25, SB25, Texas food, Texas law, Texas warning, RFK, MAHA, Make America Healthy Again, banned in Europe, banned in other countries, banned ingredients, banned additives, food dye, food dyes, Red 40, Red No. 3, Red 3, artificial dyes, artificial colors, Yellow 5, food additives, food industry lawsuit, sues, sued, lawsuit, Big Food, BHA, BHT, potassium bromate, azodicarbonamide, yoga mat, bleached flour, brominated vegetable oil, titanium dioxide, banned in the EU, illegal in Europe, Louisiana",
+  "line": "food warning labels: not for human consumption, warning label, warning labels, food label, food labels, Make Texas Healthy Again, SB 25, SB25, Texas food, Texas law, Texas warning, RFK, MAHA, Make America Healthy Again, banned in Europe, banned in other countries, banned ingredients, banned additives, food dye, food dyes, Red 40, Red No. 3, Red 3, artificial dyes, artificial colors, Yellow 5, food additives, food industry lawsuit, sues, sued, lawsuit, Big Food, BHA, BHT, potassium bromate, azodicarbonamide, yoga mat, bleached flour, brominated vegetable oil, titanium dioxide, banned in the EU, illegal in Europe, Louisiana",
+  "n": 1
+ },
+ {
+  "kind": "watchlist",
+  "text": "Add Europe Hits Different (@europehitsdifferent) to the watch list: 2 on-topic outliers this run",
+  "handle": "@europehitsdifferent",
+  "channel_id": "UCRvgf8_Dvfo8Yh7EqlOreYQ",
+  "bucket": "EXPOS\u00c9",
+  "n": 2
+ },
+ {
+  "kind": "pool",
+  "text": "Add 11 channels with on-topic outliers to the Algrow 'Radar pool' folder: GROOVY REACTS, Franchesca React, Aaron Arnold Reacts: Europe, Max German, Europe Hits Different, Adam Parker, Forbes Breaking News, messyintheusa, Bite The Truth, Finality, Hidden Britian",
+  "channel_ids": [
+   "UCSvBxy8wjX4Z151c-MsYJOg",
+   "UCZ5Pawh6DvBI4sb5kcbHeUw",
+   "UCmtqFcLKBA7DnkUW03WR-4Q",
+   "UCsOkHWfiPFN3Pt7f9DwMSww",
+   "UCRvgf8_Dvfo8Yh7EqlOreYQ",
+   "UCZIutrlBErigF7sj89zQWng",
+   "UCg40OxZ1GYh3u3jBntB6DLg",
+   "UCqW-Q4PRQE5_n2vbAaC1rUg",
+   "UCDOzqUtmUBo5fwqMGWgB7qg",
+   "UC9IJKvFzG0Ul6UW8vkUhEHQ",
+   "UCXGBty_ptB5uaBGGD2tIyrw"
+  ],
+  "n": 3
+ },
+ {
+  "kind": "drop",
+  "text": "Drop the algrow search 'carnivore diet': 4 runs, 12 rows, nothing on-topic",
+  "tool": "algrow",
+  "query": "carnivore diet",
+  "n": 4
+ },
+ {
+  "kind": "drop",
+  "text": "Drop the tubeai search 'carnivore': 4 runs, 4 rows, nothing on-topic",
+  "tool": "tubeai",
+  "query": "carnivore",
+  "n": 5
+ }
+]

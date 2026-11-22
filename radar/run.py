@@ -522,7 +522,8 @@ def _advance(st, con):
         if ph == "done":
             return {"action": "done", "say": "Searching is finished. Next: `python -m radar combos-help`, write the combos, then `python -m radar board`."}
         # out of time: drop what is queued, say so, and finish with what we have
-        if out_of_time(st) and ph in ("free", "pool", "keyword", "snowball", "rounds") and not st.get("stop_reason"):
+        # the _wait phases page their searches too, so the budget must cover them (Nov 22: rounds_wait ran past 30 minutes)
+        if out_of_time(st) and ph in ("free", "pool", "keyword", "snowball", "snowball_wait", "rounds", "rounds_wait") and not st.get("stop_reason"):
             dropped = len(st["queue"])
             st["queue"] = []
             st["stop_reason"] = f"time budget ({C.TIME_BUDGET_S // 60} minutes) ran out during the {ph} step with {dropped} searches not run"

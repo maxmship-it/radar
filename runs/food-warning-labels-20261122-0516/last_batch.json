@@ -1,0 +1,12 @@
+[
+ {
+  "tool": "mcp__vidIQ__vidiq_get_videos_by_ids",
+  "input": {
+   "videoIds": [
+    "hG7eIJFRZOQ",
+    "75Md-rbrJNU",
+    "z9331MGRauA"
+   ]
+  }
+ }
+]

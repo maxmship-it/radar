@@ -1,0 +1,63 @@
+[
+ {
+  "title": "Texas Tried To Warn You About Your Food. Big Food Sued.",
+  "thumb_words": "THEY SUED",
+  "image_line": "Split cereal box: US half wears the yellow Texas warning, EU half is clean, flags on each side",
+  "model_vid": "Fn8E4jjfhVY"
+ },
+ {
+  "title": "BANNED In Europe, SOLD In America... And Now Texas Can't Even Warn You",
+  "thumb_words": "BANNED IN EUROPE?",
+  "image_line": "Grid of 4 US shoppers holding Texas-labeled snacks, bold white bar across the bottom",
+  "model_vid": "gihRBeSppZI"
+ },
+ {
+  "title": "The Warning Label Food Companies Went To Court To Hide",
+  "thumb_words": "BLOCKED IN COURT",
+  "image_line": "Warehouse aisle of US snacks, giant red and white stacked text over it like the Costco thumbnail",
+  "model_vid": "y2_seMm8T_Y"
+ },
+ {
+  "title": "\"Not Recommended For Human Consumption\": The Label You'll Never See",
+  "thumb_words": "NOT FOR HUMANS?",
+  "image_line": "Max surprised on the left, green-boxed inset of a US candy with the warning circled, US flag",
+  "model_vid": "ezgdzEi4scc"
+ },
+ {
+  "title": "I Had No Idea These 44 Ingredients Were Rejected In Europe",
+  "thumb_words": "BANNED",
+  "image_line": "US sodas and mac and cheese with a red BANNED stamp, Max shocked on the right, EU and US flags",
+  "model_vid": "z9331MGRauA"
+ },
+ {
+  "title": "Same Snack, Two Recipes: What Europe Gets vs What You Get",
+  "thumb_words": "EU VS USA",
+  "image_line": "Torn headline \"[number] INGREDIENTS IN EU VS [number] IN US\" beside a snack, skull sign",
+  "model_vid": "OpHXZo8_1vM"
+ },
+ {
+  "title": "DON'T EAT IT: The Warning Texas Wanted On Your Food",
+  "thumb_words": "DON'T EAT IT!",
+  "image_line": "Max front left, hazmat workers pouring red dye on a snack line behind, red BREAKING NEWS bar",
+  "model_vid": "fhwUkpuwH78"
+ },
+ {
+  "title": "A Federal Judge Blocked This Food Label. Here's What It Said.",
+  "thumb_words": "LABEL BLOCKED",
+  "image_line": "Police tape across a Texas grocery candy aisle, reporters and cameras, black bold bottom text",
+  "model_vid": "ceU39i2MTc4"
+ },
+ {
+  "title": "Big Food vs Texas: The Lawsuit Over What You're Allowed To Know",
+  "thumb_words": "BREAKING",
+  "image_line": "Press-conference style shot at the Texas Capitol podium, small red BREAKING tag top right",
+  "model_vid": "75Md-rbrJNU",
+  "depends": "Needs the Fifth Circuit appeal status checked the week it publishes"
+ },
+ {
+  "title": "What Was Found In America's Most Popular Snacks",
+  "thumb_words": "WHAT WAS FOUND",
+  "image_line": "Clean data board: pie chart of [number] of 44 additives found, snack photos, Max small bottom left",
+  "model_vid": "JxdWD25llTU"
+ }
+]
