@@ -586,7 +586,9 @@
  },
  "notes": [
   "Algrow 'brands to avoid' was still finding new outliers at page 12, the safety cap.",
-  "Algrow 'lose belly fat' was still finding new outliers at page 12, the safety cap."
+  "Algrow 'lose belly fat' was still finding new outliers at page 12, the safety cap.",
+  "Stopped on the time budget, not on dry results. time budget (60 minutes) ran out during the snowball step with 0 searches not run",
+  "5074 candidates were never checked on YouTube: the time budget ran out first."
  ],
  "extra_ids": [
   "--C33lZeq1Q",
@@ -8648,7 +8650,7 @@
   "zz2WR6tVg5E"
  ],
  "window_days": 548,
- "stop_reason": null,
+ "stop_reason": "time budget (60 minutes) ran out during the snowball step with 0 searches not run",
  "round_counts": [],
  "used_terms": [
   "carnivore diet results",
@@ -8739,5 +8741,6 @@
  "uploads_scanned": 372,
  "uploads_total": 374,
  "cached_calls": 4,
- "after_label": "snowball"
+ "after_label": "label2",
+ "label2_late_pass": true
 }
