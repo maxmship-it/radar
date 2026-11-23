@@ -638,7 +638,16 @@ def _advance(st, con):
             for r in con.execute("SELECT video_id FROM known_outliers WHERE subject=?", (st["subject"],)):
                 if r["video_id"] not in st["extra_ids"]:
                     st["extra_ids"].append(r["video_id"])
-            left = verify_and_filter(st, con)
+            # Out of time: check YouTube once more at most, then label what is already checked and move on.
+            # Without this, label2 re-checked in 7 minute chunks until every candidate was done (Nov 23 deep dive).
+            if out_of_time(st) and st.get("label2_late_pass"):
+                left = 0
+            else:
+                if out_of_time(st):
+                    st["label2_late_pass"] = True
+                left = verify_and_filter(st, con)
+                if left and out_of_time(st):
+                    st["notes"].append(f"{left} candidates were never checked on YouTube: the time budget ran out first.")
             q = label_queue(st, con)
             if q:
                 st["after_label"] = "label2"
