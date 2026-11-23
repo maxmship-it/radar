@@ -5,13 +5,66 @@ Board shape (MAX DECIDED, Nov 19 and Nov 20, 2026), and nothing else:
   Part 2  100 DAYS TO 18 MONTHS      same, a video appears in one part only
   CROSS-NICHE                        at most 8 cards, left out when nothing good turns up
   last page  10 TITLE + THUMBNAIL COMBOS
+A deep dive (spec mode "ideas", MAX DECIDED Nov 23) ends with 20 IDEAS instead of the combos: per idea a topic,
+3 titles each on a real outlier's thumbnail with one line on what to change, and the card numbers behind it.
 Card numbers run straight through the whole board so Max can give feedback by number.
 """
 import json, time, datetime, re
 from . import store, config as C, rule, subjects, vph as vphmod
 
-SECTION_ORDER = ["recent", "older", "cross", "combos"]
-SECTION_NAME = {"recent": "LAST 100 DAYS", "older": "100 DAYS TO 18 MONTHS", "cross": "CROSS-NICHE", "combos": "10 TITLE + THUMBNAIL COMBOS"}
+SECTION_ORDER = ["recent", "older", "cross", "combos", "ideas"]
+SECTION_NAME = {"recent": "LAST 100 DAYS", "older": "100 DAYS TO 18 MONTHS", "cross": "CROSS-NICHE", "combos": "10 TITLE + THUMBNAIL COMBOS", "ideas": "20 VIDEO IDEAS"}
+FINAL = ("combos", "ideas")
+OPINION = {"written": "YOUR VIEW ON FILE", "common sense": "FITS YOUR VIEWS", "check": "YOUR VIEW?"}
+
+
+def own_videos():
+    """Max's own long-form uploads: id -> (title, views). From the Studio export, then catalogue.json."""
+    import csv
+    out = {}
+    p = store.DATA / "audience_pack" / "studio" / "videos_longform_lifetime.csv"
+    if p.exists():
+        for r in csv.DictReader(p.open()):
+            if r.get("Content") and r["Content"] != "Total":
+                try:
+                    out[r["Content"]] = (r["Video title"], int(float(r.get("Views") or 0)))
+                except ValueError:
+                    pass
+    p = store.DATA / "catalogue.json"
+    if p.exists():
+        for v in json.loads(p.read_text()):
+            out.setdefault(v["id"], (v["t"], v["v"]))
+    return out
+
+
+def _model(con, by_id, vid):
+    m = by_id.get(vid)
+    if m:
+        return dict(model_no=m["no"], model_title=m["title"], model_channel=m["channel"], model_views=m["views"], model_mult=m["mult"], model_src=m["mult_src"])
+    return {}
+
+
+def build_ideas(st, con, sections):
+    p = store.run_dir(st["run"]) / "ideas.json"
+    if not p.exists():
+        return []
+    by_id = {c["vid"]: c for s in sections for c in s["items"]}
+    nos = {c["no"] for c in by_id.values()}
+    mine = own_videos()
+    out = []
+    for i in json.loads(p.read_text())[:C.MAX_IDEAS]:
+        titles = []
+        for t in (i.get("titles") or []):
+            titles.append(dict(title=t.get("title", ""), change=t.get("change", ""), model_vid=t.get("model_vid"), **_model(con, by_id, t.get("model_vid"))))
+        rel = []
+        for x in (i.get("related") or []):
+            n = by_id[x]["no"] if isinstance(x, str) and x in by_id else x
+            rel.append(n)
+        rm = i.get("remake_of")
+        out.append(dict(topic=i.get("topic", ""), bucket=(i.get("bucket") or "").upper(), opinion=i.get("opinion", ""), opinion_note=i.get("opinion_note", ""),
+                        remake_of=rm, remake_title=mine.get(rm, (None, None))[0] if rm else None, remake_views=mine.get(rm, (None, None))[1] if rm else None,
+                        related=rel, related_ok=all(isinstance(n, int) and n in nos for n in rel), titles=titles))
+    return out
 
 
 def card_videos(st, con, include_cross=False):
@@ -118,7 +171,11 @@ def build(st, con):
             sections.append({"key": k, "name": SECTION_NAME[k], "items": items})
     combos = []
     p = store.run_dir(st["run"]) / "combos.json"
-    if p.exists():
+    ideas = (st.get("spec") or {}).get("mode") == "ideas"
+    if ideas:
+        items = build_ideas(st, con, sections)
+        sections.append({"key": "ideas", "name": f"{len(items)} VIDEO IDEAS" if len(items) != C.MAX_IDEAS else SECTION_NAME["ideas"], "items": items})
+    elif p.exists():
         by_id = {c["vid"]: c for s in sections for c in s["items"]}
         for c in json.loads(p.read_text())[:C.MAX_COMBOS]:
             m = by_id.get(c.get("model_vid"))
@@ -132,9 +189,10 @@ def build(st, con):
                     row.update(model_title=r["title"], model_channel=r["channel"], model_views=r["views"], model_mult=round(b[1], 1) if b else None,
                                model_src=rule.TOOL_LABEL.get(b[0], b[0]) if b else None, model_in_store=bool(b and r["yt_status"] == "ok"))
             combos.append(row)
-    sections.append({"key": "combos", "name": f"{len(combos)} TITLE + THUMBNAIL COMBOS" if len(combos) != 10 else SECTION_NAME["combos"], "items": combos})
+    if not ideas:
+        sections.append({"key": "combos", "name": f"{len(combos)} TITLE + THUMBNAIL COMBOS" if len(combos) != 10 else SECTION_NAME["combos"], "items": combos})
     why = partial_reasons(st, con)
-    brd = {"title": f"RADAR · {st['subject'].upper()}", "subject": st["subject"], "run": st["run"], "date": datetime.date.today().strftime("%a %d %b %Y"),
+    brd = {"title": f"RADAR · {st['subject'].upper()}", "mode": "ideas" if ideas else "topic", "subject": st["subject"], "run": st["run"], "date": datetime.date.today().strftime("%a %d %b %Y"),
            "window_days": st["window_days"], "partial": bool(why), "partial_reasons": why, "foreign": bool(st["spec"].get("foreign")),
            "started_at": st["started_at"], "bucket": st["spec"].get("bucket"), "sections": sections}
     con.commit()
@@ -143,7 +201,7 @@ def build(st, con):
 
 def known_outlier_report(st, con, brd):
     """Every known outlier for the subject is on the board, or has a recorded reason. Anything else is a miss."""
-    on_board = {c["vid"] for s in brd["sections"] if s["key"] != "combos" for c in s["items"]}
+    on_board = {c["vid"] for s in brd["sections"] if s["key"] not in FINAL for c in s["items"]}
     out = []
     for k in con.execute("SELECT * FROM known_outliers WHERE subject=?", (st["subject"],)):
         vid = k["video_id"]
@@ -180,11 +238,12 @@ def validate(brd, con, st):
     """Returns (failures, warnings). Any failure stops the render."""
     fails, warns = [], []
     keys = [s["key"] for s in brd["sections"]]
-    if keys != [k for k in SECTION_ORDER if k in keys] or keys[:2] != ["recent", "older"] or keys[-1] != "combos" or set(keys) - set(SECTION_ORDER):
-        fails.append(f"sections are {keys}; they must be recent, older, (cross), combos and nothing else")
+    last = "ideas" if brd.get("mode") == "ideas" else "combos"
+    if keys != [k for k in SECTION_ORDER if k in keys] or keys[:2] != ["recent", "older"] or keys[-1] != last or set(keys) - set(SECTION_ORDER) or (set(FINAL) - {last}) & set(keys):
+        fails.append(f"sections are {keys}; they must be recent, older, (cross), {last} and nothing else")
     seen, nos = set(), []
     for s in brd["sections"]:
-        if s["key"] == "combos":
+        if s["key"] in FINAL:
             continue
         last = None
         for c in s["items"]:
@@ -228,7 +287,7 @@ def validate(brd, con, st):
     combos = brd["sections"][-1]["items"] if brd["sections"] and brd["sections"][-1]["key"] == "combos" else []
     if len(combos) > C.MAX_COMBOS:
         fails.append("more than 10 combos")
-    if not combos:
+    if not combos and brd.get("mode") != "ideas":
         warns.append("no combos were written")
     used = {}
     for i, c in enumerate(combos, 1):
@@ -252,9 +311,56 @@ def validate(brd, con, st):
     cross_ids = {c["vid"] for s in brd["sections"] if s["key"] == "cross" for c in s["items"]}
     if n_cross_cards >= 3 and sum(1 for c in combos if c.get("model_vid") in cross_ids) < 3 and combos:
         warns.append("fewer than 3 combos are modeled on a cross-niche outlier")
+    if brd.get("mode") == "ideas":
+        validate_ideas(brd, fails, warns)
     for vid, status, reason in known_outlier_report(st, con, brd):
         if status == "MISS":
             fails.append(f"known outlier {vid} is missing from the board with no recorded reason")
     if not st.get("label_checked") and not st.get("from_store"):
         fails.append("the second-pass label check on the 20 highest-view videos has not been done")
     return fails, warns
+
+
+def validate_ideas(brd, fails, warns):
+    """The 20 ideas page: every title sits on a real outlier card on this board, and every rule Max set holds."""
+    ideas = brd["sections"][-1]["items"]
+    if not ideas:
+        warns.append("no ideas were written")
+    if len(ideas) > C.MAX_IDEAS:
+        fails.append(f"more than {C.MAX_IDEAS} ideas")
+    used, checks, remakes = {}, 0, 0
+    for n, i in enumerate(ideas, 1):
+        if not i["topic"]:
+            fails.append(f"idea {n} has no topic")
+        if len(i["titles"]) != C.IDEA_TITLES:
+            fails.append(f"idea {n} has {len(i['titles'])} titles; it needs exactly {C.IDEA_TITLES}")
+        if i["opinion"] not in OPINION:
+            fails.append(f"idea {n}: opinion must be one of {', '.join(OPINION)}")
+        checks += i["opinion"] == "check"
+        if i["bucket"] and not any(i["bucket"].startswith(b) for b in ("EXPOS", "FAT", "CARNIVORE")):
+            fails.append(f"idea {n}: bucket must be EXPOSÉ, FAT LOSS or CARNIVORE")
+        if not i["related"] or not i["related_ok"]:
+            fails.append(f"idea {n}: related must list card numbers that are on this board")
+        if i["remake_of"]:
+            remakes += 1
+            if not i["remake_title"]:
+                fails.append(f"idea {n}: remake_of {i['remake_of']} is not one of Max's own videos")
+        for k, t in enumerate(i["titles"], 1):
+            if not t.get("model_no"):
+                fails.append(f"idea {n} title {k}: the thumbnail must come from a card on this board")
+            if not t["title"]:
+                fails.append(f"idea {n} title {k} is empty")
+            if not t["change"] or len(t["change"]) >= 120:
+                fails.append(f"idea {n} title {k}: the thumbnail change line must be there and under 120 characters")
+            txt = f"{t['title']} {t['change']} {i['topic']} {i['opinion_note']}"
+            if "\u2014" in txt or "\u2013" in txt:
+                fails.append(f"idea {n} title {k} uses an em dash")
+            if i["bucket"].startswith("EXPOS") and re.search(r"carnivore", t["title"], re.I):
+                fails.append(f"idea {n} title {k}: an exposé title says 'carnivore'")
+            used[t.get("model_vid")] = used.get(t.get("model_vid"), 0) + 1
+    if checks > C.IDEAS_CHECK_MAX:
+        fails.append(f"{checks} ideas are marked 'check' (your view unknown); at most {C.IDEAS_CHECK_MAX}")
+    if remakes > C.IDEAS_REMAKE_WARN:
+        warns.append(f"{remakes} of the ideas are remakes; check the mix")
+    if used and max(used.values()) > 3:
+        warns.append("one outlier thumbnail is used for more than 3 titles; spread them out")

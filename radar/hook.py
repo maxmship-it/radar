@@ -96,8 +96,9 @@ def pre(d):
         deny(f"{server} was stopped for this run: {st['stopped_tools'][server]}")
     # time budget
     if run and st.get("started_at") and name not in C.FINISHING_TOOLS and kind in SEARCH_KINDS:
-        if time.time() - st["started_at"] > C.TIME_BUDGET_S and not st.get("extra_time"):
-            deny("The 30 minute time budget for this run is used up. Stop searching and build the board with what you have.")
+        lim = st.get("budget_s") or C.TIME_BUDGET_S
+        if time.time() - st["started_at"] > lim and not st.get("extra_time"):
+            deny(f"The {lim // 60} minute time budget for this run is used up. Stop searching and build the board with what you have.")
     # budgets
     day0 = time.time() - 86400
     if server == "TubeAI":

@@ -4,6 +4,7 @@ All commands run from the repo root. One pipeline for every kind of request. Onl
 
 ## 0. What Max said -> what to do
 
+- "Deep dive", "give me 20 ideas", "what should I make next": follow `docs/deep_dive.md` instead of this file.
 - A bucket ("fat loss", "carnivore", "exposé") or "what's working": the subject is the bucket. Names and search terms come from that bucket's lists in `data/keywords.md`. No bucket named: queue all three.
 - A named subject ("eggs", "everything on seed oils"): that subject and its names.
 - "Run on this" with draft titles, a script, an outline or a link to his own video: the subject plus his angle. Put his drafts in the spec under `drafts`. They steer the combos. The search is the same full search.

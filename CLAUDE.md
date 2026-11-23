@@ -1,6 +1,6 @@
 # RADAR
 
-Radar finds every YouTube outlier that matters to Max German on a subject, shows the on-topic ones on a PDF board, and ends with 10 title and thumbnail combos. Max runs @max.german (food industry exposés, fat loss, carnivore) and Built By Biology. He uses outliers to choose ideas, titles and thumbnails.
+Radar finds every YouTube outlier that matters to Max German on a subject, shows the on-topic ones on a PDF board, and ends with 10 title and thumbnail combos. A deep dive (`docs/deep_dive.md`) searches his whole world and ends with 20 video ideas instead. Max runs @max.german (food industry exposés, fat loss, carnivore) and Built By Biology. He uses outliers to choose ideas, titles and thumbnails.
 
 Read `DECISIONS.md` and `LESSONS.md` at the start of every run. Run detail is in `docs/run.md`. Channel background is in `data/channel_context.md` (its subscriber count and team list are from Sep 2026; check before relying on them). What his viewers click, his split test results and who buys are in `data/audience.md` (Nov 2026). It ranks cross-niche candidates and shapes the combos only. It never changes which Part 1 or Part 2 outliers are found, labeled or shown, or their order.
 
@@ -36,8 +36,8 @@ Read `DECISIONS.md` and `LESSONS.md` at the start of every run. Run detail is in
 
 - YouTube is only ever searched from a cloud session, signed out, with no cookies. Never run Radar's YouTube steps on Max's own computer. Never pass cookies or sign in. (`radar/yt.py` enforces this.)
 - YouTube only. Long form only (3 minutes or more). English unless Max asks for a foreign-language run.
-- One run at a time. More requests go in the queue. A run stops at 30 minutes and delivers what it has.
-- Helpers, if used, follow `docs/collector.md`: they run searches and nothing else. Never the cheapest model.
+- One run at a time. More requests go in the queue. A run stops at 30 minutes (a deep dive at 60) and delivers what it has.
+- Helpers, if used, follow `docs/collector.md` (they run searches and nothing else) or, in a deep dive, `docs/labeler.md` (they label and nothing else). One at a time. Sonnet, never the cheapest model.
 - Never touch anything outside this repo. Max's script system and thumbnail studio are separate projects.
 - Never edit `data/topic_names.md`, `data/watchlist.md` or `DECISIONS.md` without his yes. After a yes, write the change yourself with `python -m radar approve`. Never ask him to paste.
 - After every run: commit and push, so memory (`store/radar.db`) and the board are never lost.
