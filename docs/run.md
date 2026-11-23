@@ -53,11 +53,11 @@ When `next` returns `label`: `python -m radar label-queue`, write a file of `<id
 
 When it returns `label-check`: `python -m radar label-check` shows the 20 highest-view videos labeled this run. Judge each again from scratch. Import changes with `--check`, or `python -m radar label-import --check-ok` if none change.
 
-When it returns `cross-pick`: `python -m radar cross-queue`, pick at most 8, file of `<id> TAB <niche> TAB <the pattern rewritten for Max's subject>`, `python -m radar cross-import <file>`. If nothing really transfers, pick none.
+When it returns `cross-pick`: `python -m radar cross-queue`, read `data/audience.md` first, pick at most 8, file of `<id> TAB <niche> TAB <the pattern rewritten for Max's subject>`, `python -m radar cross-import <file>`. If nothing really transfers, pick none.
 
 ## 4. Combos
 
-`python -m radar combos-help` lists the cards. `python -m radar thumbs` saves the real thumbnails of the top cards: look at them with Read before writing. Write `runs/<run>/combos.json`. Up to 10. Fewer if 10 honest ones are not there.
+`python -m radar combos-help` lists the cards. `python -m radar thumbs` saves the real thumbnails of the top cards: look at them with Read before writing. Read `data/audience.md` for what his viewers click and who buys; it ranks and shapes the combos, and every combo still comes from a real outlier on this board. Write `runs/<run>/combos.json`. Up to 10. Fewer if 10 honest ones are not there.
 
 ## 5. Board, reply, finish
 

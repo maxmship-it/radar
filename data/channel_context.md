@@ -22,6 +22,8 @@ Sponsors seen on the channel: Labcorp OnDemand, Tastee air fryer (code MXGM), Sa
 
 ## The audience (YouTube Studio, last 90 days)
 
+Newer numbers (Nov 2026), split test results and buyer data are in `audience.md`. Where the two differ, `audience.md` wins.
+
 Men 85%, women 14%. Age: 13-24 10%, 25-34 20%, 35-44 23%, 45-54 21%, 55-64 16%, 65+ 10%. Countries: US 43%, UK 8%, Germany 6%, Canada 5%, Australia 5%, NZ 1%.
 
 ## The buyer (Built By Biology clients)

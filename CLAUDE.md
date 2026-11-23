@@ -2,7 +2,7 @@
 
 Radar finds every YouTube outlier that matters to Max German on a subject, shows the on-topic ones on a PDF board, and ends with 10 title and thumbnail combos. Max runs @max.german (food industry exposés, fat loss, carnivore) and Built By Biology. He uses outliers to choose ideas, titles and thumbnails.
 
-Read `DECISIONS.md` and `LESSONS.md` at the start of every run. Run detail is in `docs/run.md`. Channel background is in `data/channel_context.md` (its subscriber count and team list are from Sep 2026; check before relying on them).
+Read `DECISIONS.md` and `LESSONS.md` at the start of every run. Run detail is in `docs/run.md`. Channel background is in `data/channel_context.md` (its subscriber count and team list are from Sep 2026; check before relying on them). What his viewers click, his split test results and who buys are in `data/audience.md` (Nov 2026). It shapes the cross-niche picks and the combos only, never what is found or shown.
 
 ## Talking with Max
 
