@@ -1,38 +1,8 @@
 [
  {
-  "tool": "mcp__vidIQ__vidiq_balance",
-  "input": {}
- },
- {
-  "tool": "mcp__TubeAI__workspace_account",
-  "input": {}
- },
- {
-  "tool": "mcp__Algrow__get_folder",
-  "input": {
-   "folder": "Radar pool"
-  }
- },
- {
-  "tool": "mcp__Algrow__search_viral_videos",
-  "input": {
-   "search": "carnivore diet",
-   "content_type": "longform",
-   "uploaded_within_days": 30,
-   "min_outlier_score": 2,
-   "min_video_views": 50000,
-   "per_page": 5
-  }
- },
- {
   "tool": "mcp__TubeAI__explore_videos",
   "input": {
-   "search": "carnivore",
-   "minDate": "2026-10-24",
-   "minDuration": 181,
-   "minOutlier": 2,
-   "minViews": 50000,
-   "limit": 5,
+   "cursor": "eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiZTM0YmM4ODA1NmM5ZDU1ZmI5Y2RjZDZiIiwibiI6Mjc1LCJwIjoxMiwicG9zIjp7ImN1cnNvciI6ImV5SjJZV3gxWlNJNk9UUXdNREFzSW1sa0lqb2lWRzkyVUhCS1JYSlhVR2NpZlEifX0.6c30e798ff80effb4ee935886fca424d",
    "fields": [
     "video_id",
     "title",
@@ -41,10 +11,44 @@
     "published_at",
     "channel_id",
     "channel_name",
+    "channel_handle",
     "channel_subscribers",
     "duration_seconds",
     "channel_niche"
-   ]
+   ],
+   "limit": 25,
+   "minDate": "2025-05-24",
+   "minDuration": 181,
+   "minOutlier": 2,
+   "minViews": 50000,
+   "search": "carnivore",
+   "sortBy": "view_count"
+  }
+ },
+ {
+  "tool": "mcp__TubeAI__explore_videos",
+  "input": {
+   "cursor": "eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiY2Q1MzU4MDE0ZTM0MjMyOTg0ZDY4ZmRiIiwibiI6Mjc1LCJwIjoxMiwicG9zIjp7ImN1cnNvciI6ImV5SjJZV3gxWlNJNk1qWXlNRGt4TENKcFpDSTZJbVl3ZFVnd1YzQjRWblIzSW4wIn19.85ce31944bdb07691a07abcc5ff4978f",
+   "fields": [
+    "video_id",
+    "title",
+    "view_count",
+    "outlier_multiplier",
+    "published_at",
+    "channel_id",
+    "channel_name",
+    "channel_handle",
+    "channel_subscribers",
+    "duration_seconds",
+    "channel_niche"
+   ],
+   "limit": 25,
+   "minDate": "2025-05-24",
+   "minDuration": 181,
+   "minOutlier": 2,
+   "minViews": 50000,
+   "search": "belly fat",
+   "sortBy": "view_count"
   }
  }
 ]
