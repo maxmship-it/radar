@@ -139,7 +139,7 @@
   ]
  },
  "started_at": 1795462814.5128837,
- "phase": "labeling",
+ "phase": "done",
  "queue": [],
  "emitted": [
   "911a5e24a15c45f3",
@@ -363,7 +363,18 @@
   "bdc9b3663f67a80ceyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiZTM0YmM4ODA1NmM5ZDU1ZmI5Y2RjZDZiIiwibiI6MjUwLCJwIjoxMSwicG9zIjp7ImN1cnNvciI6ImV5SjJZV3gxWlNJNk1UQTFNREF3TENKcFpDSTZJazkxY3paV2VEWndSRXRKSW4wIn19.0622f6298e9beb00c1ba8cf5394a1c50",
   "888c7af8c54c9f37eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiY2Q1MzU4MDE0ZTM0MjMyOTg0ZDY4ZmRiIiwibiI6MjUwLCJwIjoxMSwicG9zIjp7ImN1cnNvciI6ImV5SjJZV3gxWlNJNk1qa3pNREF3TENKcFpDSTZJbXh2VVV4RFpXYzJOR1pySW4wIn19.6275fdc1c3a1af6f9465e5709249b6ea",
   "ccea7f894b1f8d5eeyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiZTM0YmM4ODA1NmM5ZDU1ZmI5Y2RjZDZiIiwibiI6Mjc1LCJwIjoxMiwicG9zIjp7ImN1cnNvciI6ImV5SjJZV3gxWlNJNk9UUXdNREFzSW1sa0lqb2lWRzkyVUhCS1JYSlhVR2NpZlEifX0.6c30e798ff80effb4ee935886fca424d",
-  "7be42de20884a682eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiY2Q1MzU4MDE0ZTM0MjMyOTg0ZDY4ZmRiIiwibiI6Mjc1LCJwIjoxMiwicG9zIjp7ImN1cnNvciI6ImV5SjJZV3gxWlNJNk1qWXlNRGt4TENKcFpDSTZJbVl3ZFVnd1YzQjRWblIzSW4wIn19.85ce31944bdb07691a07abcc5ff4978f"
+  "7be42de20884a682eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiY2Q1MzU4MDE0ZTM0MjMyOTg0ZDY4ZmRiIiwibiI6Mjc1LCJwIjoxMiwicG9zIjp7ImN1cnNvciI6ImV5SjJZV3gxWlNJNk1qWXlNRGt4TENKcFpDSTZJbVl3ZFVnd1YzQjRWblIzSW4wIn19.85ce31944bdb07691a07abcc5ff4978f",
+  "82d358855ea3431a",
+  "6e2fd4496f146c3e",
+  "dfcd4b13ec7de7cf",
+  "bc711c5214db6925",
+  "a6acff5ede2d22e0",
+  "92ac2312fbb88b71",
+  "4711973876521862",
+  "96adb6e8009c6860",
+  "87947563c9a09f28",
+  "ca38136d19436d79",
+  "55d69a5e81b9eac7"
  ],
  "paged": [
   202,
@@ -588,7 +599,8 @@
   "Algrow 'brands to avoid' was still finding new outliers at page 12, the safety cap.",
   "Algrow 'lose belly fat' was still finding new outliers at page 12, the safety cap.",
   "Stopped on the time budget, not on dry results. time budget (60 minutes) ran out during the snowball step with 0 searches not run",
-  "5074 candidates were never checked on YouTube: the time budget ran out first."
+  "5074 candidates were never checked on YouTube: the time budget ran out first.",
+  "Cross-niche was not searched: the 60 minute budget was already used up."
  ],
  "extra_ids": [
   "--C33lZeq1Q",
@@ -8730,7 +8742,7 @@
   "reality show",
   "beef scandal"
  ],
- "label_checked": false,
+ "label_checked": true,
  "budget_s": 3600,
  "preflight_sent": true,
  "phase_flag": "preflight",
@@ -8742,5 +8754,8 @@
  "uploads_total": 374,
  "cached_calls": 4,
  "after_label": "label2",
- "label2_late_pass": true
+ "label2_late_pass": true,
+ "vph_sent": true,
+ "board_pdf": "/home/user/radar/boards/Radar-deep-dive-2026-11-23-2.pdf",
+ "finished": true
 }

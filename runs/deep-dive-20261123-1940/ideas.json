@@ -1,0 +1,627 @@
+[
+ {
+  "topic": "Fake foods",
+  "bucket": "EXPOSÉ",
+  "opinion": "common sense",
+  "opinion_note": "Canon: ultra-processed food is the villain",
+  "remake_of": null,
+  "related": [
+   9,
+   37,
+   114,
+   121,
+   231
+  ],
+  "titles": [
+   {
+    "title": "[Number] Fake Foods You're Buying Every Week",
+    "change": "Swap the ALDI front for a US supermarket; keep the fire and the two-line text.",
+    "model_vid": "zEEn_Q9K7ns"
+   },
+   {
+    "title": "Fake Foods Are Taking Over Your Supermarket",
+    "change": "Put Max in place of the presenter pointing at the burning store.",
+    "model_vid": "Hwsl8mgnt-g"
+   },
+   {
+    "title": "This Is Fake Food. You Eat It Every Week",
+    "change": "Keep the shelf shot; swap the Parmesan for one fake food Max covers, same stamp text.",
+    "model_vid": "vfehGfSTu70"
+   }
+  ]
+ },
+ {
+  "topic": "Visceral fat",
+  "bucket": "FAT LOSS",
+  "opinion": "written",
+  "opinion_note": "Canon: insulin and cortisol are the levers. Remake of his 1.4M video",
+  "remake_of": "eB8Co8FKJt0",
+  "related": [
+   13,
+   126,
+   89,
+   198,
+   183
+  ],
+  "titles": [
+   {
+    "title": "It's Boring, But It Shrinks Visceral Fat In [Number] Days",
+    "change": "Keep the before and after cartoon; make the left belly red and add Max's face.",
+    "model_vid": "Uij0x2TkLdc"
+   },
+   {
+    "title": "It's Boring, But It Destroys Belly Fat In [Number] Weeks",
+    "change": "Keep the side by side body shot; use a male client's real before and after.",
+    "model_vid": "coJKrjhrUWM"
+   },
+   {
+    "title": "The Boring Way To Lose Visceral Fat Fast",
+    "change": "Keep three people with plates; swap the plates for steak and eggs.",
+    "model_vid": "dPvuB0aJnNU"
+   }
+  ]
+ },
+ {
+  "topic": "Ozempic",
+  "bucket": "FAT LOSS",
+  "opinion": "written",
+  "opinion_note": "02 Opinions: useful for some who can't cope otherwise. Long form only",
+  "remake_of": null,
+  "related": [
+   199,
+   206,
+   276,
+   224,
+   23,
+   139
+  ],
+  "titles": [
+   {
+    "title": "Ozempic: What They Don't Tell You",
+    "change": "Keep the pens and WHAT THEY DON'T TELL YOU; add Max's face on the left.",
+    "model_vid": "2LIsLwBSr_c"
+   },
+   {
+    "title": "The Biological Cost Of Ozempic",
+    "change": "Keep the invoice prop; swap the doctor for Max.",
+    "model_vid": "YT3BxZNJlhs"
+   },
+   {
+    "title": "What Ozempic Really Does To Your Cravings",
+    "change": "Keep the pen over the head and food around it; put Max in the middle.",
+    "model_vid": "5ggaGPJDri8"
+   }
+  ]
+ },
+ {
+  "topic": "Creatine",
+  "bucket": "EXPOSÉ",
+  "opinion": "written",
+  "opinion_note": "02 Opinions: overhyped, research is industry-funded, meat covers it",
+  "remake_of": null,
+  "related": [
+   59,
+   263,
+   242,
+   12,
+   197,
+   165
+  ],
+  "titles": [
+   {
+    "title": "Creatine Is Overhyped. Here's Who Paid For The Research",
+    "change": "Keep the X-ray arm; add a dollar sign over it. Drop the Vox mark.",
+    "model_vid": "uK_1UiwTANw"
+   },
+   {
+    "title": "The Creatine Scandal Gets Worse...",
+    "change": "Keep the gummies on black; add Max's face and a red SCANDAL word.",
+    "model_vid": "7gLVOGJpSpE"
+   },
+   {
+    "title": "Creatine After 50? Watch This Before You Buy It",
+    "change": "Keep CREATINE AFTER 50? and the scoop; swap the doctor for Max.",
+    "model_vid": "-LMrI6l6Te8"
+   }
+  ]
+ },
+ {
+  "topic": "American beef scandal",
+  "bucket": "EXPOSÉ",
+  "opinion": "common sense",
+  "opinion_note": "Canon: ruminant meat first. Follows his 410K Europe beef video",
+  "remake_of": null,
+  "related": [
+   98,
+   54,
+   238,
+   66,
+   533,
+   241
+  ],
+  "titles": [
+   {
+    "title": "The American Beef Scandal Is Insane...",
+    "change": "Keep the frozen foreign beef close-up; put Max's face where the politician is.",
+    "model_vid": "LvqbNN6BszQ"
+   },
+   {
+    "title": "They're Putting Foreign Beef In Your Burger",
+    "change": "Keep the two-face split; text FOREIGN BEEF, Max on the right.",
+    "model_vid": "YVATXENaDLg"
+   },
+   {
+    "title": "What Happens When America's Ranchers Are Gone?",
+    "change": "Keep the rancher and the herd; add Max's face on the right.",
+    "model_vid": "t1_MI_5FHoc"
+   }
+  ]
+ },
+ {
+  "topic": "Fast food exposed",
+  "bucket": "EXPOSÉ",
+  "opinion": "common sense",
+  "opinion_note": "Canon: ultra-processed food is the villain. Remake of his 2.1M McDonald's video",
+  "remake_of": "LZobJar3zQ8",
+  "related": [
+   134,
+   53,
+   102,
+   111,
+   541,
+   200
+  ],
+  "titles": [
+   {
+    "title": "McDonald's Exposed: What's Really In The Burger",
+    "change": "Keep the three burgers and the DNA strand; Max where the man is.",
+    "model_vid": "Z1rQzOXg0Ic"
+   },
+   {
+    "title": "Raising Cane's Exposed: You Won't Eat Here Ever Again",
+    "change": "Keep EXPOSED and the tenders; swap the man for Max.",
+    "model_vid": "8vtYLKYCKJE"
+   },
+   {
+    "title": "How Bad Is Fast Food Really?",
+    "change": "Keep the burger held near the face; Max with a hard stare.",
+    "model_vid": "agF-JwliFw0"
+   }
+  ]
+ },
+ {
+  "topic": "Ground beef brands",
+  "bucket": "EXPOSÉ",
+  "opinion": "common sense",
+  "opinion_note": "Canon: ruminant meat first. Brand lists name the real products",
+  "remake_of": null,
+  "related": [
+   52,
+   255,
+   241,
+   180,
+   106,
+   409
+  ],
+  "titles": [
+   {
+    "title": "Don't Buy Ground Beef From These [Number] Stores",
+    "change": "Keep the store by store packs and WARNING strip; add Max's face top right.",
+    "model_vid": "yWm6pKqVxMg"
+   },
+   {
+    "title": "Avoid These Ground Beef Brands (And [Number] That Are Safe)",
+    "change": "Keep the price tag lineup; swap FAKE MEAT RIPOFF for AVOID.",
+    "model_vid": "TUWAEUYAER8"
+   },
+   {
+    "title": "[Number] Ground Beef Brands That Aren't 100% Beef",
+    "change": "Keep the spilled pack; swap 90% FAKE for a word Max can back.",
+    "model_vid": "Z73YkOT0Nnw"
+   }
+  ]
+ },
+ {
+  "topic": "Food warning labels",
+  "bucket": "EXPOSÉ",
+  "opinion": "common sense",
+  "opinion_note": "Canon: ultra-processed food is the villain. Max asked for it Nov 23",
+  "remake_of": null,
+  "related": [
+   236,
+   260,
+   119,
+   68,
+   655
+  ],
+  "titles": [
+   {
+    "title": "They're Putting Warning Labels On Your Groceries",
+    "change": "Keep the warning label pack held up; swap the M&M's for the product Max covers.",
+    "model_vid": "0WuykkZTkX8"
+   },
+   {
+    "title": "The FDA Approved This. Now It Needs A Warning Label",
+    "change": "Keep APPROVED and the hazmat line; put Max where the presenter is.",
+    "model_vid": "ocfN-Iko1mo"
+   },
+   {
+    "title": "The Food Industry's Dirty Little Secret Is On The Label",
+    "change": "Keep DIRTY LITTLE SECRET; replace the shelf with a close-up of one label.",
+    "model_vid": "hLrtv6qy0PY"
+   }
+  ]
+ },
+ {
+  "topic": "Carnivore fat loss",
+  "bucket": "CARNIVORE",
+  "opinion": "written",
+  "opinion_note": "Canon: insulin is the master lever, humans are carnivores. His upcoming video",
+  "remake_of": null,
+  "related": [
+   669,
+   174,
+   105,
+   404,
+   100
+  ],
+  "titles": [
+   {
+    "title": "What 30 Days Of Carnivore Does To Belly Fat",
+    "change": "Keep the DAY 1 and DAY 30 split; use Max's own photos.",
+    "model_vid": "H-8w1ExgeNQ"
+   },
+   {
+    "title": "Eat This Carnivore Meal Every Day To Lose Fat",
+    "change": "Keep the speech bubbles; Max holding his own plate, LOST [number] LBS.",
+    "model_vid": "pgASsRO2dAo"
+   },
+   {
+    "title": "Carnivore For Fat Loss: Week 1 Vs Week 8",
+    "change": "Keep the week 1 and week 8 organ split; swap the woman for Max.",
+    "model_vid": "4znhpkAP40k"
+   }
+  ]
+ },
+ {
+  "topic": "Cortisol belly",
+  "bucket": "FAT LOSS",
+  "opinion": "written",
+  "opinion_note": "Canon: sleep and cortisol are master visceral fat hormones. Remake of his cortisol video",
+  "remake_of": "sjp1zR2IFV8",
+  "related": [
+   4,
+   78,
+   159,
+   225,
+   313
+  ],
+  "titles": [
+   {
+    "title": "It's Boring, But It Kills Cortisol Belly In [Number] Days",
+    "change": "Keep the Day 1 and Day 7 scans; put Max in the middle.",
+    "model_vid": "I115pr36Ywo"
+   },
+   {
+    "title": "Awake At 3AM? That's Cortisol Belly",
+    "change": "Keep AWAKE AT 3 AM? and the tired face; swap the presenter for Max.",
+    "model_vid": "MFh-JOXoM4c"
+   },
+   {
+    "title": "The Fastest Way To Fix Cortisol Belly",
+    "change": "Keep the belly side shot; Max points at it, text FIX CORTISOL BELLY.",
+    "model_vid": "qaa1KtCFLrs"
+   }
+  ]
+ },
+ {
+  "topic": "Eggs",
+  "bucket": "CARNIVORE",
+  "opinion": "common sense",
+  "opinion_note": "His own egg videos and canon: animal foods first",
+  "remake_of": "ZmIge3BtmaU",
+  "related": [
+   5,
+   325,
+   296,
+   705,
+   90,
+   247
+  ],
+  "titles": [
+   {
+    "title": "What Happens When You Eat 10 Eggs A Day",
+    "change": "Keep the eggs and SHOCKING EFFECTS; swap 4 for 10 and the doctor for Max.",
+    "model_vid": "9tGHqCgdKAY"
+   },
+   {
+    "title": "Eggs Every Day: Safe Or Risky?",
+    "change": "Keep SAFE OR RISKY? and the egg row; Max in place of the doctor.",
+    "model_vid": "V2JJZzIJeUQ"
+   },
+   {
+    "title": "You Don't Need Therapy, You Need 10 Eggs A Day",
+    "change": "Keep the bowl of eggs; text 10 EGGS A DAY with Max's face.",
+    "model_vid": "KUM01rdZ-m8"
+   }
+  ]
+ },
+ {
+  "topic": "Food Europe bans",
+  "bucket": "EXPOSÉ",
+  "opinion": "common sense",
+  "opinion_note": "Canon: seed oils and ultra-processed food are the villain",
+  "remake_of": null,
+  "related": [
+   305,
+   254,
+   231,
+   621
+  ],
+  "titles": [
+   {
+    "title": "Why Americans Eat What Europe Bans",
+    "change": "Keep the split burger with both flags; add Max's face.",
+    "model_vid": "Fn8E4jjfhVY"
+   },
+   {
+    "title": "Europe Banned This Food. America Sells It Everywhere",
+    "change": "Keep the taped-off aisle and BANNED IN EUROPE; show one real product.",
+    "model_vid": "EEte-ztogX8"
+   },
+   {
+    "title": "This Food Is Banned In Europe. You Eat It Every Week",
+    "change": "Keep the shelf of packs; swap the stamp for BANNED IN EUROPE.",
+    "model_vid": "vfehGfSTu70"
+   }
+  ]
+ },
+ {
+  "topic": "RFK food bans",
+  "bucket": "EXPOSÉ",
+  "opinion": "written",
+  "opinion_note": "02 Opinions: RFK, add real insight when agreeing. Remake of his FDA video",
+  "remake_of": "nhJH0dy80-w",
+  "related": [
+   262,
+   323,
+   188,
+   672,
+   260
+  ],
+  "titles": [
+   {
+    "title": "Whilst You Were Distracted, RFK Banned These Foods",
+    "change": "Keep RFK and IT'S POISON; swap the sandwich for one banned product.",
+    "model_vid": "oiVFIRyXhIw"
+   },
+   {
+    "title": "The New Dietary Guidelines Admit They Were Wrong",
+    "change": "Keep the food pyramid and RFK; put Max where Berg is.",
+    "model_vid": "oEl1YABvfx0"
+   },
+   {
+    "title": "Make America Healthy Again: What Actually Changed",
+    "change": "Swap the TV desk for Max; keep the MAHA logo top left.",
+    "model_vid": "3lzfH86avIc"
+   }
+  ]
+ },
+ {
+  "topic": "Fasting",
+  "bucket": "FAT LOSS",
+  "opinion": "written",
+  "opinion_note": "02 Opinions: fasting depends, can be good",
+  "remake_of": null,
+  "related": [
+   187,
+   191,
+   306,
+   127,
+   319,
+   326
+  ],
+  "titles": [
+   {
+    "title": "What Happens When You Don't Eat For 5 Days",
+    "change": "Keep 5 DAYS. NO FOOD. and the timer; one face, Max's.",
+    "model_vid": "O1zKV3eqevc"
+   },
+   {
+    "title": "What Happens When You Fast Until Noon Every Day",
+    "change": "Keep the cartoon and bar chart; swap CORTISOL for INSULIN.",
+    "model_vid": "bSBqXf_4dXg"
+   },
+   {
+    "title": "What Fasting Does That Exercise Can't",
+    "change": "Keep the chalkboard look; put Max at the board.",
+    "model_vid": "_tCt7qm2QJY"
+   }
+  ]
+ },
+ {
+  "topic": "Insulin",
+  "bucket": "FAT LOSS",
+  "opinion": "written",
+  "opinion_note": "Canon: insulin is the master lever. Remake of his insulin video",
+  "remake_of": "6jO0lFofRJk",
+  "related": [
+   152,
+   171,
+   297,
+   243,
+   62
+  ],
+  "titles": [
+   {
+    "title": "If You Don't Understand Insulin, You Don't Understand Fat Loss",
+    "change": "Keep INSULIN and the belly before and after; Max's face on the left.",
+    "model_vid": "xFnh9VJUxGo"
+   },
+   {
+    "title": "This Insulin Rule Burns More Fat Than Fasting",
+    "change": "Keep the EASIER THAN FASTING text block; swap the guest for Max.",
+    "model_vid": "IyChyi0OF7k"
+   },
+   {
+    "title": "The Insulin Mistake Stopping Your Fat Loss",
+    "change": "Keep the pancreas graphic and caption; swap the guest for Max.",
+    "model_vid": "gz9p4AsGYFc"
+   }
+  ]
+ },
+ {
+  "topic": "Walking after meals",
+  "bucket": "FAT LOSS",
+  "opinion": "written",
+  "opinion_note": "02 Opinions: walking is a big part of fat loss. Remake of his walking video",
+  "remake_of": "6vmm1Fw3ywI",
+  "related": [
+   15,
+   41,
+   330,
+   60,
+   220,
+   205
+  ],
+  "titles": [
+   {
+    "title": "Do This After Eating To Burn Belly Fat",
+    "change": "Keep DO THIS AFTER EATING and the arrows; Max mid-walk instead of the squat.",
+    "model_vid": "-2KUkMTKpPQ"
+   },
+   {
+    "title": "Stop Doing 10,000 Steps. Walk Like This Instead",
+    "change": "Keep STOP DOING 10,000 STEPS and the grey treadmill; Max in color.",
+    "model_vid": "xRekEVBrlTs"
+   },
+   {
+    "title": "One Walk After Meals Kills Sugar Spikes",
+    "change": "Keep KILLS SUGAR and the leg glow; swap the woman for Max walking.",
+    "model_vid": "qxn3b-xF_m8"
+   }
+  ]
+ },
+ {
+  "topic": "Statins and LDL",
+  "bucket": "CARNIVORE",
+  "opinion": "written",
+  "opinion_note": "02 Opinions: high LDL on carnivore is a problem, zero evidence",
+  "remake_of": null,
+  "related": [
+   18,
+   509,
+   101,
+   21,
+   122,
+   495
+  ],
+  "titles": [
+   {
+    "title": "They're Lying About Statins",
+    "change": "Keep THEY'RE LYING and the pill bottle; swap the doctor for Max.",
+    "model_vid": "_H5CKu5gOX0"
+   },
+   {
+    "title": "Why Your Doctor Wants You On A Statin",
+    "change": "Keep the LDL particle graphic; swap the man for Max.",
+    "model_vid": "qHS2yGKdGs8"
+   },
+   {
+    "title": "High LDL On Carnivore: Should You Worry?",
+    "change": "Keep LDL IS JUST NOT THAT IMPORTANT and the artery; swap the face for Max.",
+    "model_vid": "Zz4cZEtyox0"
+   }
+  ]
+ },
+ {
+  "topic": "Cooking oils scandal",
+  "bucket": "EXPOSÉ",
+  "opinion": "written",
+  "opinion_note": "Canon: seed oils are the villain",
+  "remake_of": null,
+  "related": [
+   99,
+   290,
+   179,
+   516
+  ],
+  "titles": [
+   {
+    "title": "The Avocado Oil Scandal Is Insane...",
+    "change": "Keep the snack bags and THEY MUST APOLOGIZE; one face, Max's.",
+    "model_vid": "InzYw9ZKKVw"
+   },
+   {
+    "title": "[Number] Olive Oils To Avoid (And [Number] That Are Real)",
+    "change": "Keep the PURE vs DILUTED split; add Max between the bottles.",
+    "model_vid": "_LRxP1ubY8M"
+   },
+   {
+    "title": "Your Avocado Oil Is Probably Fake",
+    "change": "Keep DON'T and the real packs; swap the woman for Max.",
+    "model_vid": "l_24MZwaBTY"
+   }
+  ]
+ },
+ {
+  "topic": "Sardines",
+  "bucket": "CARNIVORE",
+  "opinion": "common sense",
+  "opinion_note": "Canon: animal foods first. Meat-based staple",
+  "remake_of": null,
+  "related": [
+   189,
+   178,
+   590,
+   86,
+   578
+  ],
+  "titles": [
+   {
+    "title": "What Happens If You Only Eat Sardines For [Number] Days",
+    "change": "Keep 5 DAYS. ONLY THIS. and the can; one face, Max's.",
+    "model_vid": "hmBCXFJoUcY"
+   },
+   {
+    "title": "They're Lying To You About Sardines",
+    "change": "Keep the trawler net shot; swap the man for Max.",
+    "model_vid": "tjIiQQKBi_o"
+   },
+   {
+    "title": "[Number] Sardine Brands To Never Buy (And [Number] That Are Safe)",
+    "change": "Keep the can lineup and DON'T EAT; use US brands.",
+    "model_vid": "YCiM9v60494"
+   }
+  ]
+ },
+ {
+  "topic": "Doctor reality show scandal",
+  "bucket": "EXPOSÉ",
+  "opinion": "common sense",
+  "opinion_note": "Max picked this topic (Nov 23 brief). No reality show outlier found; cards are scandal formats",
+  "remake_of": null,
+  "related": [
+   2,
+   196,
+   453
+  ],
+  "titles": [
+   {
+    "title": "The Doctor Reality Show Scandal Is Insane...",
+    "change": "Swap the egg carton for a still from the show; keep the EXPOSED banner and Max.",
+    "model_vid": "nV9KunKYFoQ"
+   },
+   {
+    "title": "Neurosurgery PhD Student Joins Doctor Reality Show & Guesses A Brain Tumor On Camera",
+    "change": "Swap the peptide vials for a brain scan and a TV camera; keep the tight face crop.",
+    "model_vid": "xpdLs-_nl4g"
+   },
+   {
+    "title": "11 Future Doctors Joined A Reality Show. It Got Pulled After 1 Episode.",
+    "change": "Swap the cattle for an empty TV set; keep THE RESULT: style top text.",
+    "model_vid": "nvVCka0bRz4"
+   }
+  ]
+ }
+]

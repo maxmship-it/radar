@@ -1,54 +1,41 @@
 [
  {
-  "tool": "mcp__TubeAI__explore_videos",
+  "tool": "mcp__vidIQ__vidiq_get_videos_by_ids",
   "input": {
-   "cursor": "eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiZTM0YmM4ODA1NmM5ZDU1ZmI5Y2RjZDZiIiwibiI6Mjc1LCJwIjoxMiwicG9zIjp7ImN1cnNvciI6ImV5SjJZV3gxWlNJNk9UUXdNREFzSW1sa0lqb2lWRzkyVUhCS1JYSlhVR2NpZlEifX0.6c30e798ff80effb4ee935886fca424d",
-   "fields": [
-    "video_id",
-    "title",
-    "view_count",
-    "outlier_multiplier",
-    "published_at",
-    "channel_id",
-    "channel_name",
-    "channel_handle",
-    "channel_subscribers",
-    "duration_seconds",
-    "channel_niche"
-   ],
-   "limit": 25,
-   "minDate": "2025-05-24",
-   "minDuration": 181,
-   "minOutlier": 2,
-   "minViews": 50000,
-   "search": "carnivore",
-   "sortBy": "view_count"
-  }
- },
- {
-  "tool": "mcp__TubeAI__explore_videos",
-  "input": {
-   "cursor": "eyJpIjoiZXhwbG9yZV92aWRlb3MiLCJzIjoiY2Q1MzU4MDE0ZTM0MjMyOTg0ZDY4ZmRiIiwibiI6Mjc1LCJwIjoxMiwicG9zIjp7ImN1cnNvciI6ImV5SjJZV3gxWlNJNk1qWXlNRGt4TENKcFpDSTZJbVl3ZFVnd1YzQjRWblIzSW4wIn19.85ce31944bdb07691a07abcc5ff4978f",
-   "fields": [
-    "video_id",
-    "title",
-    "view_count",
-    "outlier_multiplier",
-    "published_at",
-    "channel_id",
-    "channel_name",
-    "channel_handle",
-    "channel_subscribers",
-    "duration_seconds",
-    "channel_niche"
-   ],
-   "limit": 25,
-   "minDate": "2025-05-24",
-   "minDuration": 181,
-   "minOutlier": 2,
-   "minViews": 50000,
-   "search": "belly fat",
-   "sortBy": "view_count"
+   "videoIds": [
+    "N2KJrHpYmRg",
+    "Ci97Lcn9HrM",
+    "1yu6ljOfGY8",
+    "O-MLwCFaBwc",
+    "X6scpVuTi6I",
+    "Q1M9tgl4SOI",
+    "7r6LUXgUPvU",
+    "wH8C8c_NbWE",
+    "u-xFXXqlDlc",
+    "wjU1wYT6_i0",
+    "nYUMLbjE2wA",
+    "XRhlHn4S3dc",
+    "-JAs0IANx9c",
+    "gUIANdHa9p0",
+    "5eObTxC9hqc",
+    "g7GL1Fi6F9o",
+    "dkIyczuikHU",
+    "1mKZBgfLb0w",
+    "McWzPc6dXbI",
+    "FBUdoW8mwK0",
+    "E9MJxgaP8iU",
+    "EglasmZycE0",
+    "cpKnsRdbx_k",
+    "tjIiQQKBi_o",
+    "l_24MZwaBTY",
+    "BaG2HSeDVfE",
+    "veqDr44p8L0",
+    "5GfI0tqJenc",
+    "G_-rZ6mTrgA",
+    "iSplP_8k0Eg",
+    "IEJDgiBv0lo",
+    "PLpUmVPA7rs"
+   ]
   }
  }
 ]
