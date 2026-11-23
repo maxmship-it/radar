@@ -45,6 +45,8 @@ def start(spec):
           "queue": [], "emitted": [], "paged": [], "retried": [], "round": 0, "tools": {}, "notes": [], "extra_ids": [],
           "window_days": spec.get("window_days") or C.WINDOW_DAYS, "stop_reason": None, "round_counts": [], "used_terms": [],
           "label_checked": False}
+    if spec.get("mode") == "ideas":
+        st["budget_s"] = C.IDEAS_TIME_BUDGET_S
     store.RUNS.mkdir(exist_ok=True)
     (store.RUNS / "ACTIVE").write_text(run)
     store.save_state(run, st)
@@ -54,12 +56,26 @@ def start(spec):
     return {"run": run, "say": f"Run {run} started. Call `python -m radar next` and make the calls it returns."}
 
 
+def ideas_mode(st):
+    return (st.get("spec") or {}).get("mode") == "ideas"
+
+
+def budget_s(st):
+    return st.get("budget_s") or C.TIME_BUDGET_S
+
+
+def _fits(st, title, names):
+    """Topic runs keep only titles that carry one of the subject's names. A deep dive keeps everything:
+    the label step decides what belongs in Max's world."""
+    return ideas_mode(st) or subjects.matches(title, names)
+
+
 def elapsed(st):
     return time.time() - st["started_at"]
 
 
 def out_of_time(st):
-    return elapsed(st) > C.TIME_BUDGET_S and not st.get("extra_time")
+    return elapsed(st) > budget_s(st) and not st.get("extra_time")
 
 
 # ---------- phase builders ----------
@@ -110,9 +126,13 @@ def free_phase(st, con):
     mem = [r["id"] for r in con.execute(
         "SELECT v.id FROM videos v JOIN labels l ON l.video_id=v.id WHERE l.subject=? AND l.label='on' AND (v.upload_date IS NULL OR v.upload_date>=?)", (st["subject"], since))]
     mem += [r["video_id"] for r in con.execute("SELECT video_id FROM known_outliers WHERE subject=?", (st["subject"],))]
-    for r in con.execute("SELECT id, title FROM videos WHERE (upload_date IS NULL OR upload_date>=?) AND COALESCE(views,0)>=?", (since, C.MIN_SEARCH_VIEWS)):
-        if subjects.matches(r["title"], names):
-            mem.append(r["id"])
+    if ideas_mode(st):
+        mem += [r["id"] for r in con.execute(
+            "SELECT DISTINCT v.id FROM videos v JOIN labels l ON l.video_id=v.id WHERE l.label='on' AND l.subject NOT LIKE 'cross:%' AND (v.upload_date IS NULL OR v.upload_date>=?)", (since,))]
+    else:
+        for r in con.execute("SELECT id, title FROM videos WHERE (upload_date IS NULL OR upload_date>=?) AND COALESCE(views,0)>=?", (since, C.MIN_SEARCH_VIEWS)):
+            if subjects.matches(r["title"], names):
+                mem.append(r["id"])
     ids.update(mem)
     st["memory_count"] = len(set(mem))
     if st["tools"].get("YouTube") != "up":
@@ -139,7 +159,7 @@ def free_phase(st, con):
         for i, r in enumerate(rows):
             if (r.get("views") or 0) < C.MIN_SEARCH_VIEWS or (r.get("duration_s") or 999) < rule.MIN_LONGFORM_S:
                 continue
-            if not subjects.matches(r.get("title"), names) or subjects.junk_reason(r):
+            if not _fits(st, r.get("title"), names) or subjects.junk_reason(r):
                 continue
             new_v += store.upsert_tool_row(con, r, st["run"], sid)
             con.execute("INSERT INTO hits(search_id,video_id,rank) VALUES(?,?,?)", (sid, r["id"], i + 1))
@@ -159,7 +179,7 @@ def free_phase(st, con):
     scanned, found = len(all_ups), 0
     for key, ups_ in all_ups.items():
         for u in ups_:
-            if (u.get("views") or 0) >= C.MIN_SEARCH_VIEWS and (u.get("duration_s") or 999) >= rule.MIN_LONGFORM_S and subjects.matches(u.get("title"), names):
+            if (u.get("views") or 0) >= C.MIN_SEARCH_VIEWS and (u.get("duration_s") or 999) >= rule.MIN_LONGFORM_S and _fits(st, u.get("title"), names):
                 store.upsert_tool_row(con, {"id": u["id"], "title": u["title"], "views": u["views"], "duration_s": u["duration_s"],
                                             "channel_id": key if key.startswith("UC") else None, "tool": None}, st["run"], None)
                 ids.add(u["id"])
@@ -201,7 +221,7 @@ def keyword_calls(st, algrow=None, tubeai=None, vidiq=None, recent=False):
             out.append(call("TubeAI", "explore_videos", search=q, minDate=_date(d), minDuration=181, minOutlier=2, minViews=C.MIN_SEARCH_VIEWS,
                             sortBy="view_count", limit=25, fields=TUBE_FIELDS))
     if up.get("vidIQ") == "up":
-        for q in (vidiq if vidiq is not None else (sp.get("vidiq") or [])[:3]):
+        for q in (vidiq if vidiq is not None else (sp.get("vidiq") or [])[:C.IDEAS_VIDIQ_TERMS if ideas_mode(st) else 3]):
             out.append(call("vidIQ", "vidiq_outliers", keyword=q, contentType="long", publishedWithin="threeMonths" if recent else "twoYears",
                             minViews=C.MIN_SEARCH_VIEWS, limit=50, language="en"))
     return out
@@ -280,7 +300,7 @@ def candidate_ids(st, con, cross=False):
         ids.add(r["id"])
     for r in con.execute(HITS.replace("h.video_id id", "v.id, v.title").replace("WHERE", "JOIN videos v ON v.id=h.video_id WHERE")
                          + " AND s.kind='pool' AND s.query NOT LIKE 'Radar cross-niche%'", (run,)):
-        if subjects.matches(r["title"], names):
+        if _fits(st, r["title"], names):
             ids.add(r["id"])
     return sorted(ids)
 
@@ -414,7 +434,7 @@ def channel_followup(st, con):
     con.commit()
     for key, ups in yt.uploads_many({c: 120 for c in chans}, threads=8, deadline=time.time() + 150).items():
         for u in ups:
-            if (u.get("views") or 0) >= C.MIN_SEARCH_VIEWS and (u.get("duration_s") or 999) >= rule.MIN_LONGFORM_S and subjects.matches(u.get("title"), names):
+            if (u.get("views") or 0) >= C.MIN_SEARCH_VIEWS and (u.get("duration_s") or 999) >= rule.MIN_LONGFORM_S and _fits(st, u.get("title"), names):
                 if u["id"] not in st["extra_ids"]:
                     store.upsert_tool_row(con, {"id": u["id"], "title": u["title"], "views": u["views"], "duration_s": u["duration_s"], "channel_id": key, "tool": None}, st["run"], None)
                     st["extra_ids"].append(u["id"])
@@ -508,7 +528,7 @@ def next_step():
         (store.run_dir(run) / "last_batch.json").write_text(json.dumps(res["calls"], indent=1))
     res.setdefault("phase", st["phase"])
     res["minutes_used"] = round(elapsed(st) / 60, 1)
-    res["minutes_budget"] = C.TIME_BUDGET_S // 60
+    res["minutes_budget"] = budget_s(st) // 60
     return res
 
 
@@ -520,12 +540,14 @@ def _advance(st, con):
     while True:
         ph = st["phase"]
         if ph == "done":
+            if ideas_mode(st):
+                return {"action": "done", "say": "Searching is finished. Next: read Max's opinions (docs/deep_dive.md step 4), `python -m radar ideas-help`, `python -m radar thumbs --sheet`, write ideas.json, then `python -m radar board`."}
             return {"action": "done", "say": "Searching is finished. Next: `python -m radar combos-help`, write the combos, then `python -m radar board`."}
         # out of time: drop what is queued, say so, and finish with what we have
         if out_of_time(st) and ph in ("free", "pool", "keyword", "snowball", "rounds") and not st.get("stop_reason"):
             dropped = len(st["queue"])
             st["queue"] = []
-            st["stop_reason"] = f"time budget ({C.TIME_BUDGET_S // 60} minutes) ran out during the {ph} step with {dropped} searches not run"
+            st["stop_reason"] = f"time budget ({budget_s(st) // 60} minutes) ran out during the {ph} step with {dropped} searches not run"
             st["notes"].append("Stopped on the time budget, not on dry results. " + st["stop_reason"])
             _goto(st, "label2")
             continue
@@ -629,7 +651,7 @@ def _advance(st, con):
         if ph == "cross":
             _goto(st, "crosspick")
             if out_of_time(st):
-                st["notes"].append("Cross-niche was not searched: the 30 minute budget was already used up.")
+                st["notes"].append(f"Cross-niche was not searched: the {budget_s(st) // 60} minute budget was already used up.")
             elif st["spec"].get("cross", True):
                 _emit(st, cross_calls(st, con), con)
             continue

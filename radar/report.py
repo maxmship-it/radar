@@ -20,7 +20,7 @@ def two_source(st, con):
 def facts(st, con, brd, fails=None, warns=None):
     run = st["run"]
     q = lambda sql, *a: con.execute(sql, a).fetchone()[0]
-    cards = [c for s in brd["sections"] if s["key"] != "combos" for c in s["items"]]
+    cards = [c for s in brd["sections"] if s["key"] not in ("combos", "ideas") for c in s["items"]]
     per = {s["key"]: len(s["items"]) for s in brd["sections"]}
     checked = q("SELECT COUNT(DISTINCT h.video_id) FROM hits h JOIN searches s ON s.id=h.search_id WHERE s.cache_key IN (SELECT cache_key FROM searches WHERE run=?)", run)
     verified = q("SELECT COUNT(*) FROM videos WHERE yt_checked_at>=? AND yt_status='ok'", st["started_at"])
@@ -43,7 +43,7 @@ def facts(st, con, brd, fails=None, warns=None):
                      "stop": st.get("stop_reason")},
         "numbers": {"videos_checked": checked + len(st.get("extra_ids") or []), "verified_on_youtube": verified, "labeled_on": labeled.get("on", 0), "labeled_off": labeled.get("off", 0),
                     "borderline_left_off": labeled.get("borderline", 0), "cards_last_100_days": per.get("recent", 0), "cards_100_days_to_18_months": per.get("older", 0),
-                    "cards_cross_niche": per.get("cross", 0), "combos": per.get("combos", 0), "cards_with_real_vph": f"{vph_real} of {len(cards)}", "vph_sources": vph_src,
+                    "cards_cross_niche": per.get("cross", 0), "combos": per.get("combos", 0), "ideas": per.get("ideas", 0), "cards_with_real_vph": f"{vph_real} of {len(cards)}", "vph_sources": vph_src,
                     "from_memory": st.get("memory_count", 0), "searches_reused_from_cache": st.get("cached_calls", 0)},
         "biggest_finds": [f"#{c['no']} {c['title']} · {c['channel']} · {c['views']:,} views · {c['mult']}x {c['mult_src']}" for c in finds],
         "budgets": {"TubeAI calls": f"{(calls.get('TubeAI') or {}).get('n', 0)} of {C.TUBEAI_PER_RUN}", "vidIQ credits": f"{int((calls.get('vidIQ') or {}).get('credits') or 0)} of {C.VIDIQ_CREDITS_PER_RUN}",

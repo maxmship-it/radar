@@ -38,3 +38,13 @@ What Max decided, dated, in his words where we have them. Radar reads this at th
 - YouTube searching must never go through his YouTube account or his IP. "No tracing to me."
 - Radar must not touch his script-writing system.
 - All tools must work properly, with no credits wasted on tools that are failing.
+
+## Nov 23, 2026 (Max, by voice)
+- A separate deep dive mode: "do a massive deep dive and give me 20 recommendations for my next videos." Board: every outlier in the last 100 days, then 100 days onward, then the 20 ideas.
+- Each idea: the topic, 3 titles, and for each title a real outlier's thumbnail with a note on what to change so it fits that title. No talking points.
+- Under each idea, "related outliers" as card numbers that jump back to the cards when clicked.
+- A deep dive may run 60 minutes.
+- Ideas must align with his opinions (Company Brain, 02 Opinions). Some topics will have no written opinion; use common sense, and mark the ones where his view is really unknown.
+- Remakes of his past winners are welcome, "a decent amount".
+- Keep token use down: send cheaper, repeatable tasks to Sonnet helpers.
+- Audience data (Nov 23 pack) goes into Radar. The channels his viewers watch go on the watch list and the words they search go into topic names.

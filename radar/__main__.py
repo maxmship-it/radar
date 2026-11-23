@@ -44,6 +44,13 @@ def cmd_label_queue(a):
         print(f"# CROSS-NICHE picks for '{subj}'. Bar already applied in code: 10x+, 200,000+ views, 40 minutes or less, last 12 months.")
         print(f"# Pick at most {C.CROSS_MAX_CARDS}. A video only gets in if its title pattern or thumbnail idea transfers to Max's subject. Never pad.")
         print("# File format, one line per pick:  <id> TAB <niche> TAB <the pattern rewritten for Max's subject, one line>")
+    elif runmod.ideas_mode(st):
+        print("# LABEL for a DEEP DIVE (20 video ideas). Read docs/labeler.md first.")
+        print("# The test: could Max make his own video on this video's TOPIC on @max.german? His world: food industry exposés, fat loss,")
+        print("# carnivore and meat-based eating, metabolic health, nutrition science, supplements and health claims, health news and the people in it.")
+        print("# Topic only: a video from the other side (vegan, pro-statin, pro-seed-oil) is ON when Max could answer it. Gaming, music, kids, pure")
+        print("# recipes, workouts with no nutrition angle, finance, celebrity gossip are OFF. When unsure, it is off.")
+        print("# File format, one line per video:  <id> TAB <on|off|borderline> TAB <topic in 1 to 3 words>")
     else:
         print(f"# LABEL for subject '{subj}'. Names: {', '.join(st['spec'].get('names') or [])}")
         print("# The test: is this video ABOUT what Max asked for, under any of those names? Same broad area is not enough. When unsure, it is off.")
@@ -142,8 +149,38 @@ def cmd_combos_help(a):
             print(f"{c['no']:>3}  {c['vid']}  {c['views']:>10,}  {c['mult']}x {c['mult_src']:<9}  {c['channel'][:20]:<20}  {c['title']}" + (f"   [{c['niche']}: {c['pattern']}]" if c.get("pattern") else ""))
 
 
+def cmd_ideas_help(a):
+    st = _st()
+    con = store.db()
+    brd = boardmod.build(st, con)
+    print("# Write runs/%s/ideas.json: a list of up to %d ideas, best first. Read docs/deep_dive.md step 5 first." % (st["run"], C.MAX_IDEAS))
+    print('#   {"topic": "Creatine", "bucket": "FAT LOSS", "opinion": "written", "opinion_note": "02 Opinions: overhyped, meat covers it",')
+    print('#    "remake_of": null, "related": [12, 40, 77],')
+    print('#    "titles": [{"title": "...", "model_vid": "<id of a card below>", "change": "what to change on that thumbnail so it fits this title, under 120 characters"}, x3]}')
+    print("# opinion: written (in 02 Opinions or the canon), common sense (clearly follows from his positions), check (his view unknown; at most %d)." % C.IDEAS_CHECK_MAX)
+    print("# remake_of: one of Max's own video ids below when the idea remakes a past winner. Remakes are welcome.")
+    print("# Exactly 3 titles per idea, each on a different card's thumbnail where possible. related = the card numbers behind the idea.")
+    print("# Topics only: no talking points, no hooks. No invented numbers (write [number]). No em dashes. Exposé titles never say carnivore.")
+    for s in brd["sections"]:
+        if s["key"] in boardmod.FINAL:
+            continue
+        print(f"## {s['name']}  (no, id, views, multiplier, channel, title)")
+        for c in s["items"]:
+            print(f"{c['no']:>3} {c['vid']} {k_(c['views']):>6} {c['mult']}x {c['channel'][:18]:<18} {c['title']}" + (f"   [{c['niche']}: {c['pattern']}]" if c.get("pattern") else ""))
+    mine = sorted(boardmod.own_videos().items(), key=lambda x: -(x[1][1] or 0))[:30]
+    print("## MAX'S OWN TOP 30 LONG-FORM VIDEOS (for remake_of): id, views, title")
+    for vid, (t, v) in mine:
+        print(f"    {vid} {k_(v):>6} {t}")
+
+
+def k_(n):
+    n = n or 0
+    return f"{n / 1e6:.1f}M" if n >= 1e6 else f"{n // 1000}K"
+
+
 def cmd_thumbs(a):
-    """Save the real thumbnails of the top cards so the model can look at them before writing combos."""
+    """Save the real thumbnails of the top cards so the model can look at them before writing combos.
+    --sheet puts 20 to an image with the card number on each, so a deep dive needs a few images, not hundreds."""
     import urllib.request
     st = _st()
     con = store.db()
@@ -151,7 +188,7 @@ def cmd_thumbs(a):
     d = store.run_dir(st["run"]) / "thumbs"
     d.mkdir(exist_ok=True)
     out = []
-    cards = [c for s in brd["sections"] if s["key"] != "combos" for c in (s["items"][:a.n] if s["key"] != "cross" else s["items"])]
+    cards = [c for s in brd["sections"] if s["key"] not in boardmod.FINAL for c in (s["items"][:a.n] if s["key"] != "cross" else s["items"])]
     for c in cards:
         p = d / f"{c['no']:03d}_{c['vid']}.jpg"
         if not p.exists():
@@ -160,7 +197,37 @@ def cmd_thumbs(a):
             except Exception:
                 continue
         out.append(str(p))
+    if a.sheet:
+        out = _sheets(cards, d)
     print("\n".join(out))
+
+
+def _sheets(cards, d, per=20, cols=5, w=256, h=144):
+    from PIL import Image, ImageDraw, ImageFont
+    try:
+        font = ImageFont.truetype("DejaVuSans-Bold.ttf", 22)
+    except OSError:
+        font = ImageFont.load_default()
+    out = []
+    for i in range(0, len(cards), per):
+        chunk = cards[i:i + per]
+        rows = (len(chunk) + cols - 1) // cols
+        sheet = Image.new("RGB", (cols * w, rows * h), "black")
+        dr = ImageDraw.Draw(sheet)
+        for j, c in enumerate(chunk):
+            p = d / f"{c['no']:03d}_{c['vid']}.jpg"
+            x, y = (j % cols) * w, (j // cols) * h
+            if p.exists():
+                try:
+                    sheet.paste(Image.open(p).convert("RGB").resize((w, h)), (x, y))
+                except Exception:
+                    pass
+            dr.rectangle([x, y, x + 46, y + 28], fill=(1, 135, 252))
+            dr.text((x + 5, y + 2), str(c["no"]), fill="white", font=font)
+        f = d / f"sheet_{i // per + 1:02d}_cards_{chunk[0]['no']}-{chunk[-1]['no']}.jpg"
+        sheet.save(f, quality=80)
+        out.append(str(f))
+    return out
 
 
 def cmd_board(a):
@@ -193,7 +260,7 @@ def cmd_board(a):
             "missing_thumbnails": res["missing_thumbnails"], "partial": brd["partial_reasons"],
             "reply_facts": report.facts(st, con, brd, fails if a.force_preview else [], warns),
             "ask_max_yes_or_no": [f"{p['n']}. {p['text']}" for p in props],
-            "say": "Look at the preview images (first, middle, last page). First must be outlier cards, last must be the combos. Send Max the PDF. "
+            "say": "Look at the preview images (first, middle, last page). First must be outlier cards, last must be the " + ("20 ideas" if brd.get("mode") == "ideas" else "combos") + ". Send Max the PDF and the HTML twin (card numbers on the idea pages jump to their cards in both). "
                    "Write the chat reply from reply_facts in this order: what ran, the numbers, the 3 biggest finds, what went well, what didn't work, then the yes/no questions. "
                    "Never soften or drop a 'didnt_work' line. Then run `python -m radar finish`."})
 
@@ -372,7 +439,8 @@ def main():
     sub.add_parser("label-check").set_defaults(f=cmd_label_check)
     s = sub.add_parser("cross-import"); s.add_argument("file"); s.set_defaults(f=cmd_cross_import)
     sub.add_parser("combos-help").set_defaults(f=cmd_combos_help)
-    s = sub.add_parser("thumbs"); s.add_argument("-n", type=int, default=12); s.set_defaults(f=cmd_thumbs)
+    s = sub.add_parser("thumbs"); s.add_argument("-n", type=int, default=12); s.add_argument("--sheet", action="store_true"); s.set_defaults(f=cmd_thumbs)
+    sub.add_parser("ideas-help").set_defaults(f=cmd_ideas_help)
     s = sub.add_parser("board"); s.add_argument("--run"); s.add_argument("--from-store", action="store_true"); s.add_argument("--subject"); s.add_argument("--also", nargs="*")
     s.add_argument("--days", type=int); s.add_argument("--force-preview", action="store_true"); s.add_argument("--overwrite", action="store_true"); s.set_defaults(f=cmd_board)
     s = sub.add_parser("feedback"); s.add_argument("file"); s.add_argument("--run"); s.set_defaults(f=cmd_feedback)

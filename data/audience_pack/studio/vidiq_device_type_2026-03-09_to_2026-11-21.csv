@@ -1,0 +1,5 @@
+device_type,views,engaged_views,estimated_minutes_watched,average_view_duration_sec,average_view_percentage
+TABLET,495808,493265,3795537,461,40.44
+TV,2418836,2180450,13209086,361,31.56
+DESKTOP,2753357,2233937,14190493,380,32.44
+MOBILE,5441021,4390677,27599076,376,31.53

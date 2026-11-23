@@ -57,6 +57,8 @@ def prefetch(board):
     for sec in board["sections"]:
         for it in sec["items"]:
             ids.add(it.get("vid") or it.get("model_vid"))
+            for t in it.get("titles") or []:
+                ids.add(t.get("model_vid"))
     with cf.ThreadPoolExecutor(12) as ex:
         list(ex.map(thumb_uri, [i for i in ids if i]))
     return [i for i in ids if i and not _THUMBS.get(i)]
@@ -102,6 +104,25 @@ a.thumb {{ display:block; position:relative; width:300px; aspect-ratio:16/9; gri
 .combo .tw span {{ color:{MUTED}; font-weight:700; font-size:9px; letter-spacing:.1em; margin-right:6px; }}
 .combo .il {{ font-size:11px; line-height:1.3; margin-top:3px; max-height:2.6em; overflow:hidden; }}
 .combo .mo {{ color:{MUTED}; font-size:10px; margin-top:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }}
+.idea {{ background:{CARD}; border:1px solid {LINE}; border-radius:14px; padding:12px 16px 14px; height:373px; overflow:hidden; }}
+.ideas {{ display:grid; grid-template-rows:1fr 1fr; gap:22px; height:770px; }}
+.ih {{ display:flex; align-items:baseline; gap:12px; margin-bottom:4px; }}
+.inum {{ background:{BLUE}; color:#fff; font-weight:900; font-size:15px; padding:3px 10px; border-radius:6px; }}
+.itopic {{ font-weight:900; font-size:24px; letter-spacing:.01em; }}
+.itag {{ font-weight:800; font-size:10px; letter-spacing:.1em; padding:4px 8px; border-radius:5px; background:{LINE}; color:{TXT}; }}
+.itag.check {{ background:{ORANGE}; color:#1a0e00; }}
+.itag.remake {{ background:{GREEN}; color:#04150b; }}
+.isub {{ color:{MUTED}; font-size:11px; font-weight:600; margin-bottom:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }}
+.isub a {{ color:{BLUE}; font-weight:800; }}
+.icols {{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }}
+.icol {{ min-width:0; }}
+.icol .ct {{ position:relative; display:block; width:100%; aspect-ratio:16/9; background:#000 center/cover no-repeat; border-radius:8px; }}
+.icol .cn {{ position:absolute; top:6px; left:6px; background:{BLUE}; color:#fff; font-weight:800; font-size:12px; padding:2px 8px; border-radius:5px; }}
+.icol .tt {{ font-weight:800; font-size:15px; line-height:1.22; margin-top:8px; max-height:3.7em; overflow:hidden; overflow-wrap:anywhere; }}
+.icol .ch {{ font-size:11px; line-height:1.3; margin-top:4px; max-height:2.6em; overflow:hidden; }}
+.icol .ch span {{ color:{ORANGE}; font-weight:800; font-size:9px; letter-spacing:.1em; margin-right:5px; }}
+.icol .mo {{ color:{MUTED}; font-size:10px; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }}
+.icol .mo a {{ color:{BLUE}; font-weight:800; }}
 .foot {{ position:absolute; bottom:18px; left:56px; right:56px; display:flex; justify-content:space-between; color:{MUTED}; font-size:10px; font-weight:600; }}
 """
 
@@ -128,7 +149,7 @@ def card(d):
     if d.get("niche") or d.get("pattern"):
         extra = f'<div class="niche">{esc(d.get("niche") or "cross-niche")}</div><div class="pattern">{esc(d.get("pattern"))}</div>'
     subs = (" &middot; " + k(d.get("subs")) + " SUBS") if d.get("subs") else ""
-    return f"""<div class="card"><a class="thumb" href="{url}" style="background-image:url('{thumb_uri(d["vid"])}')">
+    return f"""<div class="card" id="card-{d["no"]}"><a class="thumb" href="{url}" style="background-image:url('{thumb_uri(d["vid"])}')">
       <div class="rank">{d["no"]}</div>
       <div class="ob" style="{badge(m)}"><div class="obnum">{m:.1f}&times;</div><div class="oblab">OUTLIER</div></div></a>
       <div class="chan">{esc(d.get("channel"))}{subs}</div>
@@ -150,9 +171,40 @@ def combo(i, c):
       <div class="mo">{mo}</div></div></div>"""
 
 
+def idea(n, i):
+    tags = f'<span class="itag{" check" if i.get("opinion") == "check" else ""}">{esc({"written": "YOUR VIEW ON FILE", "common sense": "FITS YOUR VIEWS", "check": "YOUR VIEW?"}.get(i.get("opinion"), ""))}</span>'
+    if i.get("bucket"):
+        tags = f'<span class="itag">{esc(i["bucket"])}</span>' + tags
+    sub = []
+    if i.get("remake_of"):
+        tags += '<span class="itag remake">REMAKE</span>'
+        sub.append(f'Remake of <a href="https://www.youtube.com/watch?v={esc(i["remake_of"])}">{esc(i.get("remake_title"))}</a> ({k(i.get("remake_views"))} views)')
+    rel = " ".join(f'<a href="#card-{c}">#{c}</a>' for c in i.get("related") or [])
+    sub.append(f"Related outliers: {rel}")
+    if i.get("opinion_note"):
+        sub.append(esc(i["opinion_note"]))
+    cols = []
+    for t in i.get("titles") or []:
+        url = f"https://www.youtube.com/watch?v={t.get('model_vid')}"
+        no = t.get("model_no")
+        mo = (f'Thumbnail from <a href="#card-{no}">card {no}</a>: ' if no else "Thumbnail from: ") + f"{esc(t.get('model_channel'))} &middot; {k(t.get('model_views'))} views"
+        if t.get("model_mult") is not None:
+            mo += f" &middot; {t['model_mult']:.1f}&times;"
+        cols.append(f"""<div class="icol"><a class="ct" href="{url}" style="background-image:url('{thumb_uri(t.get("model_vid"))}')">{f'<div class="cn">{no}</div>' if no else ""}</a>
+          <div class="tt">{esc(t.get("title"))}</div><div class="ch"><span>CHANGE</span>{esc(t.get("change"))}</div><div class="mo">{mo}</div></div>""")
+    return (f'<div class="idea"><div class="ih"><span class="inum">{n}</span><span class="itopic">{esc(i.get("topic"))}</span>{tags}</div>'
+            f'<div class="isub">{" &nbsp;·&nbsp; ".join(sub)}</div><div class="icols">{"".join(cols)}</div></div>')
+
+
 def render_html(board):
     pages = []
     for sec in board["sections"]:
+        if sec["key"] == "ideas":
+            items = sec["items"]
+            for j in range(0, len(items), 2):
+                body = "".join(idea(j + x + 1, it) for x, it in enumerate(items[j:j + 2]))
+                pages.append((sec["name"], "Topic · 3 titles, each on a real outlier's thumbnail · what to change · tap a number to jump to its card", f'<div class="ideas">{body}</div>'))
+            continue
         if sec["key"] == "combos":
             if sec["items"]:
                 body = "".join(combo(i, c) for i, c in enumerate(sec["items"], 1))

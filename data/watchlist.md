@@ -7,6 +7,17 @@ Radar proposes additions in the coverage log. A proposal needs a channel with 2 
 ## ALL
 
 ## EXPOSÉ
+@LillieKane
+@RiversideHomesteadLife
+@TheRogues1
+@YanasaTV
+@TheFinePrintYT
+@JayReedTV
+@messyintheusa
+@informed_insightz
+@jamelakajamal
+@raisingwildflowers
+@SpillTea
 @AustraliaFoodExposed
 @ConsumerExposed-ghz
 @AussieProductsUncovered
@@ -26,6 +37,18 @@ Radar proposes additions in the coverage log. A proposal needs a channel with 2 
 @ProtectOurPlates
 
 ## FAT LOSS
+@felix-harder
+@ThomasDeLauerOfficial
+@DrSeanOMara
+@Drberg
+@Koden_obscure.official
+@JoshBridgmanfitness
+@joss_mooney
+@Brandon_c_clark
+@DoctorMikeDiamonds
+@KevinBoyleCoach
+@NicklasRossnerPT
+@BropumpYT
 @StopChasingPain
 @LeonidKimMD
 @DrMindyPelz
@@ -41,3 +64,14 @@ Radar proposes additions in the coverage log. A proposal needs a channel with 2 
 @Making.Moves.Podcast
 
 ## CARNIVORE
+@anthonychaffeemd
+@steakandbuttergal
+@ShawnBakerMD
+@Homesteadhow
+@Paulsaladinomd
+@KenDBerryMD
+@Dr_Abs
+@arkansasmountainliving
+@kentcarnivore
+@LiteralMeathead
+@WhatIveLearned

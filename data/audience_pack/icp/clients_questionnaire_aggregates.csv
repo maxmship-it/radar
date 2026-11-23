@@ -1,0 +1,49 @@
+section,label,count,pct
+region,Australia,18,36.7
+region,New Zealand,2,4.1
+region,Canada,2,4.1
+region,United States,13,26.5
+region,Europe (other),3,6.1
+region,Rest of world,5,10.2
+region,United Kingdom,5,10.2
+region,Other / unclear,1,2.0
+outcome_target,Body Fat % Reduction,41,83.7
+outcome_target,Weight Loss/Gain,34,69.4
+outcome_target,Waist Size Reduction,30,61.2
+outcome_target,Other (Please specify in the next question),13,26.5
+outcome_target,"Fit into a specific item of clothing (e.g., 'Fit into X')",9,18.4
+outcome_target,(blank),1,2.0
+diets_tried,Carnivore,40,81.6
+diets_tried,Keto,37,75.5
+diets_tried,Intermittent Fasting,30,61.2
+diets_tried,Calorie Counting,26,53.1
+diets_tried,Other (Please specify in the next question),16,32.7
+diets_tried,Vegan / Plant-Based,10,20.4
+diets_tried,Paleo,9,18.4
+diets_tried,Mediterranean,9,18.4
+diets_tried,IIFYM/Macros Counting,7,14.3
+diets_tried,Whole30,2,4.1
+diet_that_worked_best,Carnivore,30,61.2
+diet_that_worked_best,Keto / low carb,15,30.6
+diet_that_worked_best,Fasting / IF / OMAD,7,14.3
+diet_that_worked_best,Calorie counting / WW / other,3,6.1
+diet_that_worked_best,None worked,3,6.1
+responds_better_to,"A mix of both, depending on the situation",31,63.3
+responds_better_to,"Harder pushes and direct, firm feedback",14,28.6
+responds_better_to,Gentle accountability and encouragement,4,8.2
+"theme (goal, why now, 12 months, #1 obstacle, anything else)",Time / work / travel,33,67.3
+"theme (goal, why now, 12 months, #1 obstacle, anything else)",Named a number of lbs / kg,19,38.8
+"theme (goal, why now, 12 months, #1 obstacle, anything else)",Consistency / discipline / motivation,17,34.7
+"theme (goal, why now, 12 months, #1 obstacle, anything else)",Muscle / strength,17,34.7
+"theme (goal, why now, 12 months, #1 obstacle, anything else)",Health scare / doctor / blood work / meds,16,32.7
+"theme (goal, why now, 12 months, #1 obstacle, anything else)",Fit into clothes / appearance / confidence,16,32.7
+"theme (goal, why now, 12 months, #1 obstacle, anything else)",Energy / feel better,15,30.6
+"theme (goal, why now, 12 months, #1 obstacle, anything else)",Family / kids / grandkids / partner,14,28.6
+"theme (goal, why now, 12 months, #1 obstacle, anything else)",Watched the videos / YouTube trigger,12,24.5
+"theme (goal, why now, 12 months, #1 obstacle, anything else)",Cravings / sugar / snacking / emotional eating,12,24.5
+"theme (goal, why now, 12 months, #1 obstacle, anything else)","Age / turning 40, 50, 60 / getting older",10,20.4
+"theme (goal, why now, 12 months, #1 obstacle, anything else)",Belly fat / stomach / waist / visceral,9,18.4
+"theme (goal, why now, 12 months, #1 obstacle, anything else)",Plateau / stall,7,14.3
+"theme (goal, why now, 12 months, #1 obstacle, anything else)","Event (wedding, holiday, trip, birthday)",6,12.2
+"theme (goal, why now, 12 months, #1 obstacle, anything else)",Sick of it / fed up / now or never,4,8.2
+"theme (goal, why now, 12 months, #1 obstacle, anything else)",Visceral fat (named),3,6.1
